@@ -106,12 +106,12 @@
         .fine-vibrate { animation: fineVibrate 0.06s infinite linear; }
 
         @keyframes crazyEyesLaser {
-            0% { background: radial-gradient(circle, #ff0055 0%, #00f3ff 50%, #ffff00 100%); filter: hue-rotate(0deg) contrast(200%); }
-            50% { background: radial-gradient(circle, #00ff66 0%, #ff00ff 50%, #00ffff 100%); filter: hue-rotate(180deg) contrast(250%); }
-            100% { background: radial-gradient(circle, #ff0055 0%, #00f3ff 50%, #ffff00 100%); filter: hue-rotate(360deg) contrast(200%); }
+            0% { background: radial-gradient(circle, #ff0055 0%, #00f3ff 50%, #ffff00 100%); filter: hue-rotate(0deg) contrast(115%); }
+            50% { background: radial-gradient(circle, #ff0055 0%, #00f3ff 50%, #ffff00 100%); filter: hue-rotate(180deg) contrast(115%); }
+            100% { background: radial-gradient(circle, #ff0055 0%, #00f3ff 50%, #ffff00 100%); filter: hue-rotate(360deg) contrast(115%); }
         }
         .crazy-jpc10-field {
-            animation: crazyEyesLaser 0.15s infinite linear;
+            animation: crazyEyesLaser 5.0s infinite linear;
         }
 
         @keyframes bannerUpward {
@@ -2020,6 +2020,7 @@
                         if (jpcSim.ballRadialVel > 0) jpcSim.ballRadialVel *= -0.35;
                     }
 
+                    // 従来通りの仕切り反発処理
                     if (jpcSim.ballRadius <= 2.25) {
                         jpcSim.ballAngularVel *= Math.exp(-1.15 * subDt);
                         const normAngle = ((jpcSim.ballAngle % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
@@ -2035,7 +2036,7 @@
                             } else {
                                 const sign = angleDiff > 0 ? 1 : -1;
                                 jpcSim.ballAngle = pocketCenterAngle + sign * 0.205;
-                                jpcSim.ballAngularVel *= -0.45;
+                                jpcSim.ballAngularVel *= -1;
                             }
                             if (jpcSim.elapsed - jpcSim.lastBounceSoundTime > 0.16) {
                                 soundEngine.playBounce();
@@ -2055,7 +2056,11 @@
                 const pocketCenterAngle = nearestIdx * sliceAngle;
                 const distFromPocketCenter = Math.abs(Math.atan2(Math.sin(jpcSim.ballAngle - pocketCenterAngle), Math.cos(jpcSim.ballAngle - pocketCenterAngle)));
 
-                if (jpcSim.ballRadius <= 2.02 && Math.abs(jpcSim.ballAngularVel) < 0.25 && distFromPocketCenter < 0.12) {
+                // 従来通りのポケット確定判定 ＋ 1分（60秒）経過時のみのフェールセーフ
+                if (
+                    (jpcSim.ballRadius <= 2.02 && Math.abs(jpcSim.ballAngularVel) < 0.25 && distFromPocketCenter < 0.12) ||
+                    (jpcSim.elapsed >= 60.0)
+                ) {
                     jpcSim.settled = true;
                     jpcSim.winningIndex = nearestIdx;
                     soundEngine.playChacker();
