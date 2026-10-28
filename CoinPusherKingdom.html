@@ -731,7 +731,7 @@
             gravityY: -18,               // 空間のY軸重力（マイナスが大きいほど速く重く落ちる）
 
             // ★ メダルの色・質感の一括設定（0x＋16進数カラーコード）
-            goldCoinColor: 0xffd700,     // 金メダルの基本色
+            goldCoinColor: 0xffee00,     // 金メダルの基本色
             goldCoinEmissive: 0x332200,  // 金メダルの自己発光色（明るくしたい場合は 0x332200 など）
             goldCoinMetalness: 0.92,     // 金メダルの金属感（0.0〜1.0）
             goldCoinRoughness: 0.18,     // 金メダルのツヤ・粗さ（0.0で鏡面〜1.0でマット）
@@ -781,7 +781,7 @@
 
             goldWeights: { 10: 40, 20: 25, 30: 15, 50: 10, 100: 8, 1000: 2 },
             redWeights: { 5: 80, 10: 15, 20: 4.9, 2000: 0.1 },
-            win5BlackoutPercent: 1.25,
+            win5BlackoutPercent: 0.125,
             whiteBoxChancePercent: 0.1
         };
 
@@ -869,6 +869,13 @@
         const soundEngine = {
             synth: null,
             metalSynth: null,
+            bgmSynth: null,
+            bgmBass: null,
+            bgmTimer: null,
+            bgmStep: 0,
+            currentBgmMode: 'NONE',
+            isBgmPaused: false,
+            isWhiteNoise1000Active: false,
             init() {
                 if (this.synth) return;
                 try {
@@ -883,7 +890,84 @@
                         octaves: 1.5,
                         volume: -16
                     }).toDestination();
+                    this.bgmSynth = new Tone.PolySynth(Tone.Synth, {
+                        oscillator: { type: "triangle" },
+                        envelope: { attack: 0.01, decay: 0.15, sustain: 0.1, release: 0.2 },
+                        volume: -18
+                    }).toDestination();
+                    this.bgmBass = new Tone.Synth({
+                        oscillator: { type: "sawtooth" },
+                        envelope: { attack: 0.01, decay: 0.12, sustain: 0.05, release: 0.1 },
+                        volume: -20
+                    }).toDestination();
+                    this.startBgmLoop();
                 } catch(e){}
+            },
+            startBgmLoop() {
+                if (this.bgmTimer) clearInterval(this.bgmTimer);
+                const patterns = {
+                    // 通常モードBGM（明るく軽快なアーケード曲）
+                    NORMAL: {
+                        lead: ["C5", "E5", "G5", "E5", "F5", "A5", "C6", "A5", "G5", "B5", "D6", "B5", "C6", "G5", "E5", "G5"],
+                        bass: ["C3", null, "G2", null, "F2", null, "C3", null, "G2", null, "D3", null, "C3", null, "G2", null]
+                    },
+                    // オーダーモード（EXPLORE）BGM（神秘的なダンジョン探索曲）
+                    ORDER: {
+                        lead: ["A4", "C5", "E5", "A5", "G4", "B4", "D5", "G5", "F4", "A4", "C5", "F5", "E4", "G#4", "B4", "E5"],
+                        bass: ["A2", "A2", null, "E2", "G2", "G2", null, "D2", "F2", "F2", null, "C2", "E2", "E2", null, "B1"]
+                    },
+                    // JPチャンスBGM（緊迫感のある高速ルーレット曲）
+                    JPC: {
+                        lead: ["C5", "Eb5", "G5", "C6", "C5", "Eb5", "G5", "C6", "D5", "F5", "Ab5", "D6", "G5", "B5", "D6", "G6"],
+                        bass: ["C3", "C3", "G2", "G2", "C3", "C3", "G2", "G2", "Ab2", "Ab2", "Eb2", "Eb2", "G2", "G2", "D3", "B2"]
+                    }
+                };
+                this.bgmTimer = setInterval(() => {
+                    if (!soundEnabled || !this.bgmSynth || this.isBgmPaused || this.currentBgmMode === 'NONE') return;
+                    const pat = patterns[this.currentBgmMode];
+                    if (!pat) return;
+                    try {
+                        const now = Tone.now();
+                        const idx = this.bgmStep % pat.lead.length;
+                        const leadNote = pat.lead[idx];
+                        const bassNote = pat.bass[idx];
+                        if (leadNote) this.bgmSynth.triggerAttackRelease(leadNote, "16n", now);
+                        if (bassNote && this.bgmBass) this.bgmBass.triggerAttackRelease(bassNote, "16n", now);
+                        this.bgmStep++;
+                    } catch(e){}
+                }, 180);
+            },
+            updateBgmState() {
+                if (!this.synth) return;
+
+                // 1. 1000WIN演出（ホワイトノイズ〜モーダル表示中）の判定
+                const win1000El = document.getElementById('win1000-modal');
+                const is1000Win = this.isWhiteNoise1000Active || (win1000El && !win1000El.classList.contains('hidden'));
+
+                // 2. 2000WIN / 5WINブラックアウト演出（暗転〜2000WINモーダル表示中）の判定
+                const blackoutEl = document.getElementById('blackout-modal');
+                const win2000El = document.getElementById('win2000-modal');
+                const isBlackoutOr2000 = (blackoutEl && !blackoutEl.classList.contains('hidden')) ||
+                                         (win2000El && !win2000El.classList.contains('hidden'));
+
+                // 3. モザイクリーチ演出（左リールが黒く止まった瞬間〜演出終了まで）の判定
+                const isMosaic = slotState.active && slotState.reachType === 'MOSAIC' && slotState.timer >= 1.0;
+
+                // 4. 逆回転演出（同時停止リーチで外れ停止後の逆再生音〜再抽選終了まで）の判定
+                const isReverse = slotState.active && slotState.reachType === 'SIMULTANEOUS' && slotState.timer >= 5.0;
+
+                // いずれかの演出中はBGMをピタッと止める
+                this.isBgmPaused = Boolean(is1000Win || isBlackoutOr2000 || isMosaic || isReverse);
+
+                // 現在のモード（JPC ＞ オーダーモード ＞ 通常モード）に合わせてBGMを切り替え
+                let targetMode = 'NORMAL';
+                if (isJPCActive) targetMode = 'JPC';
+                else if (isOrderMode) targetMode = 'ORDER';
+
+                if (this.currentBgmMode !== targetMode) {
+                    this.currentBgmMode = targetMode;
+                    this.bgmStep = 0;
+                }
             },
             playCoinDrop() {
                 if (!soundEnabled || !this.metalSynth) return;
@@ -1759,9 +1843,11 @@
             }
             const hudEl = document.getElementById('jpc-hud');
             if (hudEl) {
+                const isHudHidden = hudEl.classList.contains('hidden');
                 hudEl.className = isBoxChance
                     ? "fixed top-20 left-1/2 -translate-x-1/2 z-40 w-auto min-w-[280px] max-w-md px-5 py-2.5 bg-pink-900/90 backdrop-blur-md rounded-2xl text-center pointer-events-none bikabika-border shadow-[0_0_60px_rgba(255,0,128,1)] fine-vibrate"
                     : "fixed top-20 left-1/2 -translate-x-1/2 z-40 w-auto min-w-[260px] max-w-md px-5 py-1.5 bg-black/45 backdrop-blur-sm rounded-2xl text-center pointer-events-none border-2 border-yellow-400/70 shadow-[0_0_20px_rgba(255,215,0,0.4)]";
+                if (isHudHidden) hudEl.classList.add('hidden');
             }
             for (let i = 0; i < jpcLabelMeshes.length; i++) {
                 const mesh = jpcLabelMeshes[i];
@@ -1852,6 +1938,7 @@
             if (isJPCActive) return;
             isJPCActive = true;
             isBoxChanceJPC = boxChanceMode;
+            document.getElementById('jackpot-modal').classList.add('hidden');
             stats.enteredJPC++;
             if (boxChanceMode) stats.enteredBoxChanceJPC++;
 
@@ -2916,9 +3003,11 @@
                 }
 
                 if (chestReward === 1000) {
+                    soundEngine.isWhiteNoise1000Active = true;
                     setTimeout(() => {
                         triggerWhiteNoiseTwice(() => {
                             setTimeout(() => {
+                                soundEngine.isWhiteNoise1000Active = false;
                                 isChestFreeze = false;
                                 addExploreWin(chestReward);
                                 updateMapUI(); soundEngine.playJackpot();
@@ -3272,9 +3361,11 @@
             soundEngine.playChestPickupLow();
 
             if (reward === 1000) {
+                soundEngine.isWhiteNoise1000Active = true;
                 setTimeout(() => {
                     triggerWhiteNoiseTwice(() => {
                         setTimeout(() => {
+                            soundEngine.isWhiteNoise1000Active = false;
                             addWinPayout(1000);
                             soundEngine.playJackpot();
                             document.getElementById('win1000-modal').classList.remove('hidden');
@@ -3984,6 +4075,7 @@
                 }
 
                 renderer.render(scene, camera);
+                soundEngine.updateBgmState();
                 checkAchievements();
             }
             animate(performance.now());
