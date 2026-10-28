@@ -725,6 +725,24 @@
             ballRadius: 0.56,
             maxFieldBalls: 3,
 
+            // ★ メダルの重さ・重力の一括設定
+            coinMass: 0.85,              // 通常メダルの重さ（質量）
+            medal5Mass: 1.0,             // 5枚役メダルの重さ（質量）
+            gravityY: -18,               // 空間のY軸重力（マイナスが大きいほど速く重く落ちる）
+
+            // ★ メダルの色・質感の一括設定（0x＋16進数カラーコード）
+            goldCoinColor: 0xffd700,     // 金メダルの基本色
+            goldCoinEmissive: 0x332200,  // 金メダルの自己発光色（明るくしたい場合は 0x332200 など）
+            goldCoinMetalness: 0.92,     // 金メダルの金属感（0.0〜1.0）
+            goldCoinRoughness: 0.18,     // 金メダルのツヤ・粗さ（0.0で鏡面〜1.0でマット）
+
+            silverCoinColor: 0xe2e8f0,   // 銀メダルの基本色
+            silverCoinMetalness: 0.95,   // 銀メダルの金属感
+            silverCoinRoughness: 0.15,   // 銀メダルのツヤ・粗さ
+
+            jpCoinColor: 0x00f3ff,       // JPメダルの基本色
+            jpCoinEmissive: 0x004466,    // JPメダルの自己発光色
+
             initialCredits: 334,
             initialCoins: 70, // プッシャー上のメダル量を減量
             jackpotBase: 1000,
@@ -1062,7 +1080,7 @@
 
         function initPhysics() {
             world = new CANNON.World();
-            world.gravity.set(0, -18, 0);
+            world.gravity.set(0, CONFIG.gravityY, 0);
             world.broadphase = new CANNON.SAPBroadphase(world);
             world.allowSleep = false;
             world.solver.iterations = 8;
@@ -1115,9 +1133,23 @@
             container.appendChild(renderer.domElement);
 
             sharedCoinGeo = new THREE.CylinderGeometry(CONFIG.coinRadius, CONFIG.coinRadius, CONFIG.coinHeight, CONFIG.coinSegments);
-            sharedGoldMat = new THREE.MeshStandardMaterial({ color: 0xffd700, metalness: 0.92, roughness: 0.18 });
-            sharedSilverMat = new THREE.MeshStandardMaterial({ color: 0xe2e8f0, metalness: 0.95, roughness: 0.15 });
-            sharedJackpotMat = new THREE.MeshStandardMaterial({ color: 0x00f3ff, emissive: 0x004466, metalness: 0.85, roughness: 0.1 });
+            sharedGoldMat = new THREE.MeshStandardMaterial({
+                color: CONFIG.goldCoinColor,
+                emissive: CONFIG.goldCoinEmissive,
+                metalness: CONFIG.goldCoinMetalness,
+                roughness: CONFIG.goldCoinRoughness
+            });
+            sharedSilverMat = new THREE.MeshStandardMaterial({
+                color: CONFIG.silverCoinColor,
+                metalness: CONFIG.silverCoinMetalness,
+                roughness: CONFIG.silverCoinRoughness
+            });
+            sharedJackpotMat = new THREE.MeshStandardMaterial({
+                color: CONFIG.jpCoinColor,
+                emissive: CONFIG.jpCoinEmissive,
+                metalness: 0.85,
+                roughness: 0.1
+            });
 
             const medal5Canvas = document.createElement('canvas');
             medal5Canvas.width = 128; medal5Canvas.height = 128;
@@ -1403,7 +1435,7 @@
             scene.add(mesh);
 
             const body = new CANNON.Body({
-                mass: type === 'medal5' ? 1.0 : 0.85,
+                mass: type === 'medal5' ? CONFIG.medal5Mass : CONFIG.coinMass,
                 material: coinMaterial,
                 linearDamping: 0.08,
                 angularDamping: 0.15,
