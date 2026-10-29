@@ -828,7 +828,51 @@
         let mapAutoMoveInterval = null;
         let mapAutoMoveCountdownTimer = null;
         let feedbackPopupTimer = null;
+        // ★ ポップアップを10秒後に自動で閉じる（ボタンを自動クリックする）共通関数
+        function scheduleAutoClose(modalId, buttonId = null, delayMs = 10000) {
+            const modal = document.getElementById(modalId);
+            if (!modal) return;
+            if (modal._autoCloseTimer) {
+                clearTimeout(modal._autoCloseTimer);
+                modal._autoCloseTimer = null;
+            }
+            modal._autoCloseTimer = setTimeout(() => {
+                modal._autoCloseTimer = null;
+                if (!modal.classList.contains('hidden')) {
+                    if (buttonId) {
+                        const btn = document.getElementById(buttonId);
+                        if (btn) btn.click();
+                        else modal.classList.add('hidden');
+                    } else {
+                        modal.classList.add('hidden');
+                    }
+                }
+            }, delayMs);
+        }
 
+        // ★ 3000枚払い出しごとの感想ポップアップ制御（10秒自動消去付き）
+        function closeFeedbackModal() {
+            const modal = document.getElementById('feedback-modal');
+            if (modal) modal.classList.add('hidden');
+            if (feedbackPopupTimer) {
+                clearTimeout(feedbackPopupTimer);
+                feedbackPopupTimer = null;
+            }
+        }
+
+        function recordPayoutMedals(amount) {
+            stats.totalPayoutMedals = (stats.totalPayoutMedals || 0) + amount;
+            const currentMilestone = Math.floor(stats.totalPayoutMedals / 3000);
+            if (currentMilestone > (stats.lastFeedbackMilestone || 0)) {
+                stats.lastFeedbackMilestone = currentMilestone;
+                const modal = document.getElementById('feedback-modal');
+                if (modal) {
+                    modal.classList.remove('hidden');
+                    if (feedbackPopupTimer) clearTimeout(feedbackPopupTimer);
+                    feedbackPopupTimer = setTimeout(() => closeFeedbackModal(), 10000);
+                }
+            }
+        }
         let isGameTimeFrozen = false;
         let slotState = {
             active: false,
@@ -1614,6 +1658,7 @@
             const actualDropCount = Math.min(count, isFeverMode ? count : credits);
             if (actualDropCount <= 0 && !isFeverMode) {
                 document.getElementById('refill-modal').classList.remove('hidden');
+                scheduleAutoClose('refill-modal', 'refill-btn'); // 10秒後に自動で補給して閉じる（補給せず閉じるだけにする場合は第2引数を null にしてください）
                 return;
             }
 
@@ -1845,7 +1890,7 @@
             if (hudEl) {
                 const isHudHidden = hudEl.classList.contains('hidden');
                 hudEl.className = isBoxChance
-                    ? "fixed top-20 left-1/2 -translate-x-1/2 z-40 w-auto min-w-[280px] max-w-md px-5 py-2.5 bg-pink-900/90 backdrop-blur-md rounded-2xl text-center pointer-events-none bikabika-border shadow-[0_0_60px_rgba(255,0,128,1)] fine-vibrate"
+                    ? "fixed top-20 left-1/2 -translate-x-1/2 z-40 w-auto min-w-[280px] max-w-md px-5 py-2.5 bg-pink-900/90 backdrop-blur-md rounded-2xl text-center pointer-events-none bikabika-border shadow-[0_0_60px_rgba(255,0,128,1)]"
                     : "fixed top-20 left-1/2 -translate-x-1/2 z-40 w-auto min-w-[260px] max-w-md px-5 py-1.5 bg-black/45 backdrop-blur-sm rounded-2xl text-center pointer-events-none border-2 border-yellow-400/70 shadow-[0_0_20px_rgba(255,215,0,0.4)]";
                 if (isHudHidden) hudEl.classList.add('hidden');
             }
@@ -1955,6 +2000,7 @@
             if (boxChanceMode) {
                 isWaitingBoxChanceInfo = true;
                 document.getElementById('box-chance-info-modal').classList.remove('hidden');
+                scheduleAutoClose('box-chance-info-modal', 'box-chance-start-btn');
             } else {
                 launchJPCBallSimulation();
             }
@@ -2031,7 +2077,7 @@
                         if (Math.abs(angleDiff) > 0.21) {
                             if (jpcSim.ballRadius > 2.08) {
                                 jpcSim.ballRadius = 2.25;
-                                jpcSim.ballRadialVel = Math.abs(jpcSim.ballRadialVel) * 0.45 + 0.28;
+                                jpcSim.ballRadialVel = Math.abs(jpcSim.ballRadialVel) * 0.45 + 0.38;
                                 jpcSim.ballAngularVel *= 0.78;
                             } else {
                                 const sign = angleDiff > 0 ? 1 : -1;
@@ -3017,6 +3063,7 @@
                                 addExploreWin(chestReward);
                                 updateMapUI(); soundEngine.playJackpot();
                                 document.getElementById('win1000-modal').classList.remove('hidden');
+                                scheduleAutoClose('win1000-modal', 'win1000-close-btn');
                                 checkMapActionEnd();
                             }, 1000);
                         });
@@ -3365,7 +3412,7 @@
             }
             soundEngine.playChestPickupLow();
 
-            if (reward === 1000) {
+           if (reward === 1000) {
                 soundEngine.isWhiteNoise1000Active = true;
                 setTimeout(() => {
                     triggerWhiteNoiseTwice(() => {
@@ -3374,6 +3421,7 @@
                             addWinPayout(1000);
                             soundEngine.playJackpot();
                             document.getElementById('win1000-modal').classList.remove('hidden');
+                            scheduleAutoClose('win1000-modal', 'win1000-close-btn');
                         }, 1000);
                     });
                 }, 3000);
@@ -3432,6 +3480,7 @@
             document.getElementById('modal-desc').innerText = desc;
             document.getElementById('modal-icon').className = `fa-solid ${iconClass} text-6xl text-yellow-400 mb-3 animate-bounce`;
             document.getElementById('jackpot-modal').classList.remove('hidden');
+            scheduleAutoClose('jackpot-modal', 'modal-close-btn');
         }
 
         function triggerWhiteNoiseTwice(onComplete) {
@@ -3524,10 +3573,16 @@
             setTimeout(() => {
                 flash.classList.add('hidden');
                 prompt.classList.remove('hidden');
+                // 「?」ボタン出現から10秒後に自動でボタンを押して次へ進める
+                scheduleAutoClose('blackout-modal', 'blackout-question-btn');
             }, 900);
 
             const handlePress = () => {
                 btn.removeEventListener('click', handlePress);
+                if (modal._autoCloseTimer) {
+                    clearTimeout(modal._autoCloseTimer);
+                    modal._autoCloseTimer = null;
+                }
                 modal.classList.add('hidden');
                 if (onProceed) onProceed();
             };
@@ -3539,6 +3594,7 @@
             const modal = document.getElementById('win2000-modal');
             const canvas = document.getElementById('win2000-rays-canvas');
             modal.classList.remove('hidden');
+            scheduleAutoClose('win2000-modal', 'win2000-close-btn');
 
             const ctx = canvas.getContext('2d');
             const rainbowColors = ['#ff0055', '#ff8800', '#ffee00', '#00ff66', '#00f3ff', '#7000ff', '#ff00dd'];
