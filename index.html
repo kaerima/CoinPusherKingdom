@@ -1748,6 +1748,7 @@
 
             for (let c = 0; c < actualDropCount; c++) {
                 setTimeout(() => {
+                    if (isMapOpen || isJPCActive || isGameTimeFrozen) return;
                     if (credits <= 0 && !isFeverMode) return;
                     if (!isFeverMode) {
                         credits--;
@@ -1787,7 +1788,7 @@
             cubes.splice(index, 1);
         }
 
-        function updatePhysics(simTime) {
+        function updatePhysics(simTime, dt = 1 / 60) {
             if (isGameTimeFrozen) return;
             const speedMultiplier = isFeverMode ? 1.85 : 1.0;
             const currentSpeed = CONFIG.pusherSpeed * speedMultiplier;
@@ -1809,7 +1810,7 @@
             }
             lastPusherPhase = phase;
 
-            world.step(1 / 60);
+            world.step(1 / 60, dt, 3);
 
             const chackerHalfWidth = 0.9 * ((CONFIG.chackerSizePercent || 80) / 100);
             for (let i = coins.length - 1; i >= 0; i--) {
@@ -1827,8 +1828,9 @@
                         } else {
                             soundEngine.playCoinCollect();
                         }
-                        credits += (coin.type === 'medal5') ? 10 : 2;
-                        stats.collectedCoins += (coin.type === 'medal5') ? 5 : 1;
+                        const gain = (coin.type === 'medal5') ? 5 : 1;
+                        credits += gain;
+                        stats.collectedCoins += gain;
                         updateUI();
                         removeCoin(coin, i);
                         continue;
@@ -3950,20 +3952,29 @@
         }
 
         function setupEvents() {
-            const startAudio = () => {
-                if (Tone.context.state !== 'running') Tone.start();
-                soundEngine.init();
+            const startAudio = async () => {
                 window.removeEventListener('click', startAudio);
                 window.removeEventListener('touchstart', startAudio);
+                try {
+                    if (Tone.context.state !== 'running') await Tone.start();
+                } catch (e) {
+                    console.warn('Audio start error:', e);
+                }
+                soundEngine.init();
             };
             window.addEventListener('click', startAudio);
             window.addEventListener('touchstart', startAudio);
 
             const raycaster = new THREE.Raycaster();
             const dropPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 2.7);
-            document.getElementById('canvas-container').addEventListener('click', (e) => {
+            const canvasContainer = document.getElementById('canvas-container');
+            canvasContainer.addEventListener('click', (e) => {
                 if (isJPCActive || isMapOpen || isGameTimeFrozen) return;
-                const mouse = new THREE.Vector2((e.clientX / window.innerWidth) * 2 - 1, -(e.clientY / window.innerHeight) * 2 + 1);
+                const rect = canvasContainer.getBoundingClientRect();
+                const mouse = new THREE.Vector2(
+                    ((e.clientX - rect.left) / Math.max(1, rect.width)) * 2 - 1,
+                    -((e.clientY - rect.top) / Math.max(1, rect.height)) * 2 + 1
+                );
                 raycaster.setFromCamera(mouse, camera);
 
                 // ★ 後ろの壁の3Dスロットモニターをクリックした場合はデバッグコマンド判定（メダルは消費しない）
@@ -4328,6 +4339,7 @@
             updateAchievementModalUI();
 
             let lastTime = performance.now();
+            let lastAchievementCheck = 0;
             function animate(now) {
                 requestAnimationFrame(animate);
                 const dt = Math.min((now - lastTime) / 1000, 0.05);
@@ -4344,7 +4356,7 @@
                     updateJPCPhysics(dt);
                 } else if (!isMapOpen) {
                     physicsSimTime += dt;
-                    updatePhysics(physicsSimTime);
+                    updatePhysics(physicsSimTime, dt);
                     updateSlot(dt);
                     processPayout(now);
                 }
@@ -4352,7 +4364,10 @@
                 updateWallSlotDisplay();
                 renderer.render(scene, camera);
                 soundEngine.updateBgmState();
-                checkAchievements();
+                if (now - lastAchievementCheck > 500) {
+                    checkAchievements();
+                    lastAchievementCheck = now;
+                }
             }
             animate(performance.now());
         };
