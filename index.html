@@ -1178,7 +1178,7 @@
     <script>
         const DEFAULT_CONFIG = {
             coinRadius: 0.4275,
-            coinHeight: 0.0855,
+            coinHeight: 0.12,
             coinSegments: 12,
             ballRadius: 0.56,
             maxFieldBalls: 3,
@@ -1205,6 +1205,7 @@
             initialCoins: 70, // プッシャー上のメダル量を減量
             jackpotBase: 1000,
 
+            pusherTiltDegrees: 2.0, // Positive: front (+Z) slopes downward
             pusherSpeed: 1.2,
             pusherAmplitude: 0.8,
             pusherBaseZ: -2.4,
@@ -1912,16 +1913,19 @@
             scene.add(wallSlotMesh);
 
             const pusherWidth = 4.76, pusherHeight = 0.8, pusherDepth = 5.2;
+            const pusherTilt = CONFIG.pusherTiltDegrees * Math.PI / 180;
             pusherMesh = new THREE.Mesh(
                 new THREE.BoxGeometry(pusherWidth, pusherHeight, pusherDepth),
                 new THREE.MeshStandardMaterial({ color: 0x5c2d16, roughness: 0.25, metalness: 0.7, polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1 })
             );
             pusherMesh.position.set(0, pusherHeight / 2, CONFIG.pusherBaseZ);
+            pusherMesh.rotation.x = pusherTilt;
             scene.add(pusherMesh);
 
             pusherBody = new CANNON.Body({ mass: 0, material: pusherMaterial, type: CANNON.Body.KINEMATIC });
             pusherBody.addShape(new CANNON.Box(new CANNON.Vec3(pusherWidth / 2, pusherHeight / 2, pusherDepth / 2)));
             pusherBody.position.set(0, pusherHeight / 2, CONFIG.pusherBaseZ);
+            pusherBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), pusherTilt);
             world.addBody(pusherBody);
 
             createChackerGate(0.0);
