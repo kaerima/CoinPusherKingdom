@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -15,10 +16,15 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600;700&display=swap"
+        rel="stylesheet">
 
     <style>
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             overflow: hidden;
@@ -27,7 +33,10 @@
             user-select: none;
             -webkit-user-select: none;
         }
-        .font-orbitron { font-family: 'Orbitron', sans-serif; }
+
+        .font-orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
 
         .glass-panel {
             background: rgba(14, 11, 28, 0.9);
@@ -41,21 +50,40 @@
             border: 3px solid #d4af37;
             box-shadow: 0 0 25px rgba(255, 215, 0, 0.35), inset 0 0 15px rgba(255, 215, 0, 0.2);
         }
+
         .arcade-led-screen {
             background: radial-gradient(circle at center, #141824 0%, #05070a 100%);
             border: 2px solid #eab308;
             box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.9), 0 0 10px rgba(234, 179, 8, 0.4);
         }
-        .cabinet-pillar-left, .cabinet-pillar-right {
-            position: fixed; top: 0; bottom: 0; width: 14px; z-index: 25; pointer-events: none;
+
+        .cabinet-pillar-left,
+        .cabinet-pillar-right {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            width: 14px;
+            z-index: 25;
+            pointer-events: none;
             background: linear-gradient(90deg, #b45309, #fde047, #b45309);
             box-shadow: 0 0 20px rgba(250, 204, 21, 0.6);
         }
-        .cabinet-pillar-left { left: 0; }
-        .cabinet-pillar-right { right: 0; }
 
-        .neon-text-gold { text-shadow: 0 0 10px rgba(255, 215, 0, 0.9), 0 0 20px rgba(255, 140, 0, 0.8); }
-        .neon-text-cyan { text-shadow: 0 0 10px rgba(0, 243, 255, 0.9), 0 0 20px rgba(0, 160, 255, 0.8); }
+        .cabinet-pillar-left {
+            left: 0;
+        }
+
+        .cabinet-pillar-right {
+            right: 0;
+        }
+
+        .neon-text-gold {
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.9), 0 0 20px rgba(255, 140, 0, 0.8);
+        }
+
+        .neon-text-cyan {
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.9), 0 0 20px rgba(0, 160, 255, 0.8);
+        }
 
         .btn-arcade {
             background: linear-gradient(180deg, #ffe066 0%, #f59e0b 50%, #b45309 100%);
@@ -63,10 +91,12 @@
             box-shadow: 0 5px 0 #78350f, 0 8px 20px rgba(245, 158, 11, 0.5);
             transition: all 0.08s ease;
         }
+
         .btn-arcade:active {
             transform: translateY(4px);
             box-shadow: 0 1px 0 #78350f, 0 4px 10px rgba(245, 158, 11, 0.4);
         }
+
         .btn-toggle-active {
             background: linear-gradient(180deg, #67e8f9 0%, #0284c7 50%, #1e3a8a 100%) !important;
             border-color: #cffafe !important;
@@ -75,65 +105,178 @@
         }
 
         @keyframes jackpotGlow {
-            0% { transform: scale(0.8); opacity: 0; }
-            50% { transform: scale(1.08); opacity: 1; }
-            100% { transform: scale(1); opacity: 1; }
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            50% {
+                transform: scale(1.08);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
-        .jackpot-anim { animation: jackpotGlow 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+
+        .jackpot-anim {
+            animation: jackpotGlow 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
 
         @keyframes flashingBorder {
-            0% { box-shadow: 0 0 25px #ff0055, inset 0 0 25px #ff0055; border-color: #ff0055; }
-            25% { box-shadow: 0 0 35px #00f3ff, inset 0 0 35px #00f3ff; border-color: #00f3ff; }
-            50% { box-shadow: 0 0 45px #ffd700, inset 0 0 45px #ffd700; border-color: #ffd700; }
-            75% { box-shadow: 0 0 35px #00ff66, inset 0 0 35px #00ff66; border-color: #00ff66; }
-            100% { box-shadow: 0 0 25px #ff0055, inset 0 0 25px #ff0055; border-color: #ff0055; }
+            0% {
+                box-shadow: 0 0 25px #ff0055, inset 0 0 25px #ff0055;
+                border-color: #ff0055;
+            }
+
+            25% {
+                box-shadow: 0 0 35px #00f3ff, inset 0 0 35px #00f3ff;
+                border-color: #00f3ff;
+            }
+
+            50% {
+                box-shadow: 0 0 45px #ffd700, inset 0 0 45px #ffd700;
+                border-color: #ffd700;
+            }
+
+            75% {
+                box-shadow: 0 0 35px #00ff66, inset 0 0 35px #00ff66;
+                border-color: #00ff66;
+            }
+
+            100% {
+                box-shadow: 0 0 25px #ff0055, inset 0 0 25px #ff0055;
+                border-color: #ff0055;
+            }
         }
-        .bikabika-border { animation: flashingBorder 0.6s infinite linear; border-width: 5px; }
+
+        .bikabika-border {
+            animation: flashingBorder 0.6s infinite linear;
+            border-width: 5px;
+        }
 
         @keyframes fineVibrate {
-            0%   { transform: translate(0, 0) rotate(0deg); }
-            10%  { transform: translate(-4px, -3px) rotate(-0.8deg); }
-            20%  { transform: translate(4px, 2px) rotate(0.8deg); }
-            30%  { transform: translate(-3px, 4px) rotate(-0.5deg); }
-            40%  { transform: translate(3px, -4px) rotate(0.5deg); }
-            50%  { transform: translate(-4px, 2px) rotate(-0.8deg); }
-            60%  { transform: translate(4px, -2px) rotate(0.8deg); }
-            70%  { transform: translate(-2px, -4px) rotate(-0.5deg); }
-            80%  { transform: translate(2px, 4px) rotate(0.5deg); }
-            90%  { transform: translate(-3px, -2px) rotate(-0.4deg); }
-            100% { transform: translate(0, 0) rotate(0deg); }
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            10% {
+                transform: translate(-4px, -3px) rotate(-0.8deg);
+            }
+
+            20% {
+                transform: translate(4px, 2px) rotate(0.8deg);
+            }
+
+            30% {
+                transform: translate(-3px, 4px) rotate(-0.5deg);
+            }
+
+            40% {
+                transform: translate(3px, -4px) rotate(0.5deg);
+            }
+
+            50% {
+                transform: translate(-4px, 2px) rotate(-0.8deg);
+            }
+
+            60% {
+                transform: translate(4px, -2px) rotate(0.8deg);
+            }
+
+            70% {
+                transform: translate(-2px, -4px) rotate(-0.5deg);
+            }
+
+            80% {
+                transform: translate(2px, 4px) rotate(0.5deg);
+            }
+
+            90% {
+                transform: translate(-3px, -2px) rotate(-0.4deg);
+            }
+
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
         }
-        .fine-vibrate { animation: fineVibrate 0.06s infinite linear; }
+
+        .fine-vibrate {
+            animation: fineVibrate 0.06s infinite linear;
+        }
 
         @keyframes crazyEyesLaser {
-            0% { background: radial-gradient(circle, #ff0055 0%, #00f3ff 50%, #ffff00 100%); filter: hue-rotate(0deg) contrast(115%); }
-            50% { background: radial-gradient(circle, #ff0055 0%, #00f3ff 50%, #ffff00 100%); filter: hue-rotate(180deg) contrast(115%); }
-            100% { background: radial-gradient(circle, #ff0055 0%, #00f3ff 50%, #ffff00 100%); filter: hue-rotate(360deg) contrast(115%); }
+            0% {
+                background: radial-gradient(circle, #ff0055 0%, #00f3ff 50%, #ffff00 100%);
+                filter: hue-rotate(0deg) contrast(115%);
+            }
+
+            50% {
+                background: radial-gradient(circle, #ff0055 0%, #00f3ff 50%, #ffff00 100%);
+                filter: hue-rotate(180deg) contrast(115%);
+            }
+
+            100% {
+                background: radial-gradient(circle, #ff0055 0%, #00f3ff 50%, #ffff00 100%);
+                filter: hue-rotate(360deg) contrast(115%);
+            }
         }
+
         .crazy-jpc10-field {
             animation: crazyEyesLaser 5.0s infinite linear;
         }
 
         @keyframes bannerUpward {
-            0% { transform: translate(-50%, 100vh) scale(0.6); opacity: 0; }
-            20% { transform: translate(-50%, 20vh) scale(1.15); opacity: 1; }
-            70% { transform: translate(-50%, -20vh) scale(1.0); opacity: 1; }
-            100% { transform: translate(-50%, -100vh) scale(0.8); opacity: 0; }
+            0% {
+                transform: translate(-50%, 100vh) scale(0.6);
+                opacity: 0;
+            }
+
+            20% {
+                transform: translate(-50%, 20vh) scale(1.15);
+                opacity: 1;
+            }
+
+            70% {
+                transform: translate(-50%, -20vh) scale(1.0);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(-50%, -100vh) scale(0.8);
+                opacity: 0;
+            }
         }
+
         .festival-banner-anim {
             animation: bannerUpward 2.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         @keyframes exclamationBurst {
-            0% { transform: translate(-50%, -50%) scale(0.1); opacity: 0; }
-            50% { transform: translate(-50%, -50%) scale(2.2); opacity: 1; }
-            100% { transform: translate(-50%, -50%) scale(5.5); opacity: 0; }
+            0% {
+                transform: translate(-50%, -50%) scale(0.1);
+                opacity: 0;
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(2.2);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(5.5);
+                opacity: 0;
+            }
         }
+
         .exclamation-burst-anim {
             animation: exclamationBurst 1.2s ease-out forwards;
         }
     </style>
 </head>
+
 <body class="w-screen h-screen relative flex flex-col justify-between overflow-hidden select-none">
 
     <div class="cabinet-pillar-left hidden md:block"></div>
@@ -141,56 +284,88 @@
 
     <div id="canvas-container" class="absolute inset-0 z-0"></div>
 
-    <div id="achievement-toast-container" class="fixed top-20 right-4 z-[150] flex flex-col space-y-2 pointer-events-none"></div>
+    <div id="achievement-toast-container"
+        class="fixed top-20 right-4 z-[150] flex flex-col space-y-2 pointer-events-none"></div>
 
     <!-- HEADER / HUD -->
-    <header class="fixed top-0 left-1/2 -translate-x-1/2 z-30 w-full max-w-5xl px-2 md:px-5 py-2 arcade-bezel rounded-b-3xl">
+    <header
+        class="fixed top-0 left-1/2 -translate-x-1/2 z-30 w-full max-w-5xl px-2 md:px-5 py-2 arcade-bezel rounded-b-3xl">
         <div class="flex justify-between items-center gap-2">
-            
-            <div class="flex items-center space-x-2 md:space-x-3 arcade-led-screen px-3 py-1.5 rounded-2xl cursor-pointer" id="header-medal-box">
-                <div class="w-9 h-9 md:w-11 md:h-11 rounded-full bg-gradient-to-tr from-yellow-600 via-yellow-400 to-yellow-200 flex items-center justify-center shadow-lg border-2 border-white">
+
+            <div class="flex items-center space-x-2 md:space-x-3 arcade-led-screen px-3 py-1.5 rounded-2xl cursor-pointer"
+                id="header-medal-box">
+                <div
+                    class="w-9 h-9 md:w-11 md:h-11 rounded-full bg-gradient-to-tr from-yellow-600 via-yellow-400 to-yellow-200 flex items-center justify-center shadow-lg border-2 border-white">
                     <i class="fa-solid fa-coins text-yellow-950 text-lg md:text-xl"></i>
                 </div>
                 <div>
                     <div class="text-[10px] text-yellow-400 uppercase font-extrabold tracking-widest">CREDIT</div>
-                    <div id="credit-count" class="text-xl md:text-3xl font-black text-yellow-300 font-orbitron neon-text-gold leading-none">334</div>
+                    <div id="credit-count"
+                        class="text-xl md:text-3xl font-black text-yellow-300 font-orbitron neon-text-gold leading-none">
+                        334</div>
                 </div>
             </div>
 
             <div class="flex flex-col items-center">
                 <div class="flex items-center space-x-2">
-                    <div class="hidden arcade-led-screen px-3 py-1 rounded-xl flex items-center space-x-1.5 relative overflow-hidden" id="slot-reel-container">
-                        <div id="slot-reel-1" class="w-7 h-9 md:w-10 md:h-11 bg-black border border-yellow-500/40 rounded flex items-center justify-center text-lg md:text-2xl font-black text-yellow-400 font-orbitron transition-all cursor-pointer">7</div>
-                        <div id="slot-reel-2" class="w-7 h-9 md:w-10 md:h-11 bg-black border border-yellow-500/40 rounded flex items-center justify-center text-lg md:text-2xl font-black text-yellow-400 font-orbitron transition-all cursor-pointer">7</div>
-                        <div id="slot-reel-3" class="w-7 h-9 md:w-10 md:h-11 bg-black border border-yellow-500/40 rounded flex items-center justify-center text-lg md:text-2xl font-black text-yellow-400 font-orbitron transition-all cursor-pointer">7</div>
+                    <div class="hidden arcade-led-screen px-3 py-1 rounded-xl flex items-center space-x-1.5 relative overflow-hidden"
+                        id="slot-reel-container">
+                        <div id="slot-reel-1"
+                            class="w-7 h-9 md:w-10 md:h-11 bg-black border border-yellow-500/40 rounded flex items-center justify-center text-lg md:text-2xl font-black text-yellow-400 font-orbitron transition-all cursor-pointer">
+                            7</div>
+                        <div id="slot-reel-2"
+                            class="w-7 h-9 md:w-10 md:h-11 bg-black border border-yellow-500/40 rounded flex items-center justify-center text-lg md:text-2xl font-black text-yellow-400 font-orbitron transition-all cursor-pointer">
+                            7</div>
+                        <div id="slot-reel-3"
+                            class="w-7 h-9 md:w-10 md:h-11 bg-black border border-yellow-500/40 rounded flex items-center justify-center text-lg md:text-2xl font-black text-yellow-400 font-orbitron transition-all cursor-pointer">
+                            7</div>
                     </div>
 
                     <div class="arcade-led-screen px-2 py-1 rounded-xl flex flex-col items-center justify-center">
                         <div class="text-[9px] text-pink-400 font-extrabold tracking-wider uppercase">JPC STEP</div>
                         <div class="flex items-center space-x-1.5 mt-0.5">
-                            <div id="ball-lamp-0" class="w-3 h-3 md:w-4 md:h-4 rounded-full bg-slate-800 border border-pink-500/40 transition-all"></div>
-                            <div id="ball-lamp-1" class="w-3 h-3 md:w-4 md:h-4 rounded-full bg-slate-800 border border-pink-500/40 transition-all"></div>
-                            <div id="ball-lamp-2" class="w-3 h-3 md:w-4 md:h-4 rounded-full bg-slate-800 border border-pink-500/40 transition-all"></div>
+                            <div id="ball-lamp-0"
+                                class="w-3 h-3 md:w-4 md:h-4 rounded-full bg-slate-800 border border-pink-500/40 transition-all">
+                            </div>
+                            <div id="ball-lamp-1"
+                                class="w-3 h-3 md:w-4 md:h-4 rounded-full bg-slate-800 border border-pink-500/40 transition-all">
+                            </div>
+                            <div id="ball-lamp-2"
+                                class="w-3 h-3 md:w-4 md:h-4 rounded-full bg-slate-800 border border-pink-500/40 transition-all">
+                            </div>
                         </div>
-                        <div class="text-[9px] text-gray-400 font-bold mt-0.5">BALL: <span id="field-ball-count" class="text-pink-300 font-orbitron">0</span>/3</div>
+                        <div class="text-[9px] text-gray-400 font-bold mt-0.5">BALL: <span id="field-ball-count"
+                                class="text-pink-300 font-orbitron">0</span>/3</div>
                     </div>
                 </div>
 
                 <div class="flex items-center space-x-2 mt-1">
                     <div class="flex items-center space-x-1">
-                        <span class="text-[9px] text-yellow-200/80 font-bold uppercase tracking-wider mr-0.5">STOCK</span>
-                        <div id="stock-0" class="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-gray-800 border border-gray-600"></div>
-                        <div id="stock-1" class="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-gray-800 border border-gray-600"></div>
-                        <div id="stock-2" class="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-gray-800 border border-gray-600"></div>
-                        <div id="stock-3" class="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-gray-800 border border-gray-600"></div>
-                        <div id="stock-4" class="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-gray-800 border border-gray-600"></div>
-                        <div id="stock-5" class="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-gray-800 border border-gray-600"></div>
-                        <div id="stock-6" class="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-gray-800 border border-gray-600"></div>
-                        <div id="stock-7" class="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-gray-800 border border-gray-600"></div>
-                        <div id="stock-8" class="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-gray-800 border border-gray-600"></div>
-                        <div id="stock-9" class="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-gray-800 border border-gray-600"></div>
+                        <span
+                            class="text-[9px] text-yellow-200/80 font-bold uppercase tracking-wider mr-0.5">STOCK</span>
+                        <div id="stock-0"
+                            class="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-gray-800 border border-gray-600"></div>
+                        <div id="stock-1"
+                            class="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-gray-800 border border-gray-600"></div>
+                        <div id="stock-2"
+                            class="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-gray-800 border border-gray-600"></div>
+                        <div id="stock-3"
+                            class="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-gray-800 border border-gray-600"></div>
+                        <div id="stock-4"
+                            class="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-gray-800 border border-gray-600"></div>
+                        <div id="stock-5"
+                            class="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-gray-800 border border-gray-600"></div>
+                        <div id="stock-6"
+                            class="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-gray-800 border border-gray-600"></div>
+                        <div id="stock-7"
+                            class="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-gray-800 border border-gray-600"></div>
+                        <div id="stock-8"
+                            class="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-gray-800 border border-gray-600"></div>
+                        <div id="stock-9"
+                            class="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-gray-800 border border-gray-600"></div>
                     </div>
-                    <div id="payout-badge" class="hidden flex items-center space-x-1 bg-amber-500/20 px-2 py-0.5 rounded-full border border-amber-400/60 animate-pulse">
+                    <div id="payout-badge"
+                        class="hidden flex items-center space-x-1 bg-amber-500/20 px-2 py-0.5 rounded-full border border-amber-400/60 animate-pulse">
                         <i class="fa-solid fa-coins text-amber-300 text-[10px]"></i>
                         <span class="text-[9px] text-amber-200 font-bold">PAY:</span>
                         <span id="payout-count" class="text-xs font-extrabold text-amber-300 font-orbitron">0</span>
@@ -198,12 +373,16 @@
                 </div>
             </div>
 
-            <div class="flex items-center space-x-2 md:space-x-3 arcade-led-screen px-3 py-1.5 rounded-2xl cursor-pointer" id="header-trophy-box">
+            <div class="flex items-center space-x-2 md:space-x-3 arcade-led-screen px-3 py-1.5 rounded-2xl cursor-pointer"
+                id="header-trophy-box">
                 <div class="text-right">
                     <div class="text-[10px] text-cyan-400 uppercase font-extrabold tracking-widest">JACKPOT</div>
-                    <div id="jackpot-count" class="text-xl md:text-3xl font-black text-cyan-300 font-orbitron neon-text-cyan leading-none">1000</div>
+                    <div id="jackpot-count"
+                        class="text-xl md:text-3xl font-black text-cyan-300 font-orbitron neon-text-cyan leading-none">
+                        1000</div>
                 </div>
-                <div class="w-9 h-9 md:w-11 md:h-11 rounded-full bg-gradient-to-tr from-cyan-600 via-cyan-400 to-white flex items-center justify-center shadow-lg border-2 border-white">
+                <div
+                    class="w-9 h-9 md:w-11 md:h-11 rounded-full bg-gradient-to-tr from-cyan-600 via-cyan-400 to-white flex items-center justify-center shadow-lg border-2 border-white">
                     <i class="fa-solid fa-crown text-cyan-950 text-lg md:text-xl"></i>
                 </div>
             </div>
@@ -212,11 +391,14 @@
     </header>
 
     <!-- EXPLORE MODE STATUS BAR -->
-    <div id="order-mode-bar" class="hidden fixed bottom-28 md:bottom-32 left-1/2 -translate-x-1/2 z-30 px-4 py-1.5 glass-panel rounded-2xl border-2 border-purple-400 flex items-center space-x-2.5 md:space-x-4 bg-purple-950/90 shadow-[0_0_30px_rgba(168,85,247,0.8)] pointer-events-none whitespace-nowrap">
+    <div id="order-mode-bar"
+        class="hidden fixed bottom-28 md:bottom-32 left-1/2 -translate-x-1/2 z-30 px-4 py-1.5 glass-panel rounded-2xl border-2 border-purple-400 flex items-center space-x-2.5 md:space-x-4 bg-purple-950/90 shadow-[0_0_30px_rgba(168,85,247,0.8)] pointer-events-none whitespace-nowrap">
         <div class="flex items-center space-x-1.5">
             <i class="fa-solid fa-compass text-purple-300 text-lg md:text-xl animate-spin"></i>
             <span class="font-black text-purple-100 tracking-wider text-sm md:text-base font-orbitron">EXPLORE</span>
-            <span id="explore-bar-floor" class="px-2 py-0.5 rounded-full bg-purple-600 border border-purple-300 text-white text-[10px] md:text-xs font-black font-orbitron">FLOOR 1</span>
+            <span id="explore-bar-floor"
+                class="px-2 py-0.5 rounded-full bg-purple-600 border border-purple-300 text-white text-[10px] md:text-xs font-black font-orbitron">FLOOR
+                1</span>
         </div>
         <div class="bg-black/60 px-2.5 py-1 rounded-lg border border-purple-400/50 flex items-center space-x-1.5">
             <span class="text-purple-300 font-bold text-xs">行動数:</span>
@@ -224,12 +406,14 @@
         </div>
         <div class="bg-black/60 px-2.5 py-1 rounded-lg border border-amber-400/50 flex items-center space-x-1.5">
             <span class="text-amber-300 font-bold text-xs">合計WIN:</span>
-            <span id="explore-total-win-count" class="text-lg md:text-xl font-black text-amber-300 font-orbitron">0</span>
+            <span id="explore-total-win-count"
+                class="text-lg md:text-xl font-black text-amber-300 font-orbitron">0</span>
         </div>
     </div>
 
     <!-- EXPLORE MODE 自動消去終了通知ポップアップ -->
-    <div id="explore-end-popup" class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[105] glass-panel px-8 py-5 rounded-3xl border-2 border-purple-400 text-center shadow-[0_0_50px_rgba(168,85,247,0.9)] bg-black/90 pointer-events-none transition-opacity duration-500">
+    <div id="explore-end-popup"
+        class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[105] glass-panel px-8 py-5 rounded-3xl border-2 border-purple-400 text-center shadow-[0_0_50px_rgba(168,85,247,0.9)] bg-black/90 pointer-events-none transition-opacity duration-500">
         <i class="fa-solid fa-door-closed text-4xl text-purple-400 mb-2"></i>
         <div class="text-2xl font-black text-yellow-300 font-orbitron neon-text-gold">EXPLORE MODE END</div>
         <div class="text-xs text-purple-200 font-bold mt-1">行動数および階層をリセットしました</div>
@@ -237,15 +421,20 @@
 
     <!-- 画面中央 リーチ文字スライド演出オーバーレイ -->
     <div id="screen-reach-overlay" class="hidden fixed inset-0 z-[132] pointer-events-none overflow-hidden">
-        <div id="screen-reach-text" class="absolute left-1/2 top-1/2 font-orbitron font-black text-6xl md:text-8xl tracking-widest whitespace-nowrap px-10 py-4 rounded-3xl bg-black/80 border-4 border-yellow-400 text-yellow-300 neon-text-gold shadow-[0_0_60px_rgba(255,215,0,0.95)]" style="transform: translate(-50%, -50%);">
+        <div id="screen-reach-text"
+            class="absolute left-1/2 top-1/2 font-orbitron font-black text-6xl md:text-8xl tracking-widest whitespace-nowrap px-10 py-4 rounded-3xl bg-black/80 border-4 border-yellow-400 text-yellow-300 neon-text-gold shadow-[0_0_60px_rgba(255,215,0,0.95)]"
+            style="transform: translate(-50%, -50%);">
             リーチ
         </div>
     </div>
 
     <!-- 箱祭り～！ 巨大バナー演出 -->
-    <div id="festival-banner" class="hidden fixed left-1/2 top-1/2 z-[135] -translate-x-1/2 w-full max-w-lg text-center pointer-events-none festival-banner-anim">
-        <div class="arcade-bezel px-8 py-6 rounded-3xl bg-gradient-to-r from-red-600 via-amber-500 to-yellow-400 border-4 border-yellow-200 shadow-[0_0_80px_rgba(255,215,0,1)]">
-            <div class="text-5xl md:text-7xl font-black text-white font-orbitron drop-shadow-[0_4px_15px_rgba(0,0,0,0.9)] tracking-widest">
+    <div id="festival-banner"
+        class="hidden fixed left-1/2 top-1/2 z-[135] -translate-x-1/2 w-full max-w-lg text-center pointer-events-none festival-banner-anim">
+        <div
+            class="arcade-bezel px-8 py-6 rounded-3xl bg-gradient-to-r from-red-600 via-amber-500 to-yellow-400 border-4 border-yellow-200 shadow-[0_0_80px_rgba(255,215,0,1)]">
+            <div
+                class="text-5xl md:text-7xl font-black text-white font-orbitron drop-shadow-[0_4px_15px_rgba(0,0,0,0.9)] tracking-widest">
                 箱祭り～！
             </div>
             <div class="text-lg md:text-xl font-black text-yellow-950 mt-2 bg-yellow-300/80 rounded-full py-1">
@@ -255,101 +444,135 @@
     </div>
 
     <!-- !!! 当選 爆裂拡大フェード演出 -->
-    <div id="exclamation-fx" class="hidden fixed inset-0 z-[160] flex items-center justify-center pointer-events-none overflow-hidden bg-white/20">
-        <div class="text-[120px] md:text-[220px] font-black font-orbitron text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-yellow-300 to-cyan-400 drop-shadow-[0_0_60px_rgba(255,255,255,1)] exclamation-burst-anim">
+    <div id="exclamation-fx"
+        class="hidden fixed inset-0 z-[160] flex items-center justify-center pointer-events-none overflow-hidden bg-white/20">
+        <div
+            class="text-[120px] md:text-[220px] font-black font-orbitron text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-yellow-300 to-cyan-400 drop-shadow-[0_0_60px_rgba(255,255,255,1)] exclamation-burst-anim">
             !!!
         </div>
     </div>
 
     <!-- JPC HUD -->
-    <div id="jpc-hud" class="hidden fixed top-20 left-1/2 -translate-x-1/2 z-40 w-auto min-w-[260px] max-w-md px-5 py-1.5 bg-black/45 backdrop-blur-sm rounded-2xl text-center pointer-events-none border-2 border-yellow-400/70 shadow-[0_0_20px_rgba(255,215,0,0.4)]">
-        <div id="jpc-hud-title" class="text-lg md:text-2xl font-black text-yellow-300 font-orbitron neon-text-gold leading-tight">JACKPOT CHANCE!!</div>
+    <div id="jpc-hud"
+        class="hidden fixed top-20 left-1/2 -translate-x-1/2 z-40 w-auto min-w-[260px] max-w-md px-5 py-1.5 bg-black/45 backdrop-blur-sm rounded-2xl text-center pointer-events-none border-2 border-yellow-400/70 shadow-[0_0_20px_rgba(255,215,0,0.4)]">
+        <div id="jpc-hud-title"
+            class="text-lg md:text-2xl font-black text-yellow-300 font-orbitron neon-text-gold leading-tight">JACKPOT
+            CHANCE!!</div>
         <div id="jpc-status-text" class="text-xs text-cyan-200 font-bold mt-0.5">ルーレット抽選中...</div>
     </div>
 
     <!-- 10倍ダイレクトJPC用 飛翔・吸い込みアニメーション要素 -->
-    <div id="direct-win-flying-label" class="hidden fixed z-[170] font-orbitron font-black text-yellow-300 neon-text-gold drop-shadow-[0_0_30px_rgba(255,215,0,1)] pointer-events-none"></div>
+    <div id="direct-win-flying-label"
+        class="hidden fixed z-[170] font-orbitron font-black text-yellow-300 neon-text-gold drop-shadow-[0_0_30px_rgba(255,215,0,1)] pointer-events-none">
+    </div>
 
     <!-- BOTTOM ARCADE CONTROL PANEL -->
     <footer class="fixed bottom-2 left-1/2 -translate-x-1/2 z-30 w-full max-w-xl px-3 pointer-events-auto">
         <div class="p-3 arcade-bezel rounded-3xl flex flex-col items-center justify-center space-y-2">
             <div class="w-full flex items-center space-x-2">
                 <!-- 設定ボタン（コイン自動投入の左） -->
-                <button id="btn-settings" class="py-3 px-3.5 rounded-2xl bg-slate-800 border-2 border-yellow-500/60 text-yellow-300 font-black text-sm md:text-base flex items-center justify-center space-x-1.5 shadow-lg hover:bg-slate-700 active:scale-95 transition cursor-pointer shrink-0">
+                <button id="btn-settings"
+                    class="py-3 px-3.5 rounded-2xl bg-slate-800 border-2 border-yellow-500/60 text-yellow-300 font-black text-sm md:text-base flex items-center justify-center space-x-1.5 shadow-lg hover:bg-slate-700 active:scale-95 transition cursor-pointer shrink-0">
                     <i class="fa-solid fa-gear text-yellow-400"></i>
                     <span class="font-orbitron">設定</span>
                 </button>
 
-                <button id="btn-auto" class="flex-1 py-3 rounded-2xl btn-arcade text-amber-950 font-black text-sm md:text-base flex items-center justify-center space-x-2 cursor-pointer">
+                <button id="btn-auto"
+                    class="flex-1 py-3 rounded-2xl btn-arcade text-amber-950 font-black text-sm md:text-base flex items-center justify-center space-x-2 cursor-pointer">
                     <i id="auto-icon" class="fa-solid fa-bolt text-amber-950 text-base"></i>
                     <span id="auto-text" class="font-orbitron tracking-wider">AUTO : OFF</span>
                 </button>
 
-                <button id="btn-achievement" class="py-3 px-3.5 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 border-2 border-purple-300 text-white font-black text-sm md:text-base flex items-center justify-center space-x-1.5 shadow-lg hover:brightness-110 active:scale-95 transition cursor-pointer">
+                <button id="btn-achievement"
+                    class="py-3 px-3.5 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 border-2 border-purple-300 text-white font-black text-sm md:text-base flex items-center justify-center space-x-1.5 shadow-lg hover:brightness-110 active:scale-95 transition cursor-pointer">
                     <i class="fa-solid fa-award text-yellow-300"></i>
                     <span class="font-orbitron">実績</span>
                 </button>
             </div>
 
             <div class="w-full flex justify-between items-center text-xs text-gray-300 px-2">
-                <button id="btn-sound" class="hover:text-yellow-400 transition flex items-center space-x-1.5 cursor-pointer">
+                <button id="btn-sound"
+                    class="hover:text-yellow-400 transition flex items-center space-x-1.5 cursor-pointer">
                     <i id="sound-icon" class="fa-solid fa-volume-high text-yellow-400"></i>
                     <span id="sound-text" class="font-bold">SOUND ON</span>
                 </button>
                 <div class="flex items-center space-x-2">
-                    <span id="fever-badge" class="hidden px-2.5 py-0.5 rounded-full bg-red-600 border border-yellow-300 text-white font-extrabold text-[10px] animate-pulse">FEVER RUSH!</span>
-                    <span class="text-[11px] text-yellow-200/90 font-bold"><i class="fa-solid fa-hand-pointer mr-1"></i>画面タップで投下</span>
+                    <span id="fever-badge"
+                        class="hidden px-2.5 py-0.5 rounded-full bg-red-600 border border-yellow-300 text-white font-extrabold text-[10px] animate-pulse">FEVER
+                        RUSH!</span>
+                    <span class="text-[11px] text-yellow-200/90 font-bold"><i
+                            class="fa-solid fa-hand-pointer mr-1"></i>画面タップで投下</span>
                 </div>
             </div>
         </div>
     </footer>
 
     <!-- 2D MAP MODAL -->
-    <div id="map-modal" class="hidden fixed inset-0 z-[90] bg-black/85 flex items-center justify-center p-2 md:p-4 backdrop-blur-md">
-        <div class="arcade-bezel p-3 md:p-5 rounded-3xl max-w-4xl w-full flex flex-col items-center space-y-2 md:space-y-3 max-h-[96vh] relative">
+    <div id="map-modal"
+        class="hidden fixed inset-0 z-[90] bg-black/85 flex items-center justify-center p-2 md:p-4 backdrop-blur-md">
+        <div
+            class="arcade-bezel p-3 md:p-5 rounded-3xl max-w-4xl w-full flex flex-col items-center space-y-2 md:space-y-3 max-h-[96vh] relative">
             <div class="w-full flex justify-between items-center border-b border-yellow-500/30 pb-2">
                 <div class="flex items-center space-x-2">
-                    <span id="map-floor-tag" class="px-3 py-0.5 rounded-full bg-purple-600 border border-purple-300 text-white text-xs font-black font-orbitron">FLOOR 1</span>
-                    <span class="text-sm md:text-xl font-black text-yellow-300 font-orbitron neon-text-gold">EXPLORE QUEST MAP</span>
+                    <span id="map-floor-tag"
+                        class="px-3 py-0.5 rounded-full bg-purple-600 border border-purple-300 text-white text-xs font-black font-orbitron">FLOOR
+                        1</span>
+                    <span class="text-sm md:text-xl font-black text-yellow-300 font-orbitron neon-text-gold">EXPLORE
+                        QUEST MAP</span>
                 </div>
                 <div class="flex items-center space-x-3 md:space-x-5">
-                    <button id="map-btn-auto-toggle" class="px-3 py-1 rounded-xl bg-slate-800 border-2 border-yellow-400 text-yellow-300 font-bold text-xs md:text-sm font-orbitron flex items-center space-x-1 cursor-pointer">
+                    <button id="map-btn-auto-toggle"
+                        class="px-3 py-1 rounded-xl bg-slate-800 border-2 border-yellow-400 text-yellow-300 font-bold text-xs md:text-sm font-orbitron flex items-center space-x-1 cursor-pointer">
                         <i class="fa-solid fa-bolt"></i>
                         <span id="map-auto-text">AUTO: OFF</span>
                     </button>
-                    <div class="text-xs md:text-sm text-purple-200 font-bold">TOTAL GET: <span id="map-win-count" class="text-base md:text-xl text-yellow-300 font-orbitron font-black">0</span></div>
-                    <div class="text-xs md:text-sm text-purple-200 font-bold">ACTION: <span id="map-action-count" class="text-base md:text-xl text-cyan-300 font-orbitron font-black">0</span></div>
+                    <div class="text-xs md:text-sm text-purple-200 font-bold">TOTAL GET: <span id="map-win-count"
+                            class="text-base md:text-xl text-yellow-300 font-orbitron font-black">0</span></div>
+                    <div class="text-xs md:text-sm text-purple-200 font-bold">ACTION: <span id="map-action-count"
+                            class="text-base md:text-xl text-cyan-300 font-orbitron font-black">0</span></div>
                 </div>
             </div>
 
-            <div id="chest-win-toast" class="hidden absolute top-1/3 left-1/2 -translate-x-1/2 z-30 font-orbitron text-3xl md:text-5xl font-black text-yellow-300 neon-text-gold animate-bounce drop-shadow-[0_5px_15px_rgba(0,0,0,1)] pointer-events-none"></div>
+            <div id="chest-win-toast"
+                class="hidden absolute top-1/3 left-1/2 -translate-x-1/2 z-30 font-orbitron text-3xl md:text-5xl font-black text-yellow-300 neon-text-gold animate-bounce drop-shadow-[0_5px_15px_rgba(0,0,0,1)] pointer-events-none">
+            </div>
 
-            <div id="map-grid" class="w-full grid gap-1 bg-slate-950/90 p-2 rounded-2xl border-2 border-yellow-500/40 shadow-inner" style="grid-template-columns: repeat(15, minmax(0, 1fr)); max-width: 720px;"></div>
+            <div id="map-grid"
+                class="w-full grid gap-1 bg-slate-950/90 p-2 rounded-2xl border-2 border-yellow-500/40 shadow-inner"
+                style="grid-template-columns: repeat(15, minmax(0, 1fr)); max-width: 720px;"></div>
 
             <div class="w-full flex justify-between items-center pt-1 max-w-[720px]">
-                <button id="map-return-btn" class="px-4 py-2 rounded-xl bg-slate-800 border-2 border-yellow-500/60 text-yellow-200 font-bold hover:bg-slate-700 active:scale-95 transition cursor-pointer text-xs md:text-sm">
+                <button id="map-return-btn"
+                    class="px-4 py-2 rounded-xl bg-slate-800 border-2 border-yellow-500/60 text-yellow-200 font-bold hover:bg-slate-700 active:scale-95 transition cursor-pointer text-xs md:text-sm">
                     <i class="fa-solid fa-rotate-left mr-1"></i>プッシャーへ戻る
                 </button>
                 <div class="grid grid-cols-3 gap-1.5 w-32 md:w-36">
                     <div></div>
-                    <button id="map-btn-up" class="h-9 md:h-10 rounded-lg btn-arcade text-amber-950 font-black"><i class="fa-solid fa-chevron-up"></i></button>
+                    <button id="map-btn-up" class="h-9 md:h-10 rounded-lg btn-arcade text-amber-950 font-black"><i
+                            class="fa-solid fa-chevron-up"></i></button>
                     <div></div>
-                    <button id="map-btn-left" class="h-9 md:h-10 rounded-lg btn-arcade text-amber-950 font-black"><i class="fa-solid fa-chevron-left"></i></button>
-                    <button id="map-btn-down" class="h-9 md:h-10 rounded-lg btn-arcade text-amber-950 font-black"><i class="fa-solid fa-chevron-down"></i></button>
-                    <button id="map-btn-right" class="h-9 md:h-10 rounded-lg btn-arcade text-amber-950 font-black"><i class="fa-solid fa-chevron-right"></i></button>
+                    <button id="map-btn-left" class="h-9 md:h-10 rounded-lg btn-arcade text-amber-950 font-black"><i
+                            class="fa-solid fa-chevron-left"></i></button>
+                    <button id="map-btn-down" class="h-9 md:h-10 rounded-lg btn-arcade text-amber-950 font-black"><i
+                            class="fa-solid fa-chevron-down"></i></button>
+                    <button id="map-btn-right" class="h-9 md:h-10 rounded-lg btn-arcade text-amber-950 font-black"><i
+                            class="fa-solid fa-chevron-right"></i></button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- BLACKOUT MODAL -->
-    <div id="blackout-modal" class="hidden fixed inset-0 z-[120] bg-black flex flex-col items-center justify-center p-4 select-none">
+    <div id="blackout-modal"
+        class="hidden fixed inset-0 z-[120] bg-black flex flex-col items-center justify-center p-4 select-none">
         <div id="blackout-flash" class="w-full h-full bg-white pointer-events-none"></div>
         <div id="blackout-prompt" class="hidden flex flex-col items-center justify-center space-y-8 animate-fade-in">
-            <p class="text-white text-xl md:text-3xl font-black tracking-widest text-center drop-shadow-[0_0_15px_rgba(255,255,255,0.9)] animate-pulse">
+            <p
+                class="text-white text-xl md:text-3xl font-black tracking-widest text-center drop-shadow-[0_0_15px_rgba(255,255,255,0.9)] animate-pulse">
                 「?」ボタンを押してください
             </p>
-            <button id="blackout-question-btn" class="w-28 h-28 md:w-36 md:h-36 rounded-full bg-gradient-to-b from-red-500 via-red-600 to-red-900 border-4 border-yellow-300 shadow-[0_0_50px_rgba(255,0,80,0.95),inset_0_4px_15px_rgba(255,255,255,0.6)] flex items-center justify-center text-white text-5xl md:text-6xl font-black font-orbitron hover:scale-105 active:scale-95 transition transform cursor-pointer">
+            <button id="blackout-question-btn"
+                class="w-28 h-28 md:w-36 md:h-36 rounded-full bg-gradient-to-b from-red-500 via-red-600 to-red-900 border-4 border-yellow-300 shadow-[0_0_50px_rgba(255,0,80,0.95),inset_0_4px_15px_rgba(255,255,255,0.6)] flex items-center justify-center text-white text-5xl md:text-6xl font-black font-orbitron hover:scale-105 active:scale-95 transition transform cursor-pointer">
                 ?
             </button>
         </div>
@@ -361,56 +584,72 @@
     </div>
 
     <!-- 1000 WIN MODAL -->
-    <div id="win1000-modal" class="hidden fixed inset-0 z-[130] bright-bikabika-bg flex items-center justify-center p-4 backdrop-blur-md">
-        <div class="bg-white/95 p-8 rounded-3xl max-w-md w-full text-center bikabika-border jackpot-anim shadow-[0_0_100px_rgba(255,255,255,1)]">
+    <div id="win1000-modal"
+        class="hidden fixed inset-0 z-[130] bright-bikabika-bg flex items-center justify-center p-4 backdrop-blur-md">
+        <div
+            class="bg-white/95 p-8 rounded-3xl max-w-md w-full text-center bikabika-border jackpot-anim shadow-[0_0_100px_rgba(255,255,255,1)]">
             <div class="flex justify-center space-x-3 mb-3">
                 <i class="fa-solid fa-bolt text-5xl text-amber-400 animate-ping"></i>
                 <i class="fa-solid fa-gem text-6xl text-yellow-500 animate-bounce"></i>
                 <i class="fa-solid fa-bolt text-5xl text-cyan-400 animate-ping"></i>
             </div>
             <div class="text-xs font-black tracking-widest text-amber-600 uppercase mb-1">GOLD CHEST HYPER JACKPOT</div>
-            <h2 class="text-5xl md:text-6xl font-black text-amber-500 font-orbitron drop-shadow-[0_0_25px_rgba(255,215,0,1)] mb-2">1000 WIN!!</h2>
+            <h2
+                class="text-5xl md:text-6xl font-black text-amber-500 font-orbitron drop-shadow-[0_0_25px_rgba(255,215,0,1)] mb-2">
+                1000 WIN!!</h2>
             <p class="text-base text-slate-800 mb-6 font-extrabold">光り輝く黄金の1000枚獲得！！</p>
-            <button id="win1000-close-btn" class="w-full py-4 rounded-2xl btn-arcade text-amber-950 font-black text-xl tracking-wider cursor-pointer shadow-xl">GET 1000 MEDALS!</button>
+            <button id="win1000-close-btn"
+                class="w-full py-4 rounded-2xl btn-arcade text-amber-950 font-black text-xl tracking-wider cursor-pointer shadow-xl">GET
+                1000 MEDALS!</button>
         </div>
     </div>
 
     <!-- 2000 WIN MODAL -->
-    <div id="win2000-modal" class="hidden fixed inset-0 z-[140] rainbow-bg-animated flex items-center justify-center p-4 overflow-hidden">
+    <div id="win2000-modal"
+        class="hidden fixed inset-0 z-[140] rainbow-bg-animated flex items-center justify-center p-4 overflow-hidden">
         <canvas id="win2000-rays-canvas" class="absolute inset-0 w-full h-full pointer-events-none"></canvas>
-        <div class="relative z-10 bg-black/90 p-7 md:p-9 rounded-3xl max-w-lg w-full text-center bikabika-border fine-vibrate shadow-[0_0_150px_rgba(255,255,255,1)]">
+        <div
+            class="relative z-10 bg-black/90 p-7 md:p-9 rounded-3xl max-w-lg w-full text-center bikabika-border fine-vibrate shadow-[0_0_150px_rgba(255,255,255,1)]">
             <div class="flex justify-center space-x-3 mb-3">
                 <i class="fa-solid fa-fire text-5xl text-red-500 animate-bounce"></i>
                 <i class="fa-solid fa-crown text-6xl text-yellow-300 animate-spin"></i>
                 <i class="fa-solid fa-bolt text-5xl text-cyan-400 animate-bounce"></i>
             </div>
-            <div class="text-xs font-black tracking-widest text-pink-400 uppercase mb-1 animate-pulse">ULTRA HYPER MIRACLE FEVER</div>
-            <h2 class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-pink-400 to-cyan-300 font-orbitron neon-text-gold mb-6">2000 WIN!!</h2>
-            <button id="win2000-close-btn" class="w-full py-4 rounded-2xl bg-gradient-to-r from-pink-500 via-yellow-400 to-cyan-400 text-slate-950 font-black text-2xl tracking-wider shadow-[0_0_40px_rgba(255,255,255,1)] hover:scale-105 active:scale-95 transition cursor-pointer">
+            <div class="text-xs font-black tracking-widest text-pink-400 uppercase mb-1 animate-pulse">ULTRA HYPER
+                MIRACLE FEVER</div>
+            <h2
+                class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-pink-400 to-cyan-300 font-orbitron neon-text-gold mb-6">
+                2000 WIN!!</h2>
+            <button id="win2000-close-btn"
+                class="w-full py-4 rounded-2xl bg-gradient-to-r from-pink-500 via-yellow-400 to-cyan-400 text-slate-950 font-black text-2xl tracking-wider shadow-[0_0_40px_rgba(255,255,255,1)] hover:scale-105 active:scale-95 transition cursor-pointer">
                 ULTRA GET 2000!!
             </button>
         </div>
     </div>
 
-   <!-- SETTINGS MODAL (設定モーダル) -->
-    <div id="settings-modal" class="hidden fixed inset-0 z-[115] bg-black/85 flex items-center justify-center p-3 backdrop-blur-sm">
+    <!-- SETTINGS MODAL (設定モーダル) -->
+    <div id="settings-modal"
+        class="hidden fixed inset-0 z-[115] bg-black/85 flex items-center justify-center p-3 backdrop-blur-sm">
         <div class="arcade-bezel p-5 md:p-6 rounded-3xl max-w-md w-full text-white flex flex-col space-y-4">
             <div class="flex justify-between items-center pb-2 border-b border-yellow-500/40">
                 <div class="flex items-center space-x-2">
                     <i class="fa-solid fa-gear text-yellow-400 text-2xl"></i>
                     <h2 class="text-lg md:text-xl font-black text-yellow-300 font-orbitron">SETTINGS (設定)</h2>
                 </div>
-                <button id="settings-close-btn" class="text-gray-300 hover:text-white text-2xl font-bold px-2 cursor-pointer">&times;</button>
+                <button id="settings-close-btn"
+                    class="text-gray-300 hover:text-white text-2xl font-bold px-2 cursor-pointer">&times;</button>
             </div>
 
             <div class="space-y-4 text-sm">
                 <!-- 自動投入枚数設定 -->
-                <div class="bg-slate-900/90 p-3.5 rounded-2xl border border-yellow-500/30 flex justify-between items-center">
+                <div
+                    class="bg-slate-900/90 p-3.5 rounded-2xl border border-yellow-500/30 flex justify-between items-center">
                     <div class="flex items-center space-x-2">
                         <i class="fa-solid fa-coins text-yellow-400"></i>
                         <span class="font-bold text-yellow-200">自動投入枚数</span>
                     </div>
-                    <select id="drop-batch-select" class="bg-black border-2 border-yellow-400 text-yellow-300 font-orbitron font-black text-sm rounded-xl px-3 py-1.5 cursor-pointer outline-none">
+                    <select id="drop-batch-select"
+                        class="bg-black border-2 border-yellow-400 text-yellow-300 font-orbitron font-black text-sm rounded-xl px-3 py-1.5 cursor-pointer outline-none">
                         <option value="1" selected>1 枚</option>
                         <option value="2">2 枚</option>
                         <option value="3">3 枚</option>
@@ -436,20 +675,23 @@
                             <span class="text-gray-300">BGM 音量</span>
                             <span id="setting-bgm-val" class="text-cyan-300 font-orbitron">100%</span>
                         </div>
-                        <input type="range" id="setting-bgm-slider" min="0" max="100" step="1" value="100" class="w-full accent-cyan-400 cursor-pointer">
+                        <input type="range" id="setting-bgm-slider" min="0" max="100" step="1" value="100"
+                            class="w-full accent-cyan-400 cursor-pointer">
                     </div>
                     <div class="space-y-1">
                         <div class="flex justify-between text-xs font-bold">
                             <span class="text-gray-300">効果音 (SE) 音量</span>
                             <span id="setting-se-val" class="text-yellow-300 font-orbitron">100%</span>
                         </div>
-                        <input type="range" id="setting-se-slider" min="0" max="100" step="1" value="100" class="w-full accent-yellow-400 cursor-pointer">
+                        <input type="range" id="setting-se-slider" min="0" max="100" step="1" value="100"
+                            class="w-full accent-yellow-400 cursor-pointer">
                     </div>
                 </div>
             </div>
 
             <div class="pt-2 border-t border-yellow-500/30 text-center">
-                <button id="settings-ok-btn" class="w-full py-2.5 rounded-xl btn-arcade text-amber-950 font-black tracking-wider cursor-pointer">閉じる</button>
+                <button id="settings-ok-btn"
+                    class="w-full py-2.5 rounded-xl btn-arcade text-amber-950 font-black tracking-wider cursor-pointer">閉じる</button>
             </div>
         </div>
     </div>
@@ -462,35 +704,47 @@
                     <i class="fa-solid fa-award text-yellow-400 text-2xl"></i>
                     <h2 class="text-lg md:text-xl font-black text-yellow-300 font-orbitron">ACHIEVEMENTS (実績)</h2>
                 </div>
-                <button id="achievement-close-btn" class="text-gray-300 hover:text-white text-2xl font-bold px-2 cursor-pointer">&times;</button>
+                <button id="achievement-close-btn"
+                    class="text-gray-300 hover:text-white text-2xl font-bold px-2 cursor-pointer">&times;</button>
             </div>
 
             <div class="flex space-x-2 mb-3">
-                <button id="ach-tab-normal" class="flex-1 py-2 rounded-xl bg-amber-500 text-slate-950 font-black text-sm md:text-base font-orbitron shadow cursor-pointer transition">【通常】 実績 (<span id="ach-count-normal">0</span>/<span id="ach-total-normal">37</span>)</button>
-                <button id="ach-tab-exp" class="flex-1 py-2 rounded-xl bg-slate-800 text-purple-300 font-black text-sm md:text-base font-orbitron shadow cursor-pointer transition border border-purple-500/50">【explore】 実績 (<span id="ach-count-exp">0</span>/<span id="ach-total-exp">35</span>)</button>
+                <button id="ach-tab-normal"
+                    class="flex-1 py-2 rounded-xl bg-amber-500 text-slate-950 font-black text-sm md:text-base font-orbitron shadow cursor-pointer transition">【通常】
+                    実績 (<span id="ach-count-normal">0</span>/<span id="ach-total-normal">37</span>)</button>
+                <button id="ach-tab-exp"
+                    class="flex-1 py-2 rounded-xl bg-slate-800 text-purple-300 font-black text-sm md:text-base font-orbitron shadow cursor-pointer transition border border-purple-500/50">【explore】
+                    実績 (<span id="ach-count-exp">0</span>/<span id="ach-total-exp">35</span>)</button>
             </div>
 
             <div id="achievement-list-container" class="flex-1 overflow-y-auto space-y-2 pr-1 max-h-[64vh]"></div>
 
             <div class="mt-3 pt-3 border-t border-yellow-500/30 text-center">
-                <button id="achievement-ok-btn" class="py-2 px-6 rounded-xl btn-arcade text-amber-950 font-black tracking-wider cursor-pointer">閉じる</button>
+                <button id="achievement-ok-btn"
+                    class="py-2 px-6 rounded-xl btn-arcade text-amber-950 font-black tracking-wider cursor-pointer">閉じる</button>
             </div>
         </div>
     </div>
 
     <!-- 白ボックス落下！ シンプル表示トースト -->
-    <div id="whitebox-drop-toast" class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[128] bg-white/95 text-slate-900 border-4 border-slate-300 px-8 py-4 rounded-2xl shadow-[0_0_40px_rgba(255,255,255,0.9)] font-black text-2xl md:text-4xl tracking-wider pointer-events-none">
+    <div id="whitebox-drop-toast"
+        class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[128] bg-white/95 text-slate-900 border-4 border-slate-300 px-8 py-4 rounded-2xl shadow-[0_0_40px_rgba(255,255,255,0.9)] font-black text-2xl md:text-4xl tracking-wider pointer-events-none">
         白ボックス落下！
     </div>
 
     <!-- BOX CHANCE 全画面演出モーダル -->
-    <div id="box-chance-modal" class="hidden fixed inset-0 z-[145] bg-black/95 flex items-center justify-center p-4 overflow-hidden select-none">
-        <div id="box-chance-white-cube" class="w-[88vw] h-[88vw] max-w-[540px] max-h-[540px] bg-gradient-to-br from-white via-slate-100 to-cyan-100 border-[12px] border-white rounded-3xl shadow-[0_0_160px_rgba(255,255,255,1),inset_0_0_60px_rgba(0,243,255,0.4)] flex flex-col items-center justify-center p-6 text-center white-box-grow-anim">
-            <div class="text-slate-400 font-orbitron font-black text-lg md:text-2xl tracking-widest mb-2">WHITE MYSTERY CUBE</div>
+    <div id="box-chance-modal"
+        class="hidden fixed inset-0 z-[145] bg-black/95 flex items-center justify-center p-4 overflow-hidden select-none">
+        <div id="box-chance-white-cube"
+            class="w-[88vw] h-[88vw] max-w-[540px] max-h-[540px] bg-gradient-to-br from-white via-slate-100 to-cyan-100 border-[12px] border-white rounded-3xl shadow-[0_0_160px_rgba(255,255,255,1),inset_0_0_60px_rgba(0,243,255,0.4)] flex flex-col items-center justify-center p-6 text-center white-box-grow-anim">
+            <div class="text-slate-400 font-orbitron font-black text-lg md:text-2xl tracking-widest mb-2">WHITE MYSTERY
+                CUBE</div>
             <i class="fa-solid fa-cube text-7xl md:text-9xl text-slate-800 mb-4 drop-shadow"></i>
             <div id="box-chance-title-wrap" class="hidden flex flex-col items-center">
-                <div class="text-xs md:text-sm font-black text-pink-600 tracking-widest uppercase animate-pulse mb-1">MIRACLE AWAKENING</div>
-                <div class="text-5xl md:text-7xl font-black font-orbitron text-transparent bg-clip-text bg-gradient-to-r from-pink-600 via-amber-500 to-cyan-600 drop-shadow-[0_0_30px_rgba(255,215,0,1)] box-chance-burst-anim fine-vibrate">
+                <div class="text-xs md:text-sm font-black text-pink-600 tracking-widest uppercase animate-pulse mb-1">
+                    MIRACLE AWAKENING</div>
+                <div
+                    class="text-5xl md:text-7xl font-black font-orbitron text-transparent bg-clip-text bg-gradient-to-r from-pink-600 via-amber-500 to-cyan-600 drop-shadow-[0_0_30px_rgba(255,215,0,1)] box-chance-burst-anim fine-vibrate">
                     BOX chance
                 </div>
             </div>
@@ -498,17 +752,22 @@
     </div>
 
     <!-- BOX CHANCE 10倍JPC 事前説明ポップアップ -->
-    <div id="box-chance-info-modal" class="hidden fixed inset-0 z-[148] bg-black/80 flex items-center justify-center p-4 backdrop-blur-sm">
+    <div id="box-chance-info-modal"
+        class="hidden fixed inset-0 z-[148] bg-black/80 flex items-center justify-center p-4 backdrop-blur-sm">
         <div class="arcade-bezel p-6 md:p-8 rounded-3xl max-w-md w-full text-center bikabika-border jackpot-anim">
             <i class="fa-solid fa-cubes-stacked text-5xl text-white mb-3 animate-bounce"></i>
-            <div class="text-xs font-black text-cyan-300 tracking-widest font-orbitron uppercase mb-1">SPECIAL 10x ROULETTE</div>
-            <h2 class="text-3xl md:text-4xl font-black text-yellow-300 font-orbitron neon-text-gold mb-3">BOX chance 突入!!</h2>
+            <div class="text-xs font-black text-cyan-300 tracking-widest font-orbitron uppercase mb-1">SPECIAL 10x
+                ROULETTE</div>
+            <h2 class="text-3xl md:text-4xl font-black text-yellow-300 font-orbitron neon-text-gold mb-3">BOX chance
+                突入!!</h2>
             <p class="text-sm md:text-base text-gray-100 font-bold leading-relaxed mb-6">
                 ルーレットの配当がすべて<span class="text-yellow-300 font-black">通常の10倍</span>にパワーアップ！<br>
-                （EXPLOREマスは <span class="text-pink-400 font-black">5000 WIN</span>、JPマスは <span class="text-cyan-300 font-black">JP×10</span>！）<br>
+                （EXPLOREマスは <span class="text-pink-400 font-black">5000 WIN</span>、JPマスは <span
+                    class="text-cyan-300 font-black">JP×10</span>！）<br>
                 当選したメダルは<span class="text-emerald-300 font-black">ダイレクトWIN</span>として直接所持クレジットに加算されます！
             </p>
-            <button id="box-chance-start-btn" class="w-full py-3.5 rounded-2xl btn-arcade text-amber-950 font-black text-xl tracking-wider cursor-pointer">
+            <button id="box-chance-start-btn"
+                class="w-full py-3.5 rounded-2xl btn-arcade text-amber-950 font-black text-xl tracking-wider cursor-pointer">
                 10倍ルーレット抽選スタート！
             </button>
         </div>
@@ -522,194 +781,320 @@
                     <i class="fa-solid fa-screwdriver-wrench text-yellow-400 text-xl"></i>
                     <h2 class="text-lg md:text-xl font-black text-yellow-300 font-orbitron">ARCADE DEBUG & SETTING</h2>
                 </div>
-                <button id="debug-close-btn" class="text-gray-300 hover:text-white text-2xl font-bold px-2 cursor-pointer">&times;</button>
+                <button id="debug-close-btn"
+                    class="text-gray-300 hover:text-white text-2xl font-bold px-2 cursor-pointer">&times;</button>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
                 <div class="bg-slate-900/90 p-3 rounded-xl border border-yellow-500/30 space-y-2">
-                    <div class="font-bold text-yellow-300 text-sm mb-1"><i class="fa-solid fa-sliders mr-1"></i> 物理・横穴・チェッカー・勾配設定</div>
+                    <div class="font-bold text-yellow-300 text-sm mb-1"><i class="fa-solid fa-sliders mr-1"></i>
+                        物理・横穴・チェッカー・勾配設定</div>
                     <div class="flex justify-between items-center gap-1">
                         <span>メダル摩擦 <small class="text-gray-400">(0~0.5)</small></span>
                         <div class="flex items-center space-x-1.5">
-                            <input type="range" id="dbg-coinFriction" min="0.0000" max="0.5000" step="0.0001" value="0.0003" class="w-20 accent-yellow-400">
-                            <input type="number" id="dbg-num-coinFriction" min="0.0000" max="0.5000" step="0.0001" value="0.0003" class="w-16 bg-black border border-cyan-500/50 rounded px-1 py-0.5 text-right text-cyan-300 font-bold">
+                            <input type="range" id="dbg-coinFriction" min="0.0000" max="0.5000" step="0.0001"
+                                value="0.0003" class="w-20 accent-yellow-400">
+                            <input type="number" id="dbg-num-coinFriction" min="0.0000" max="0.5000" step="0.0001"
+                                value="0.0003"
+                                class="w-16 bg-black border border-cyan-500/50 rounded px-1 py-0.5 text-right text-cyan-300 font-bold">
                         </div>
                     </div>
                     <div class="flex justify-between items-center gap-1">
                         <span>プッシャー摩擦 <small class="text-gray-400">(0~0.5)</small></span>
                         <div class="flex items-center space-x-1.5">
-                            <input type="range" id="dbg-pusherFriction" min="0.000" max="0.500" step="0.002" value="0.13" class="w-20 accent-yellow-400">
-                            <input type="number" id="dbg-num-pusherFriction" min="0.000" max="0.500" step="0.002" value="0.13" class="w-16 bg-black border border-cyan-500/50 rounded px-1 py-0.5 text-right text-cyan-300 font-bold">
+                            <input type="range" id="dbg-pusherFriction" min="0.000" max="0.500" step="0.002"
+                                value="0.13" class="w-20 accent-yellow-400">
+                            <input type="number" id="dbg-num-pusherFriction" min="0.000" max="0.500" step="0.002"
+                                value="0.13"
+                                class="w-16 bg-black border border-cyan-500/50 rounded px-1 py-0.5 text-right text-cyan-300 font-bold">
                         </div>
                     </div>
                     <div class="flex justify-between items-center gap-1">
                         <span>下段ベッド摩擦 <small class="text-gray-400">(0~0.2)</small></span>
                         <div class="flex items-center space-x-1.5">
-                            <input type="range" id="dbg-stageFriction" min="0.000" max="0.200" step="0.001" value="0.001" class="w-20 accent-yellow-400">
-                            <input type="number" id="dbg-num-stageFriction" min="0.000" max="0.200" step="0.001" value="0.001" class="w-16 bg-black border border-cyan-500/50 rounded px-1 py-0.5 text-right text-cyan-300 font-bold">
+                            <input type="range" id="dbg-stageFriction" min="0.000" max="0.200" step="0.001"
+                                value="0.001" class="w-20 accent-yellow-400">
+                            <input type="number" id="dbg-num-stageFriction" min="0.000" max="0.200" step="0.001"
+                                value="0.001"
+                                class="w-16 bg-black border border-cyan-500/50 rounded px-1 py-0.5 text-right text-cyan-300 font-bold">
                         </div>
                     </div>
                     <div class="flex justify-between items-center gap-1 pt-1 border-t border-slate-700">
                         <span>横穴開き(0~200%)</span>
                         <div class="flex items-center space-x-1.5">
-                            <input type="range" id="dbg-sideOutPercent" min="0" max="200" step="5" value="150" class="w-20 accent-pink-500">
-                            <input type="number" id="dbg-num-sideOutPercent" min="0" max="200" step="1" value="150" class="w-16 bg-black border border-pink-500/50 rounded px-1 py-0.5 text-right text-pink-300 font-bold">
+                            <input type="range" id="dbg-sideOutPercent" min="0" max="200" step="5" value="150"
+                                class="w-20 accent-pink-500">
+                            <input type="number" id="dbg-num-sideOutPercent" min="0" max="200" step="1" value="150"
+                                class="w-16 bg-black border border-pink-500/50 rounded px-1 py-0.5 text-right text-pink-300 font-bold">
                         </div>
                     </div>
                     <div class="flex justify-between items-center gap-1">
                         <span>チェッカー幅(50~200%)</span>
                         <div class="flex items-center space-x-1.5">
-                            <input type="range" id="dbg-chackerSizePercent" min="50" max="200" step="1" value="80" class="w-20 accent-cyan-400">
-                            <input type="number" id="dbg-num-chackerSizePercent" min="50" max="200" step="1" value="80" class="w-16 bg-black border border-cyan-500/50 rounded px-1 py-0.5 text-right text-cyan-300 font-bold">
+                            <input type="range" id="dbg-chackerSizePercent" min="50" max="200" step="1" value="80"
+                                class="w-20 accent-cyan-400">
+                            <input type="number" id="dbg-num-chackerSizePercent" min="50" max="200" step="1" value="80"
+                                class="w-16 bg-black border border-cyan-500/50 rounded px-1 py-0.5 text-right text-cyan-300 font-bold">
                         </div>
                     </div>
                     <div class="flex justify-between items-center gap-1">
                         <span>獲得口勾配高さ <small class="text-gray-400">(0~0.35)</small></span>
                         <div class="flex items-center space-x-1.5">
-                            <input type="range" id="dbg-frontSlopeHeight" min="0.000" max="0.350" step="0.005" value="0.16" class="w-20 accent-amber-400">
-                            <input type="number" id="dbg-num-frontSlopeHeight" min="0.000" max="0.350" step="0.005" value="0.16" class="w-16 bg-black border border-amber-500/50 rounded px-1 py-0.5 text-right text-amber-300 font-bold">
+                            <input type="range" id="dbg-frontSlopeHeight" min="0.000" max="0.350" step="0.005"
+                                value="0.16" class="w-20 accent-amber-400">
+                            <input type="number" id="dbg-num-frontSlopeHeight" min="0.000" max="0.350" step="0.005"
+                                value="0.16"
+                                class="w-16 bg-black border border-amber-500/50 rounded px-1 py-0.5 text-right text-amber-300 font-bold">
                         </div>
                     </div>
                 </div>
 
                 <div class="bg-slate-900/90 p-3 rounded-xl border border-yellow-500/30 space-y-1.5">
-                    <div class="font-bold text-yellow-300 text-sm mb-1"><i class="fa-solid fa-dice mr-1"></i> 通常スロット確率 (%)</div>
+                    <div class="font-bold text-yellow-300 text-sm mb-1"><i class="fa-solid fa-dice mr-1"></i> 通常スロット確率
+                        (%)</div>
                     <div class="flex justify-between items-center gap-1">
                         <span>777 (EXPLORE突入)</span>
                         <div class="flex items-center space-x-1.5">
-                            <input type="range" id="dbg-probOrder" min="0" max="100" step="0.05" value="0.4" class="w-20 accent-purple-400">
-                            <input type="number" id="dbg-num-probOrder" min="0" max="100" step="0.05" value="0.4" class="w-16 bg-black border border-purple-500/50 rounded px-1 py-0.5 text-right text-purple-300 font-bold">
+                            <input type="range" id="dbg-probOrder" min="0" max="100" step="0.05" value="0.4"
+                                class="w-20 accent-purple-400">
+                            <input type="number" id="dbg-num-probOrder" min="0" max="100" step="0.05" value="0.4"
+                                class="w-16 bg-black border border-purple-500/50 rounded px-1 py-0.5 text-right text-purple-300 font-bold">
                         </div>
                     </div>
                     <div class="flex justify-between items-center gap-1">
                         <span>000 (ボール1~3個)</span>
                         <div class="flex items-center space-x-1.5">
-                            <input type="range" id="dbg-probBall" min="0" max="100" step="0.1" value="2.0" class="w-20 accent-pink-400">
-                            <input type="number" id="dbg-num-probBall" min="0" max="100" step="0.1" value="2.0" class="w-16 bg-black border border-pink-500/50 rounded px-1 py-0.5 text-right text-pink-300 font-bold">
+                            <input type="range" id="dbg-probBall" min="0" max="100" step="0.1" value="2.0"
+                                class="w-20 accent-pink-400">
+                            <input type="number" id="dbg-num-probBall" min="0" max="100" step="0.1" value="2.0"
+                                class="w-16 bg-black border border-pink-500/50 rounded px-1 py-0.5 text-right text-pink-300 font-bold">
                         </div>
                     </div>
                     <div class="flex justify-between items-center gap-1">
                         <span>555 (FEVER突入)</span>
                         <div class="flex items-center space-x-1.5">
-                            <input type="range" id="dbg-probFever" min="0" max="100" step="0.05" value="0.5" class="w-20 accent-red-400">
-                            <input type="number" id="dbg-num-probFever" min="0" max="100" step="0.05" value="0.5" class="w-16 bg-black border border-red-500/50 rounded px-1 py-0.5 text-right text-red-300 font-bold">
+                            <input type="range" id="dbg-probFever" min="0" max="100" step="0.05" value="0.5"
+                                class="w-20 accent-red-400">
+                            <input type="number" id="dbg-num-probFever" min="0" max="100" step="0.05" value="0.5"
+                                class="w-16 bg-black border border-red-500/50 rounded px-1 py-0.5 text-right text-red-300 font-bold">
                         </div>
                     </div>
                     <div class="flex justify-between items-center gap-1">
                         <span>111 (赤キューブ排出)</span>
                         <div class="flex items-center space-x-1.5">
-                            <input type="range" id="dbg-probRedCube" min="0" max="100" step="0.1" value="3.0" class="w-20 accent-rose-500">
-                            <input type="number" id="dbg-num-probRedCube" min="0" max="100" step="0.1" value="3.0" class="w-16 bg-black border border-rose-500/50 rounded px-1 py-0.5 text-right text-rose-300 font-bold">
+                            <input type="range" id="dbg-probRedCube" min="0" max="100" step="0.1" value="3.0"
+                                class="w-20 accent-rose-500">
+                            <input type="number" id="dbg-num-probRedCube" min="0" max="100" step="0.1" value="3.0"
+                                class="w-16 bg-black border border-rose-500/50 rounded px-1 py-0.5 text-right text-rose-300 font-bold">
                         </div>
                     </div>
                     <div class="flex justify-between items-center gap-1">
                         <span>333 (金キューブ排出)</span>
                         <div class="flex items-center space-x-1.5">
-                            <input type="range" id="dbg-probGoldCube" min="0" max="100" step="0.1" value="1.5" class="w-20 accent-amber-400">
-                            <input type="number" id="dbg-num-probGoldCube" min="0" max="100" step="0.1" value="1.5" class="w-16 bg-black border border-amber-500/50 rounded px-1 py-0.5 text-right text-amber-300 font-bold">
+                            <input type="range" id="dbg-probGoldCube" min="0" max="100" step="0.1" value="1.5"
+                                class="w-20 accent-amber-400">
+                            <input type="number" id="dbg-num-probGoldCube" min="0" max="100" step="0.1" value="1.5"
+                                class="w-16 bg-black border border-amber-500/50 rounded px-1 py-0.5 text-right text-amber-300 font-bold">
                         </div>
                     </div>
                     <div class="flex justify-between items-center gap-1">
                         <span>888 (白キューブ排出)</span>
                         <div class="flex items-center space-x-1.5">
-                            <input type="range" id="dbg-probWhiteCube" min="0" max="100" step="0.1" value="1.0" class="w-20 accent-slate-300">
-                            <input type="number" id="dbg-num-probWhiteCube" min="0" max="100" step="0.1" value="1.0" class="w-16 bg-black border border-slate-400/50 rounded px-1 py-0.5 text-right text-white font-bold">
+                            <input type="range" id="dbg-probWhiteCube" min="0" max="100" step="0.1" value="1.0"
+                                class="w-20 accent-slate-300">
+                            <input type="number" id="dbg-num-probWhiteCube" min="0" max="100" step="0.1" value="1.0"
+                                class="w-16 bg-black border border-slate-400/50 rounded px-1 py-0.5 text-right text-white font-bold">
                         </div>
                     </div>
                     <div class="flex justify-between items-center gap-1">
                         <span>999 (箱祭り～！)</span>
                         <div class="flex items-center space-x-1.5">
-                            <input type="range" id="dbg-probFestBox" min="0" max="100" step="0.05" value="0.75" class="w-20 accent-yellow-400">
-                            <input type="number" id="dbg-num-probFestBox" min="0" max="100" step="0.05" value="0.75" class="w-16 bg-black border border-yellow-400/50 rounded px-1 py-0.5 text-right text-yellow-300 font-bold">
+                            <input type="range" id="dbg-probFestBox" min="0" max="100" step="0.05" value="0.75"
+                                class="w-20 accent-yellow-400">
+                            <input type="number" id="dbg-num-probFestBox" min="0" max="100" step="0.05" value="0.75"
+                                class="w-16 bg-black border border-yellow-400/50 rounded px-1 py-0.5 text-right text-yellow-300 font-bold">
                         </div>
                     </div>
                     <div class="flex justify-between items-center gap-1">
                         <span>222/444/666 (15枚役)</span>
                         <div class="flex items-center space-x-1.5">
-                            <input type="range" id="dbg-probWin" min="0" max="100" step="0.1" value="6.0" class="w-20 accent-cyan-400">
-                            <input type="number" id="dbg-num-probWin" min="0" max="100" step="0.1" value="6.0" class="w-16 bg-black border border-cyan-500/50 rounded px-1 py-0.5 text-right text-cyan-300 font-bold">
+                            <input type="range" id="dbg-probWin" min="0" max="100" step="0.1" value="6.0"
+                                class="w-20 accent-cyan-400">
+                            <input type="number" id="dbg-num-probWin" min="0" max="100" step="0.1" value="6.0"
+                                class="w-16 bg-black border border-cyan-500/50 rounded px-1 py-0.5 text-right text-cyan-300 font-bold">
                         </div>
                     </div>
                 </div>
 
                 <!-- エクスプローラーモード＆宝箱数設定 -->
                 <div class="bg-slate-900/90 p-3 rounded-xl border border-purple-500/40 space-y-1.5">
-                    <div class="font-bold text-purple-300 text-sm mb-1"><i class="fa-solid fa-compass mr-1"></i> エクスプローラーモード＆宝箱数設定</div>
+                    <div class="font-bold text-purple-300 text-sm mb-1"><i class="fa-solid fa-compass mr-1"></i>
+                        エクスプローラーモード＆宝箱数設定</div>
                     <div class="flex justify-between items-center gap-1">
                         <span>行動加算(1-6)確率(%)</span>
                         <div class="flex items-center space-x-1.5">
-                            <input type="range" id="dbg-ordProbAdd" min="0" max="100" step="1" value="30" class="w-20 accent-purple-400">
-                            <input type="number" id="dbg-num-ordProbAdd" min="0" max="100" step="1" value="30" class="w-16 bg-black border border-purple-500/50 rounded px-1 py-0.5 text-right text-yellow-300 font-bold">
+                            <input type="range" id="dbg-ordProbAdd" min="0" max="100" step="1" value="30"
+                                class="w-20 accent-purple-400">
+                            <input type="number" id="dbg-num-ordProbAdd" min="0" max="100" step="1" value="30"
+                                class="w-16 bg-black border border-purple-500/50 rounded px-1 py-0.5 text-right text-yellow-300 font-bold">
                         </div>
                     </div>
                     <div class="flex justify-between items-center gap-1">
                         <span>マップ移動(mmm)確率(%)</span>
                         <div class="flex items-center space-x-1.5">
-                            <input type="range" id="dbg-ordProbMap" min="0" max="100" step="1" value="20" class="w-20 accent-purple-400">
-                            <input type="number" id="dbg-num-ordProbMap" min="0" max="100" step="1" value="20" class="w-16 bg-black border border-purple-500/50 rounded px-1 py-0.5 text-right text-yellow-300 font-bold">
+                            <input type="range" id="dbg-ordProbMap" min="0" max="100" step="1" value="20"
+                                class="w-20 accent-purple-400">
+                            <input type="number" id="dbg-num-ordProbMap" min="0" max="100" step="1" value="20"
+                                class="w-16 bg-black border border-purple-500/50 rounded px-1 py-0.5 text-right text-yellow-300 font-bold">
                         </div>
                     </div>
                     <div class="flex justify-between items-center gap-1">
                         <span>ボール獲得(000)確率(%)</span>
                         <div class="flex items-center space-x-1.5">
-                            <input type="range" id="dbg-ordProbBall" min="0" max="100" step="0.5" value="2.0" class="w-20 accent-pink-400">
-                            <input type="number" id="dbg-num-ordProbBall" min="0" max="100" step="0.5" value="2.0" class="w-16 bg-black border border-pink-500/50 rounded px-1 py-0.5 text-right text-pink-300 font-bold">
+                            <input type="range" id="dbg-ordProbBall" min="0" max="100" step="0.5" value="2.0"
+                                class="w-20 accent-pink-400">
+                            <input type="number" id="dbg-num-ordProbBall" min="0" max="100" step="0.5" value="2.0"
+                                class="w-16 bg-black border border-pink-500/50 rounded px-1 py-0.5 text-right text-pink-300 font-bold">
                         </div>
                     </div>
                     <div class="flex justify-between items-center gap-1">
                         <span>モード終了(EEE)確率(%)</span>
                         <div class="flex items-center space-x-1.5">
-                            <input type="range" id="dbg-ordProbEnd" min="0" max="100" step="0.5" value="2.0" class="w-20 accent-purple-400">
-                            <input type="number" id="dbg-num-ordProbEnd" min="0" max="100" step="0.5" value="2.0" class="w-16 bg-black border border-purple-500/50 rounded px-1 py-0.5 text-right text-yellow-300 font-bold">
+                            <input type="range" id="dbg-ordProbEnd" min="0" max="100" step="0.5" value="2.0"
+                                class="w-20 accent-purple-400">
+                            <input type="number" id="dbg-num-ordProbEnd" min="0" max="100" step="0.5" value="2.0"
+                                class="w-16 bg-black border border-purple-500/50 rounded px-1 py-0.5 text-right text-yellow-300 font-bold">
                         </div>
                     </div>
                     <div class="flex justify-between items-center gap-1 pt-1 border-t border-slate-700">
                         <span>初期宝箱数 (1~35個)</span>
                         <div class="flex items-center space-x-1.5">
-                            <input type="range" id="dbg-chestBaseCount" min="1" max="35" step="1" value="10" class="w-20 accent-amber-400">
-                            <input type="number" id="dbg-num-chestBaseCount" min="1" max="35" step="1" value="10" class="w-16 bg-black border border-amber-500/50 rounded px-1 py-0.5 text-right text-amber-300 font-bold">
+                            <input type="range" id="dbg-chestBaseCount" min="1" max="35" step="1" value="10"
+                                class="w-20 accent-amber-400">
+                            <input type="number" id="dbg-num-chestBaseCount" min="1" max="35" step="1" value="10"
+                                class="w-16 bg-black border border-amber-500/50 rounded px-1 py-0.5 text-right text-amber-300 font-bold">
                         </div>
                     </div>
                     <div class="flex justify-between items-center gap-1">
                         <span>金宝箱の比率 (0~100%)</span>
                         <div class="flex items-center space-x-1.5">
-                            <input type="range" id="dbg-goldChestPercent" min="0" max="100" step="5" value="20" class="w-20 accent-amber-400">
-                            <input type="number" id="dbg-num-goldChestPercent" min="0" max="100" step="1" value="20" class="w-16 bg-black border border-amber-500/50 rounded px-1 py-0.5 text-right text-amber-300 font-bold">
+                            <input type="range" id="dbg-goldChestPercent" min="0" max="100" step="5" value="20"
+                                class="w-20 accent-amber-400">
+                            <input type="number" id="dbg-num-goldChestPercent" min="0" max="100" step="1" value="20"
+                                class="w-16 bg-black border border-amber-500/50 rounded px-1 py-0.5 text-right text-amber-300 font-bold">
                         </div>
                     </div>
                 </div>
 
                 <!-- 宝箱中身比率 ＆ 暗転率・白BOX確率 -->
                 <div class="bg-slate-900/90 p-3 rounded-xl border border-amber-500/40 space-y-1.5">
-                    <div class="font-bold text-amber-300 text-sm mb-1"><i class="fa-solid fa-box-open mr-1"></i> 宝箱中身比率 ＆ 特殊演出確率</div>
+                    <div class="font-bold text-amber-300 text-sm mb-1"><i class="fa-solid fa-box-open mr-1"></i> 宝箱中身比率
+                        ＆ 特殊演出確率</div>
                     <div class="text-[11px] text-yellow-200 font-bold">【金宝箱】 (比率 0~1000)</div>
                     <div class="grid grid-cols-2 gap-x-2 gap-y-1">
-                        <div class="flex justify-between items-center"><span>10:<b id="dbg-val-goldW10" class="text-yellow-300">40.0%</b></span><div class="flex items-center space-x-1"><input type="range" id="dbg-goldW10" min="0" max="100" value="40" class="w-10 accent-yellow-400"><input type="number" id="dbg-num-goldW10" min="0" max="1000" step="1" value="40" class="w-12 bg-black border border-yellow-500/40 rounded px-1 text-right text-yellow-200"></div></div>
-                        <div class="flex justify-between items-center"><span>20:<b id="dbg-val-goldW20" class="text-yellow-300">25.0%</b></span><div class="flex items-center space-x-1"><input type="range" id="dbg-goldW20" min="0" max="100" value="25" class="w-10 accent-yellow-400"><input type="number" id="dbg-num-goldW20" min="0" max="1000" step="1" value="25" class="w-12 bg-black border border-yellow-500/40 rounded px-1 text-right text-yellow-200"></div></div>
-                        <div class="flex justify-between items-center"><span>30:<b id="dbg-val-goldW30" class="text-yellow-300">15.0%</b></span><div class="flex items-center space-x-1"><input type="range" id="dbg-goldW30" min="0" max="100" value="15" class="w-10 accent-yellow-400"><input type="number" id="dbg-num-goldW30" min="0" max="1000" step="1" value="15" class="w-12 bg-black border border-yellow-500/40 rounded px-1 text-right text-yellow-200"></div></div>
-                        <div class="flex justify-between items-center"><span>50:<b id="dbg-val-goldW50" class="text-yellow-300">10.0%</b></span><div class="flex items-center space-x-1"><input type="range" id="dbg-goldW50" min="0" max="100" value="10" class="w-10 accent-yellow-400"><input type="number" id="dbg-num-goldW50" min="0" max="1000" step="1" value="10" class="w-12 bg-black border border-yellow-500/40 rounded px-1 text-right text-yellow-200"></div></div>
-                        <div class="flex justify-between items-center"><span>100:<b id="dbg-val-goldW100" class="text-yellow-300">8.0%</b></span><div class="flex items-center space-x-1"><input type="range" id="dbg-goldW100" min="0" max="100" value="8" class="w-10 accent-yellow-400"><input type="number" id="dbg-num-goldW100" min="0" max="1000" step="1" value="8" class="w-12 bg-black border border-yellow-500/40 rounded px-1 text-right text-yellow-200"></div></div>
-                        <div class="flex justify-between items-center"><span>1000:<b id="dbg-val-goldW1000" class="text-yellow-300">2.0%</b></span><div class="flex items-center space-x-1"><input type="range" id="dbg-goldW1000" min="0" max="100" value="2" class="w-10 accent-yellow-400"><input type="number" id="dbg-num-goldW1000" min="0" max="1000" step="1" value="2" class="w-12 bg-black border border-yellow-500/40 rounded px-1 text-right text-yellow-200"></div></div>
+                        <div class="flex justify-between items-center"><span>10:<b id="dbg-val-goldW10"
+                                    class="text-yellow-300">40.0%</b></span>
+                            <div class="flex items-center space-x-1"><input type="range" id="dbg-goldW10" min="0"
+                                    max="100" value="40" class="w-10 accent-yellow-400"><input type="number"
+                                    id="dbg-num-goldW10" min="0" max="1000" step="1" value="40"
+                                    class="w-12 bg-black border border-yellow-500/40 rounded px-1 text-right text-yellow-200">
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center"><span>20:<b id="dbg-val-goldW20"
+                                    class="text-yellow-300">25.0%</b></span>
+                            <div class="flex items-center space-x-1"><input type="range" id="dbg-goldW20" min="0"
+                                    max="100" value="25" class="w-10 accent-yellow-400"><input type="number"
+                                    id="dbg-num-goldW20" min="0" max="1000" step="1" value="25"
+                                    class="w-12 bg-black border border-yellow-500/40 rounded px-1 text-right text-yellow-200">
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center"><span>30:<b id="dbg-val-goldW30"
+                                    class="text-yellow-300">15.0%</b></span>
+                            <div class="flex items-center space-x-1"><input type="range" id="dbg-goldW30" min="0"
+                                    max="100" value="15" class="w-10 accent-yellow-400"><input type="number"
+                                    id="dbg-num-goldW30" min="0" max="1000" step="1" value="15"
+                                    class="w-12 bg-black border border-yellow-500/40 rounded px-1 text-right text-yellow-200">
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center"><span>50:<b id="dbg-val-goldW50"
+                                    class="text-yellow-300">10.0%</b></span>
+                            <div class="flex items-center space-x-1"><input type="range" id="dbg-goldW50" min="0"
+                                    max="100" value="10" class="w-10 accent-yellow-400"><input type="number"
+                                    id="dbg-num-goldW50" min="0" max="1000" step="1" value="10"
+                                    class="w-12 bg-black border border-yellow-500/40 rounded px-1 text-right text-yellow-200">
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center"><span>100:<b id="dbg-val-goldW100"
+                                    class="text-yellow-300">8.0%</b></span>
+                            <div class="flex items-center space-x-1"><input type="range" id="dbg-goldW100" min="0"
+                                    max="100" value="8" class="w-10 accent-yellow-400"><input type="number"
+                                    id="dbg-num-goldW100" min="0" max="1000" step="1" value="8"
+                                    class="w-12 bg-black border border-yellow-500/40 rounded px-1 text-right text-yellow-200">
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center"><span>1000:<b id="dbg-val-goldW1000"
+                                    class="text-yellow-300">2.0%</b></span>
+                            <div class="flex items-center space-x-1"><input type="range" id="dbg-goldW1000" min="0"
+                                    max="100" value="2" class="w-10 accent-yellow-400"><input type="number"
+                                    id="dbg-num-goldW1000" min="0" max="1000" step="1" value="2"
+                                    class="w-12 bg-black border border-yellow-500/40 rounded px-1 text-right text-yellow-200">
+                            </div>
+                        </div>
                     </div>
-                    <div class="text-[11px] text-red-300 font-bold pt-1 border-t border-slate-700">【赤宝箱】 (比率 0~1000)</div>
+                    <div class="text-[11px] text-red-300 font-bold pt-1 border-t border-slate-700">【赤宝箱】 (比率 0~1000)
+                    </div>
                     <div class="grid grid-cols-2 gap-x-2 gap-y-1">
-                        <div class="flex justify-between items-center"><span>5:<b id="dbg-val-redW5" class="text-red-300">80.0%</b></span><div class="flex items-center space-x-1"><input type="range" id="dbg-redW5" min="0" max="100" value="80" class="w-10 accent-red-400"><input type="number" id="dbg-num-redW5" min="0" max="1000" step="0.5" value="80" class="w-12 bg-black border border-red-500/40 rounded px-1 text-right text-red-200"></div></div>
-                        <div class="flex justify-between items-center"><span>10:<b id="dbg-val-redW10" class="text-red-300">15.0%</b></span><div class="flex items-center space-x-1"><input type="range" id="dbg-redW10" min="0" max="100" value="15" class="w-10 accent-red-400"><input type="number" id="dbg-num-redW10" min="0" max="1000" step="0.5" value="15" class="w-12 bg-black border border-red-500/40 rounded px-1 text-right text-red-200"></div></div>
-                        <div class="flex justify-between items-center"><span>20:<b id="dbg-val-redW20" class="text-red-300">4.9%</b></span><div class="flex items-center space-x-1"><input type="range" id="dbg-redW20" min="0" max="100" step="0.5" value="4.9" class="w-10 accent-red-400"><input type="number" id="dbg-num-redW20" min="0" max="1000" step="0.1" value="4.9" class="w-12 bg-black border border-red-500/40 rounded px-1 text-right text-red-200"></div></div>
-                        <div class="flex justify-between items-center"><span>2000:<b id="dbg-val-redW2000" class="text-red-300">0.1%</b></span><div class="flex items-center space-x-1"><input type="range" id="dbg-redW2000" min="0" max="100" step="0.1" value="0.1" class="w-10 accent-red-400"><input type="number" id="dbg-num-redW2000" min="0" max="1000" step="0.1" value="0.1" class="w-12 bg-black border border-red-500/40 rounded px-1 text-right text-red-200"></div></div>
+                        <div class="flex justify-between items-center"><span>5:<b id="dbg-val-redW5"
+                                    class="text-red-300">80.0%</b></span>
+                            <div class="flex items-center space-x-1"><input type="range" id="dbg-redW5" min="0"
+                                    max="100" value="80" class="w-10 accent-red-400"><input type="number"
+                                    id="dbg-num-redW5" min="0" max="1000" step="0.5" value="80"
+                                    class="w-12 bg-black border border-red-500/40 rounded px-1 text-right text-red-200">
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center"><span>10:<b id="dbg-val-redW10"
+                                    class="text-red-300">15.0%</b></span>
+                            <div class="flex items-center space-x-1"><input type="range" id="dbg-redW10" min="0"
+                                    max="100" value="15" class="w-10 accent-red-400"><input type="number"
+                                    id="dbg-num-redW10" min="0" max="1000" step="0.5" value="15"
+                                    class="w-12 bg-black border border-red-500/40 rounded px-1 text-right text-red-200">
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center"><span>20:<b id="dbg-val-redW20"
+                                    class="text-red-300">4.9%</b></span>
+                            <div class="flex items-center space-x-1"><input type="range" id="dbg-redW20" min="0"
+                                    max="100" step="0.5" value="4.9" class="w-10 accent-red-400"><input type="number"
+                                    id="dbg-num-redW20" min="0" max="1000" step="0.1" value="4.9"
+                                    class="w-12 bg-black border border-red-500/40 rounded px-1 text-right text-red-200">
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center"><span>2000:<b id="dbg-val-redW2000"
+                                    class="text-red-300">0.1%</b></span>
+                            <div class="flex items-center space-x-1"><input type="range" id="dbg-redW2000" min="0"
+                                    max="100" step="0.1" value="0.1" class="w-10 accent-red-400"><input type="number"
+                                    id="dbg-num-redW2000" min="0" max="1000" step="0.1" value="0.1"
+                                    class="w-12 bg-black border border-red-500/40 rounded px-1 text-right text-red-200">
+                            </div>
+                        </div>
                     </div>
                     <div class="flex justify-between items-center pt-1.5 border-t border-slate-700">
                         <span>5WIN時の暗転率(0~100%)</span>
                         <div class="flex items-center space-x-1.5">
-                            <input type="range" id="dbg-win5BlackoutPercent" min="0" max="100" step="0.25" value="1.25" class="w-16 accent-pink-400">
-                            <input type="number" id="dbg-num-win5BlackoutPercent" min="0" max="100" step="0.25" value="1.25" class="w-14 bg-black border border-pink-500/50 rounded px-1 py-0.5 text-right text-pink-300 font-bold">
+                            <input type="range" id="dbg-win5BlackoutPercent" min="0" max="100" step="0.25" value="1.25"
+                                class="w-16 accent-pink-400">
+                            <input type="number" id="dbg-num-win5BlackoutPercent" min="0" max="100" step="0.25"
+                                value="1.25"
+                                class="w-14 bg-black border border-pink-500/50 rounded px-1 py-0.5 text-right text-pink-300 font-bold">
                         </div>
                     </div>
                     <div class="flex justify-between items-center">
                         <span>白BOX→BOX chance率(%)</span>
                         <div class="flex items-center space-x-1.5">
-                            <input type="range" id="dbg-whiteBoxChancePercent" min="0" max="100" step="0.1" value="0.1" class="w-16 accent-cyan-400">
-                            <input type="number" id="dbg-num-whiteBoxChancePercent" min="0" max="100" step="0.1" value="0.1" class="w-14 bg-black border border-cyan-500/50 rounded px-1 py-0.5 text-right text-cyan-300 font-bold">
+                            <input type="range" id="dbg-whiteBoxChancePercent" min="0" max="100" step="0.1" value="0.1"
+                                class="w-16 accent-cyan-400">
+                            <input type="number" id="dbg-num-whiteBoxChancePercent" min="0" max="100" step="0.1"
+                                value="0.1"
+                                class="w-14 bg-black border border-cyan-500/50 rounded px-1 py-0.5 text-right text-cyan-300 font-bold">
                         </div>
                     </div>
                 </div>
@@ -717,48 +1102,71 @@
 
             <div class="mt-4 pt-3 border-t border-yellow-500/30 flex flex-wrap justify-between items-center gap-2">
                 <div class="flex flex-wrap gap-1.5">
-                    <button id="dbg-spawn-ball-btn" class="px-2.5 py-1.5 rounded-lg bg-pink-600 hover:bg-pink-500 text-white font-bold text-xs cursor-pointer">+ ボール排出</button>
-                    <button id="dbg-spawn-white-btn" class="px-2.5 py-1.5 rounded-lg bg-slate-200 hover:bg-white text-slate-950 font-bold text-xs cursor-pointer">+ 白BOX排出</button>
-                    <button id="dbg-trigger-fest-btn" class="px-2.5 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs cursor-pointer">箱祭りテスト</button>
-                    <button id="dbg-start-jpc-btn" class="px-2.5 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs cursor-pointer">JPC抽選テスト</button>
-                    <button id="dbg-start-jpc10-btn" class="px-2.5 py-1.5 rounded-lg bg-pink-600 hover:bg-pink-500 text-white font-bold text-xs cursor-pointer">10倍JPCテスト</button>
-                    <button id="dbg-open-map-btn" class="px-2.5 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs cursor-pointer">2Dマップテスト</button>
-                    <button id="dbg-reset-params-btn" class="px-2.5 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs cursor-pointer"><i class="fa-solid fa-rotate-left mr-1"></i>設定初期化</button>
-                    <button id="dbg-reset-save-btn" class="px-2.5 py-1.5 rounded-lg bg-red-700 hover:bg-red-600 text-white font-bold text-xs cursor-pointer"><i class="fa-solid fa-trash-can mr-1"></i>セーブ初期化</button>
+                    <button id="dbg-spawn-ball-btn"
+                        class="px-2.5 py-1.5 rounded-lg bg-pink-600 hover:bg-pink-500 text-white font-bold text-xs cursor-pointer">+
+                        ボール排出</button>
+                    <button id="dbg-spawn-white-btn"
+                        class="px-2.5 py-1.5 rounded-lg bg-slate-200 hover:bg-white text-slate-950 font-bold text-xs cursor-pointer">+
+                        白BOX排出</button>
+                    <button id="dbg-trigger-fest-btn"
+                        class="px-2.5 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs cursor-pointer">箱祭りテスト</button>
+                    <button id="dbg-start-jpc-btn"
+                        class="px-2.5 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs cursor-pointer">JPC抽選テスト</button>
+                    <button id="dbg-start-jpc10-btn"
+                        class="px-2.5 py-1.5 rounded-lg bg-pink-600 hover:bg-pink-500 text-white font-bold text-xs cursor-pointer">10倍JPCテスト</button>
+                    <button id="dbg-open-map-btn"
+                        class="px-2.5 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs cursor-pointer">2Dマップテスト</button>
+                    <button id="dbg-reset-params-btn"
+                        class="px-2.5 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs cursor-pointer"><i
+                            class="fa-solid fa-rotate-left mr-1"></i>設定初期化</button>
+                    <button id="dbg-reset-save-btn"
+                        class="px-2.5 py-1.5 rounded-lg bg-red-700 hover:bg-red-600 text-white font-bold text-xs cursor-pointer"><i
+                            class="fa-solid fa-trash-can mr-1"></i>セーブ初期化</button>
                 </div>
-                <button id="debug-apply-btn" class="py-2 px-5 rounded-xl btn-arcade text-amber-950 font-black tracking-wider cursor-pointer">閉じる</button>
+                <button id="debug-apply-btn"
+                    class="py-2 px-5 rounded-xl btn-arcade text-amber-950 font-black tracking-wider cursor-pointer">閉じる</button>
             </div>
         </div>
     </div>
 
     <!-- JACKPOT / 各種当選アナウンスモーダル -->
-    <div id="jackpot-modal" class="hidden fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4 backdrop-blur-sm">
+    <div id="jackpot-modal"
+        class="hidden fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4 backdrop-blur-sm">
         <div class="arcade-bezel p-6 md:p-8 rounded-3xl max-w-sm w-full text-center bikabika-border jackpot-anim">
             <i id="modal-icon" class="fa-solid fa-trophy text-6xl text-yellow-400 mb-3 animate-bounce"></i>
-            <h2 id="modal-title" class="text-3xl font-black text-yellow-300 font-orbitron neon-text-gold mb-2">JACKPOT!!</h2>
+            <h2 id="modal-title" class="text-3xl font-black text-yellow-300 font-orbitron neon-text-gold mb-2">JACKPOT!!
+            </h2>
             <p id="modal-desc" class="text-base text-yellow-100 mb-6 font-bold">1000 MEDALS MASSIVE PAYOUT!</p>
-            <button id="modal-close-btn" class="w-full py-3 rounded-xl btn-arcade text-amber-950 font-black text-lg tracking-wider cursor-pointer">OK</button>
+            <button id="modal-close-btn"
+                class="w-full py-3 rounded-xl btn-arcade text-amber-950 font-black text-lg tracking-wider cursor-pointer">OK</button>
         </div>
     </div>
 
     <!-- メダル補給モーダル -->
-    <div id="refill-modal" class="hidden fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4 backdrop-blur-sm">
+    <div id="refill-modal"
+        class="hidden fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4 backdrop-blur-sm">
         <div class="arcade-bezel p-6 rounded-3xl max-w-sm w-full text-center">
             <i class="fa-solid fa-coins text-5xl text-yellow-400 mb-3"></i>
             <h2 class="text-2xl font-black text-yellow-300 font-orbitron mb-2">OUT OF MEDALS</h2>
             <p class="text-xs text-gray-200 mb-5">クレジットがなくなりました。無料サービスで50枚補給しますか？</p>
-            <button id="refill-btn" class="w-full py-3 rounded-xl btn-arcade text-amber-950 font-black text-lg tracking-wider cursor-pointer">50枚補給する</button>
+            <button id="refill-btn"
+                class="w-full py-3 rounded-xl btn-arcade text-amber-950 font-black text-lg tracking-wider cursor-pointer">50枚補給する</button>
         </div>
     </div>
     <!-- 3000枚払い出しごとの感想ポップアップモーダル -->
-    <div id="feedback-modal" class="hidden fixed inset-0 z-[155] bg-black/80 flex items-center justify-center p-4 backdrop-blur-sm">
-        <div class="arcade-bezel p-6 md:p-8 rounded-3xl max-w-sm w-full text-center jackpot-anim border-2 border-yellow-400">
+    <div id="feedback-modal"
+        class="hidden fixed inset-0 z-[155] bg-black/80 flex items-center justify-center p-4 backdrop-blur-sm">
+        <div
+            class="arcade-bezel p-6 md:p-8 rounded-3xl max-w-sm w-full text-center jackpot-anim border-2 border-yellow-400">
             <i class="fa-solid fa-comment-dots text-5xl text-yellow-400 mb-3 animate-bounce"></i>
-            <h2 class="text-xl md:text-2xl font-black text-yellow-300 font-orbitron neon-text-gold mb-2">QUESTIONNAIRE</h2>
+            <h2 class="text-xl md:text-2xl font-black text-yellow-300 font-orbitron neon-text-gold mb-2">QUESTIONNAIRE
+            </h2>
             <p class="text-base text-white mb-6 font-bold">このゲームの感想を教えてください</p>
             <div class="flex space-x-3">
-                <button id="feedback-fun-btn" class="flex-1 py-3 rounded-xl btn-arcade text-amber-950 font-black text-base tracking-wider cursor-pointer">楽しい！</button>
-                <button id="feedback-boring-btn" class="flex-1 py-3 rounded-xl bg-slate-800 border-2 border-slate-500 text-gray-200 hover:bg-slate-700 font-black text-base tracking-wider cursor-pointer transition">つまらん</button>
+                <button id="feedback-fun-btn"
+                    class="flex-1 py-3 rounded-xl btn-arcade text-amber-950 font-black text-base tracking-wider cursor-pointer">楽しい！</button>
+                <button id="feedback-boring-btn"
+                    class="flex-1 py-3 rounded-xl bg-slate-800 border-2 border-slate-500 text-gray-200 hover:bg-slate-700 font-black text-base tracking-wider cursor-pointer transition">つまらん</button>
             </div>
             <p class="text-[11px] text-gray-400 mt-3 font-bold">※10秒間触らなかった場合は自動で消えます</p>
         </div>
@@ -983,7 +1391,7 @@
                     if (this.metalSynth) this.metalSynth.volume.value = this.pctToDb(this.seVolumePercent, -16);
                     if (this.bgmSynth) this.bgmSynth.set({ volume: this.pctToDb(this.bgmVolumePercent, -18) });
                     if (this.bgmBass) this.bgmBass.volume.value = this.pctToDb(this.bgmVolumePercent, -20);
-                } catch(e){}
+                } catch (e) { }
             },
             init() {
                 if (this.synth) return;
@@ -1007,7 +1415,7 @@
                     }).toDestination();
                     this.applyVolumes();
                     this.startBgmLoop();
-                } catch(e){}
+                } catch (e) { }
             },
             startBgmLoop() {
                 if (this.bgmTimer) clearInterval(this.bgmTimer);
@@ -1040,7 +1448,7 @@
                         if (leadNote) this.bgmSynth.triggerAttackRelease(leadNote, "16n", now);
                         if (bassNote && this.bgmBass) this.bgmBass.triggerAttackRelease(bassNote, "16n", now);
                         this.bgmStep++;
-                    } catch(e){}
+                    } catch (e) { }
                 }, 180);
             },
             updateBgmState() {
@@ -1054,7 +1462,7 @@
                 const blackoutEl = document.getElementById('blackout-modal');
                 const win2000El = document.getElementById('win2000-modal');
                 const isBlackoutOr2000 = (blackoutEl && !blackoutEl.classList.contains('hidden')) ||
-                                         (win2000El && !win2000El.classList.contains('hidden'));
+                    (win2000El && !win2000El.classList.contains('hidden'));
 
                 // 3. モザイクリーチ演出（左リールが黒く止まった瞬間〜演出終了まで）の判定
                 const isMosaic = slotState.active && slotState.reachType === 'MOSAIC' && slotState.timer >= 1.0;
@@ -1077,7 +1485,7 @@
             },
             playCoinDrop() {
                 if (!soundEnabled || this.seVolumePercent <= 0 || !this.metalSynth) return;
-                try { this.metalSynth.triggerAttackRelease("C6", "16n"); } catch(e){}
+                try { this.metalSynth.triggerAttackRelease("C6", "16n"); } catch (e) { }
             },
             playCoinCollect() {
                 if (!soundEnabled || this.seVolumePercent <= 0 || !this.synth) return;
@@ -1085,7 +1493,7 @@
                     const now = Tone.now();
                     this.synth.triggerAttackRelease("E5", "16n", now);
                     this.synth.triggerAttackRelease("B5", "16n", now + 0.05);
-                } catch(e){}
+                } catch (e) { }
             },
             playChestPickupLow() {
                 if (!soundEnabled || this.seVolumePercent <= 0 || !this.synth) return;
@@ -1093,7 +1501,7 @@
                     const now = Tone.now();
                     this.synth.triggerAttackRelease(["C3", "G3"], "8n", now);
                     this.synth.triggerAttackRelease(["F3", "C4"], "4n", now + 0.12);
-                } catch(e){}
+                } catch (e) { }
             },
             playBlackoutPutsun() {
                 if (!soundEnabled || this.seVolumePercent <= 0 || !this.synth) return;
@@ -1101,7 +1509,7 @@
                     const now = Tone.now();
                     this.synth.triggerAttackRelease("G2", "16n", now);
                     this.synth.triggerAttackRelease("C2", "8n", now + 0.06);
-                } catch(e){}
+                } catch (e) { }
             },
             playWhiteNoise(durationSec = 0.25) {
                 if (!soundEnabled || this.seVolumePercent <= 0) return;
@@ -1119,7 +1527,7 @@
                     noise.connect(gain);
                     gain.connect(ctx.destination);
                     noise.start();
-                } catch(e){}
+                } catch (e) { }
             },
             playChacker() {
                 if (!soundEnabled || !this.synth) return;
@@ -1128,39 +1536,39 @@
                     const now = Tone.now();
                     this.synth.triggerAttackRelease("A5", "16n", now);
                     this.synth.triggerAttackRelease("E6", "16n", now + 0.07);
-                } catch(e){}
+                } catch (e) { }
             },
             playBallSpawn() {
                 if (!soundEnabled || !this.synth) return;
                 try {
                     const now = Tone.now();
                     ["G4", "C5", "E5", "G5"].forEach((n, i) => this.synth.triggerAttackRelease(n, "16n", now + i * 0.07));
-                } catch(e){}
+                } catch (e) { }
             },
             playBounce() {
                 if (!soundEnabled || !this.synth) return;
-                try { this.synth.triggerAttackRelease("C6", "32n"); } catch(e){}
+                try { this.synth.triggerAttackRelease("C6", "32n"); } catch (e) { }
             },
             playWin() {
                 if (!soundEnabled || !this.synth) return;
                 try {
                     const now = Tone.now();
                     ["C5", "E5", "G5", "C6"].forEach((n, i) => this.synth.triggerAttackRelease(n, "8n", now + i * 0.1));
-                } catch(e){}
+                } catch (e) { }
             },
             playJackpot() {
                 if (!soundEnabled || !this.synth) return;
                 try {
                     const now = Tone.now();
                     ["C5", "E5", "G5", "C6", "E6", "G6", "C7"].forEach((n, i) => this.synth.triggerAttackRelease(n, "4n", now + i * 0.12));
-                } catch(e){}
+                } catch (e) { }
             },
             playReverseGlitch() {
                 if (!soundEnabled || !this.synth) return;
                 try {
                     const now = Tone.now();
                     ["C6", "B5", "G#5", "F5", "D#5", "C4"].forEach((n, i) => this.synth.triggerAttackRelease(n, "32n", now + i * 0.04));
-                } catch(e){}
+                } catch (e) { }
             },
             playAlarmClang() {
                 if (!soundEnabled || !this.synth) return;
@@ -1170,7 +1578,7 @@
                         this.synth.triggerAttackRelease("E6", "32n", now + i * 0.08);
                         if (this.metalSynth) this.metalSynth.triggerAttackRelease("G6", "32n", now + i * 0.08);
                     }
-                } catch(e){}
+                } catch (e) { }
             },
             playBoxChanceRoar() {
                 if (!soundEnabled || !this.synth) return;
@@ -1179,7 +1587,7 @@
                     this.synth.triggerAttackRelease(["C2", "G2", "C3", "E5", "G5", "C6"], "2n", now);
                     this.synth.triggerAttackRelease(["D2", "A2", "D3", "F#5", "A5", "D6"], "2n", now + 0.22);
                     this.synth.triggerAttackRelease(["G2", "D3", "G3", "B5", "D6", "G6"], "1n", now + 0.45);
-                } catch(e){}
+                } catch (e) { }
             },
             playUltraHyper2000() {
                 if (!soundEnabled || !this.synth) return;
@@ -1203,23 +1611,23 @@
                             this.metalSynth.triggerAttackRelease("C6", "16n", now + i * 0.18);
                         }
                     }
-                } catch(e){}
+                } catch (e) { }
             },
             playMosaicWinFanfare() {
                 if (!soundEnabled || !this.synth) return;
                 try {
                     const now = Tone.now();
                     const fanfareChords = [
-                        { time: 0.0,  notes: ["C4", "E4", "G4", "C5"], dur: "8n" },
-                        { time: 0.2,  notes: ["E4", "G4", "C5", "E5"], dur: "8n" },
-                        { time: 0.4,  notes: ["G4", "C5", "E5", "G5"], dur: "8n" },
-                        { time: 0.6,  notes: ["C5", "E5", "G5", "C6"], dur: "4n" },
-                        { time: 1.0,  notes: ["D5", "F#5", "A5", "D6"], dur: "8n" },
+                        { time: 0.0, notes: ["C4", "E4", "G4", "C5"], dur: "8n" },
+                        { time: 0.2, notes: ["E4", "G4", "C5", "E5"], dur: "8n" },
+                        { time: 0.4, notes: ["G4", "C5", "E5", "G5"], dur: "8n" },
+                        { time: 0.6, notes: ["C5", "E5", "G5", "C6"], dur: "4n" },
+                        { time: 1.0, notes: ["D5", "F#5", "A5", "D6"], dur: "8n" },
                         { time: 1.25, notes: ["E5", "G#5", "B5", "E6"], dur: "8n" },
-                        { time: 1.5,  notes: ["F5", "A5", "C6", "F6"], dur: "8n" },
+                        { time: 1.5, notes: ["F5", "A5", "C6", "F6"], dur: "8n" },
                         { time: 1.75, notes: ["G5", "B5", "D6", "G6"], dur: "4n" },
                         { time: 2.15, notes: ["C5", "E5", "G5", "C6", "E6"], dur: "8n" },
-                        { time: 2.4,  notes: ["C5", "G5", "C6", "E6", "G6", "C7"], dur: "2n" }
+                        { time: 2.4, notes: ["C5", "G5", "C6", "E6", "G6", "C7"], dur: "2n" }
                     ];
                     fanfareChords.forEach(item => {
                         this.synth.triggerAttackRelease(item.notes, item.dur, now + item.time);
@@ -1229,7 +1637,7 @@
                             this.metalSynth.triggerAttackRelease("C6", "16n", now + i * 0.18);
                         }
                     }
-                } catch(e){}
+                } catch (e) { }
             }
         };
 
@@ -1255,11 +1663,11 @@
         let hasDroppedThisForwardCycle = false;
 
         const BASE_MAIN_CAMERA = { pos: new THREE.Vector3(0, 11.2, 11.2), lookAt: new THREE.Vector3(0, -0.4, 0.8) };
-        const BASE_JPC_CAMERA  = { pos: new THREE.Vector3(0, 10.8, -1.8), lookAt: new THREE.Vector3(0, 4.0, -7.8) };
+        const BASE_JPC_CAMERA = { pos: new THREE.Vector3(0, 10.8, -1.8), lookAt: new THREE.Vector3(0, 4.0, -7.8) };
         const targetMainCamPos = BASE_MAIN_CAMERA.pos.clone();
-        const targetJpcCamPos  = BASE_JPC_CAMERA.pos.clone();
-        const currentCamPos    = BASE_MAIN_CAMERA.pos.clone();
-        const currentCamLook   = BASE_MAIN_CAMERA.lookAt.clone();
+        const targetJpcCamPos = BASE_JPC_CAMERA.pos.clone();
+        const currentCamPos = BASE_MAIN_CAMERA.pos.clone();
+        const currentCamLook = BASE_MAIN_CAMERA.lookAt.clone();
 
         function updateResponsiveCameraTargets() {
             const aspect = window.innerWidth / Math.max(1, window.innerHeight);
@@ -1566,10 +1974,22 @@
             const sideSlopeWidth = Math.max(0.05, bedHalfWidth - chackerHalfOuter);
             const sideCenterX = chackerHalfOuter + sideSlopeWidth / 2;
 
-            leftSlopeBody.shapes.length = 0; rightSlopeBody.shapes.length = 0;
+            for (const body of [leftSlopeBody, rightSlopeBody]) {
+                body.shapes.length = 0;
+                body.shapeOffsets.length = 0;
+                body.shapeOrientations.length = 0;
+            }
             if (h <= 0.0005) {
                 leftSlopeMesh.visible = false; rightSlopeMesh.visible = false;
                 leftSlopeBody.position.set(-sideCenterX, -10, 0); rightSlopeBody.position.set(sideCenterX, -10, 0);
+                for (const body of [leftSlopeBody, rightSlopeBody]) {
+                    body.collisionFilterMask = 0;
+                    body.updateBoundingRadius();
+                    body.aabb.lowerBound.copy(body.position);
+                    body.aabb.upperBound.copy(body.position);
+                    body.aabbNeedsUpdate = false;
+                }
+                world.broadphase.dirty = true;
                 return;
             }
             leftSlopeMesh.visible = true; rightSlopeMesh.visible = true;
@@ -1599,6 +2019,11 @@
             rightSlopeBody.addShape(new CANNON.Box(halfExtents));
             rightSlopeBody.position.set(sideCenterX, centerY, centerZ);
             rightSlopeBody.quaternion.copy(rotQ);
+            for (const body of [leftSlopeBody, rightSlopeBody]) {
+                body.collisionFilterMask = -1;
+                body.aabbNeedsUpdate = true;
+            }
+            world.broadphase.dirty = true;
         }
 
         function createChackerGate(xPos) {
@@ -1770,26 +2195,59 @@
             }
         }
 
+        function removeFieldObject(object, list, index) {
+            object.isProcessed = true;
+            scene.remove(object.mesh);
+            if (object.body.world === world) world.removeBody(object.body);
+            const actualIndex = list[index] === object ? index : list.indexOf(object);
+            if (actualIndex >= 0) list.splice(actualIndex, 1);
+            // Geometry/material are shared; do not dispose per object.
+        }
+
         function removeCoin(coin, index) {
-            scene.remove(coin.mesh);
-            world.remove(coin.body);
-            coins.splice(index, 1);
+            removeFieldObject(coin, coins, index);
         }
 
         function removeBall(ball, index) {
-            scene.remove(ball.mesh);
-            world.remove(ball.body);
-            balls.splice(index, 1);
+            removeFieldObject(ball, balls, index);
         }
 
         function removeCube(cube, index) {
-            scene.remove(cube.mesh);
-            world.remove(cube.body);
-            cubes.splice(index, 1);
+            removeFieldObject(cube, cubes, index);
         }
+
+        function hasInvalidPhysics(body) {
+            const p = body.position, v = body.velocity;
+            const a = body.angularVelocity, q = body.quaternion;
+            return !(Number.isFinite(p.x) && Number.isFinite(p.y) && Number.isFinite(p.z) &&
+                Number.isFinite(v.x) && Number.isFinite(v.y) && Number.isFinite(v.z) &&
+                Number.isFinite(a.x) && Number.isFinite(a.y) && Number.isFinite(a.z) &&
+                Number.isFinite(q.x) && Number.isFinite(q.y) && Number.isFinite(q.z) && Number.isFinite(q.w));
+        }
+
+        function isOutsideField(body, minY = -1.5) {
+            const p = body.position;
+            return p.y < minY || Math.abs(p.x) > 3.6 ||
+                p.z < -4.2 || p.z > 7.5;
+        }
+
+        // Browser-console diagnostic; not part of the game UI.
+        window.getPusherPhysicsStats = function() {
+            const tracked = new Set([...coins, ...cubes, ...balls].map(o => o.body));
+            const dynamic = world.bodies.filter(b => b.type === CANNON.Body.DYNAMIC);
+            return {
+                coins: coins.length, cubes: cubes.length, balls: balls.length,
+                trackedBodies: tracked.size,
+                dynamicBodies: dynamic.length,
+                untrackedDynamicBodies: dynamic.filter(b => !tracked.has(b)).length,
+                totalBodies: world.bodies.length,
+                pendingPayout
+            };
+        };
 
         function updatePhysics(simTime, dt = 1 / 60) {
             if (isGameTimeFrozen) return;
+            let uiDirty = false;
             const speedMultiplier = isFeverMode ? 1.85 : 1.0;
             const currentSpeed = CONFIG.pusherSpeed * speedMultiplier;
             const phase = Math.sin(simTime * currentSpeed);
@@ -1810,11 +2268,25 @@
             }
             lastPusherPhase = phase;
 
+            // Discard corrupt states before they enter the collision solver.
+            for (const list of [coins, cubes, balls]) {
+                for (let i = list.length - 1; i >= 0; i--) {
+                    if (list[i].isProcessed || hasInvalidPhysics(list[i].body)) {
+                        removeFieldObject(list[i], list, i);
+                        if (list === balls) uiDirty = true;
+                    }
+                }
+            }
             world.step(1 / 60, dt, 3);
 
             const chackerHalfWidth = 0.9 * ((CONFIG.chackerSizePercent || 80) / 100);
             for (let i = coins.length - 1; i >= 0; i--) {
                 const coin = coins[i];
+                if (coin.isProcessed || hasInvalidPhysics(coin.body)) {
+                    removeCoin(coin, i);
+                    
+                    continue;
+                }
                 coin.mesh.position.copy(coin.body.position);
                 coin.mesh.quaternion.copy(coin.body.quaternion);
                 const pos = coin.body.position;
@@ -1831,19 +2303,12 @@
                         const gain = (coin.type === 'medal5') ? 5 : 1;
                         credits += gain;
                         stats.collectedCoins += gain;
-                        updateUI();
+                        uiDirty = true;
                         removeCoin(coin, i);
                         continue;
                     }
-                    if (pos.y < -1.5 || Math.abs(pos.x) > 3.6 || pos.z > 7.5) {
-                        coin.isProcessed = true;
+                    if (isOutsideField(coin.body)) {
                         removeCoin(coin, i);
-                        continue;
-                    }
-                    if (pos.z < -4.2) {
-                        coin.isProcessed = true;
-                        removeCoin(coin, i);
-                        spawnCoin((Math.random() - 0.5) * 2.5, 3.6, -2.7, coin.type);
                         continue;
                     }
                 }
@@ -1851,6 +2316,11 @@
 
             for (let i = cubes.length - 1; i >= 0; i--) {
                 const cube = cubes[i];
+                if (cube.isProcessed || hasInvalidPhysics(cube.body)) {
+                    removeCube(cube, i);
+                    
+                    continue;
+                }
                 cube.mesh.position.copy(cube.body.position);
                 cube.mesh.quaternion.copy(cube.body.quaternion);
                 const pos = cube.body.position;
@@ -1866,15 +2336,20 @@
                         triggerCubeChestLottery(cType);
                         continue;
                     }
-                    if (pos.y < -2.0 || Math.abs(pos.x) > 3.5) {
-                        cube.body.position.set(0, 2.5, 1.4);
-                        cube.body.velocity.set(0, 0, 0);
+                    if (isOutsideField(cube.body, -2.0) || Math.abs(pos.x) > 3.5) {
+                        removeCube(cube, i);
+                        continue;
                     }
                 }
             }
 
             for (let i = balls.length - 1; i >= 0; i--) {
                 const ball = balls[i];
+                if (ball.isProcessed || hasInvalidPhysics(ball.body)) {
+                    removeBall(ball, i);
+                    uiDirty = true;
+                    continue;
+                }
                 ball.mesh.position.copy(ball.body.position);
                 ball.mesh.quaternion.copy(ball.body.quaternion);
                 const pos = ball.body.position;
@@ -1885,20 +2360,23 @@
                         removeBall(ball, i);
                         collectedBalls++;
                         soundEngine.playChacker();
-                        updateUI();
+                        uiDirty = true;
                         if (collectedBalls >= 3) {
                             collectedBalls = 0;
-                            updateUI();
+                            uiDirty = true;
                             setTimeout(() => startJackpotChance(false), 400);
                         }
                         continue;
                     }
-                    if (pos.y < -2.0 || Math.abs(pos.x) > 3.5) {
-                        ball.body.position.set(0, 2.5, 1.5);
-                        ball.body.velocity.set(0, 0, 0);
+                    if (isOutsideField(ball.body, -2.0) || Math.abs(pos.x) > 3.5) {
+                        removeBall(ball, i);
+                        uiDirty = true;
+                        continue;
                     }
                 }
             }
+
+            if (uiDirty) updateUI();
 
             chackerGates.forEach(gate => {
                 if (gate.arrow) gate.arrow.position.y = gate.basePos + Math.sin(simTime * 6) * 0.08;
@@ -1907,32 +2385,32 @@
 
         // --- JPC (Jackpot Chance) 3D Roulette ---
         const JPC_POCKETS_NORMAL = [
-            { label: 'JP',      type: 'JP',    color: 0xff0066, text: 'JACKPOT!' },
-            { label: '100',     type: 'WIN',   amount: 100, color: 0x0284c7, text: '100 WIN' },
-            { label: '200',     type: 'WIN',   amount: 200, color: 0xd97706, text: '200 WIN' },
-            { label: '100',     type: 'WIN',   amount: 100, color: 0x0284c7, text: '100 WIN' },
-            { label: '200',     type: 'WIN',   amount: 200, color: 0xd97706, text: '200 WIN' },
-            { label: '100',     type: 'WIN',   amount: 100, color: 0x0284c7, text: '100 WIN' },
+            { label: 'JP', type: 'JP', color: 0xff0066, text: 'JACKPOT!' },
+            { label: '100', type: 'WIN', amount: 100, color: 0x0284c7, text: '100 WIN' },
+            { label: '200', type: 'WIN', amount: 200, color: 0xd97706, text: '200 WIN' },
+            { label: '100', type: 'WIN', amount: 100, color: 0x0284c7, text: '100 WIN' },
+            { label: '200', type: 'WIN', amount: 200, color: 0xd97706, text: '200 WIN' },
+            { label: '100', type: 'WIN', amount: 100, color: 0x0284c7, text: '100 WIN' },
             { label: 'EXPLORE', type: 'ORDER', color: 0x9333ea, text: 'EXPLORE MODE!' },
-            { label: '100',     type: 'WIN',   amount: 100, color: 0x0284c7, text: '100 WIN' },
-            { label: '200',     type: 'WIN',   amount: 200, color: 0xd97706, text: '200 WIN' },
-            { label: '100',     type: 'WIN',   amount: 100, color: 0x0284c7, text: '100 WIN' },
-            { label: '200',     type: 'WIN',   amount: 200, color: 0xd97706, text: '200 WIN' },
-            { label: '100',     type: 'WIN',   amount: 100, color: 0x0284c7, text: '100 WIN' }
+            { label: '100', type: 'WIN', amount: 100, color: 0x0284c7, text: '100 WIN' },
+            { label: '200', type: 'WIN', amount: 200, color: 0xd97706, text: '200 WIN' },
+            { label: '100', type: 'WIN', amount: 100, color: 0x0284c7, text: '100 WIN' },
+            { label: '200', type: 'WIN', amount: 200, color: 0xd97706, text: '200 WIN' },
+            { label: '100', type: 'WIN', amount: 100, color: 0x0284c7, text: '100 WIN' }
         ];
         const JPC_POCKETS_BOX_CHANCE = [
-            { label: 'JP×10',   type: 'JP10',  color: 0xff0066, text: 'JACKPOT ×10!!' },
-            { label: '1000',    type: 'WIN',   amount: 1000, color: 0x0284c7, text: '1000 WIN' },
-            { label: '2000',    type: 'WIN',   amount: 2000, color: 0xd97706, text: '2000 WIN' },
-            { label: '1000',    type: 'WIN',   amount: 1000, color: 0x0284c7, text: '1000 WIN' },
-            { label: '2000',    type: 'WIN',   amount: 2000, color: 0xd97706, text: '2000 WIN' },
-            { label: '1000',    type: 'WIN',   amount: 1000, color: 0x0284c7, text: '1000 WIN' },
-            { label: '5000',    type: 'WIN',   amount: 5000, color: 0x9333ea, text: '5000 WIN!!' },
-            { label: '1000',    type: 'WIN',   amount: 1000, color: 0x0284c7, text: '1000 WIN' },
-            { label: '2000',    type: 'WIN',   amount: 2000, color: 0xd97706, text: '2000 WIN' },
-            { label: '1000',    type: 'WIN',   amount: 1000, color: 0x0284c7, text: '1000 WIN' },
-            { label: '2000',    type: 'WIN',   amount: 2000, color: 0xd97706, text: '2000 WIN' },
-            { label: '1000',    type: 'WIN',   amount: 1000, color: 0x0284c7, text: '1000 WIN' }
+            { label: 'JP×10', type: 'JP10', color: 0xff0066, text: 'JACKPOT ×10!!' },
+            { label: '1000', type: 'WIN', amount: 1000, color: 0x0284c7, text: '1000 WIN' },
+            { label: '2000', type: 'WIN', amount: 2000, color: 0xd97706, text: '2000 WIN' },
+            { label: '1000', type: 'WIN', amount: 1000, color: 0x0284c7, text: '1000 WIN' },
+            { label: '2000', type: 'WIN', amount: 2000, color: 0xd97706, text: '2000 WIN' },
+            { label: '1000', type: 'WIN', amount: 1000, color: 0x0284c7, text: '1000 WIN' },
+            { label: '5000', type: 'WIN', amount: 5000, color: 0x9333ea, text: '5000 WIN!!' },
+            { label: '1000', type: 'WIN', amount: 1000, color: 0x0284c7, text: '1000 WIN' },
+            { label: '2000', type: 'WIN', amount: 2000, color: 0xd97706, text: '2000 WIN' },
+            { label: '1000', type: 'WIN', amount: 1000, color: 0x0284c7, text: '1000 WIN' },
+            { label: '2000', type: 'WIN', amount: 2000, color: 0xd97706, text: '2000 WIN' },
+            { label: '1000', type: 'WIN', amount: 1000, color: 0x0284c7, text: '1000 WIN' }
         ];
         let currentJPCPockets = JPC_POCKETS_NORMAL;
         let jpcLabelMeshes = [];
@@ -2391,10 +2869,10 @@
             resetReelStyles();
 
             if (isOrderMode) {
-                const pAdd  = CONFIG.ordProbAdd;
-                const pMap  = pAdd + CONFIG.ordProbMap;
+                const pAdd = CONFIG.ordProbAdd;
+                const pMap = pAdd + CONFIG.ordProbMap;
                 const pBall = pMap + CONFIG.ordProbBall;
-                const pEnd  = pBall + CONFIG.ordProbEnd;
+                const pEnd = pBall + CONFIG.ordProbEnd;
 
                 if (rand < pAdd) {
                     const num = String(Math.floor(Math.random() * 6) + 1);
@@ -2432,14 +2910,14 @@
                     setupMissOutcome('EXPLORE');
                 }
             } else {
-                const pOrder     = CONFIG.probOrder;
-                const pBall      = pOrder + CONFIG.probBall;
-                const pFever     = pBall + CONFIG.probFever;
-                const pRedCube   = pFever + CONFIG.probRedCube;
-                const pGoldCube  = pRedCube + CONFIG.probGoldCube;
+                const pOrder = CONFIG.probOrder;
+                const pBall = pOrder + CONFIG.probBall;
+                const pFever = pBall + CONFIG.probFever;
+                const pRedCube = pFever + CONFIG.probRedCube;
+                const pGoldCube = pRedCube + CONFIG.probGoldCube;
                 const pWhiteCube = pGoldCube + CONFIG.probWhiteCube;
-                const pFestBox   = pWhiteCube + CONFIG.probFestBox;
-                const pWin       = pFestBox + CONFIG.probWin;
+                const pFestBox = pWhiteCube + CONFIG.probFestBox;
+                const pWin = pFestBox + CONFIG.probWin;
 
                 if (rand < pOrder) { // 777
                     setupReachForOutcome('7', '7', '7', 'SPECIAL_WIN', () => {
@@ -2545,7 +3023,7 @@
             const d1 = pool[Math.floor(Math.random() * pool.length)];
             const d2 = pool[(pool.indexOf(d1) + 1) % pool.length];
             const d3 = pool[(pool.indexOf(d1) + 2) % pool.length];
-            slotState.outcomeEffect = () => {};
+            slotState.outcomeEffect = () => { };
 
             // ハズレ時のリーチ発生（各リーチの信頼度バランスを再現）
             if (randReach < 12) {
@@ -2585,7 +3063,7 @@
             }
 
             const easeOut = (t) => 1 - Math.pow(1 - Math.max(0, Math.min(1, t)), 3);
-            const easeIn  = (t) => Math.pow(Math.max(0, Math.min(1, t)), 3);
+            const easeIn = (t) => Math.pow(Math.max(0, Math.min(1, t)), 3);
 
             let offsetX = 0; // vw
             let offsetY = 0; // vh
@@ -3191,9 +3669,9 @@
             if (actionPoints <= 0 && !isChestFreeze) {
                 setTimeout(() => {
                     const isModalShowing = !document.getElementById('blackout-modal').classList.contains('hidden') ||
-                                           !document.getElementById('whitenoise-modal').classList.contains('hidden') ||
-                                           !document.getElementById('win1000-modal').classList.contains('hidden') ||
-                                           !document.getElementById('win2000-modal').classList.contains('hidden');
+                        !document.getElementById('whitenoise-modal').classList.contains('hidden') ||
+                        !document.getElementById('win1000-modal').classList.contains('hidden') ||
+                        !document.getElementById('win2000-modal').classList.contains('hidden');
                     if (!isModalShowing) close2DMap();
                 }, 600);
             }
@@ -3347,7 +3825,7 @@
                                 newlyUnlocked = true;
                                 showAchievementPopup(ach.title, ach.desc);
                             }
-                        } catch(e){}
+                        } catch (e) { }
                     }
                 });
             });
@@ -3498,7 +3976,7 @@
             }
             soundEngine.playChestPickupLow();
 
-           if (reward === 1000) {
+            if (reward === 1000) {
                 soundEngine.isWhiteNoise1000Active = true;
                 setTimeout(() => {
                     triggerWhiteNoiseTwice(() => {
@@ -3676,6 +4154,10 @@
         }
 
         function open2000WinModal() {
+            if (open2000WinModal.rafId != null) {
+                cancelAnimationFrame(open2000WinModal.rafId);
+                open2000WinModal.rafId = null;
+            }
             soundEngine.playUltraHyper2000();
             const modal = document.getElementById('win2000-modal');
             const canvas = document.getElementById('win2000-rays-canvas');
@@ -3686,7 +4168,10 @@
             const rainbowColors = ['#ff0055', '#ff8800', '#ffee00', '#00ff66', '#00f3ff', '#7000ff', '#ff00dd'];
 
             const drawRays = () => {
-                if (modal.classList.contains('hidden')) return;
+                if (modal.classList.contains('hidden')) {
+                    open2000WinModal.rafId = null;
+                    return;
+                }
                 if (canvas.width !== window.innerWidth || canvas.height !== window.innerHeight) {
                     canvas.width = window.innerWidth;
                     canvas.height = window.innerHeight;
@@ -3712,7 +4197,7 @@
                     ctx.fillStyle = rainbowColors[i % rainbowColors.length];
                     ctx.fill();
                 }
-                requestAnimationFrame(drawRays);
+                open2000WinModal.rafId = requestAnimationFrame(drawRays);
             };
             drawRays();
         }
@@ -3752,6 +4237,21 @@
 
         function updateWallSlotDisplay() {
             if (!wallSlotCtx || !wallSlotTexture) return;
+            const reels = [
+                document.getElementById('slot-reel-1'),
+                document.getElementById('slot-reel-2'),
+                document.getElementById('slot-reel-3')
+            ];
+            const flickerFrame = reels.some(el => el && el.className.includes('bikabika-border'))
+                ? Math.floor(performance.now() / 120) % 4 : 0;
+            const key = JSON.stringify([
+                wallSlotTexture.uuid, wallSlotCanvas.width, wallSlotCanvas.height,
+                document.fonts ? document.fonts.status : '',
+                isFeverMode, isOrderMode, flickerFrame,
+                ...reels.map(el => el ? [el.innerText, el.className] : ['7', ''])
+            ]);
+            if (updateWallSlotDisplay.lastKey === key) return;
+            updateWallSlotDisplay.lastKey = key;
             const ctx = wallSlotCtx;
             const w = wallSlotCanvas.width;
             const h = wallSlotCanvas.height;
@@ -3765,11 +4265,7 @@
             ctx.lineWidth = 6;
             ctx.strokeRect(4, 4, w - 8, h - 8);
 
-            const reels = [
-                document.getElementById('slot-reel-1'),
-                document.getElementById('slot-reel-2'),
-                document.getElementById('slot-reel-3')
-            ];
+
 
             const boxW = 140;
             const boxH = 176;
@@ -3792,7 +4288,7 @@
                 // リール枠線
                 if (isBikabika) {
                     const colors = ['#ff0055', '#00f3ff', '#ffd700', '#00ff66'];
-                    ctx.strokeStyle = colors[Math.floor(performance.now() / 120) % colors.length];
+                    ctx.strokeStyle = colors[flickerFrame];
                     ctx.lineWidth = 8;
                 } else if (isMosaicBlack) {
                     ctx.strokeStyle = '#7f1d1d';
@@ -3847,7 +4343,7 @@
                 localStorage.setItem(GAME_CACHE_KEY, JSON.stringify({
                     credits, jackpotPool, isOrderMode, actionPoints, exploreTotalWin, mapFloor
                 }));
-            } catch(e){}
+            } catch (e) { }
         }
 
         function saveParameterConfig() {
@@ -3878,7 +4374,7 @@
                     win5BlackoutPercent: CONFIG.win5BlackoutPercent,
                     whiteBoxChancePercent: CONFIG.whiteBoxChancePercent
                 }));
-            } catch(e){}
+            } catch (e) { }
         }
 
         function loadGameCache() {
@@ -3917,7 +4413,7 @@
                 }
                 const orderBar = document.getElementById('order-mode-bar');
                 if (orderBar) orderBar.classList.toggle('hidden', !isOrderMode);
-            } catch(e){}
+            } catch (e) { }
         }
 
         function saveAchievementsCache() {
@@ -3927,7 +4423,7 @@
                     normal: achievementsData.normal.map(a => ({ id: a.id, unlocked: a.unlocked })),
                     explore: achievementsData.explore.map(a => ({ id: a.id, unlocked: a.unlocked }))
                 }));
-            } catch(e){}
+            } catch (e) { }
         }
 
         function loadAchievementsCache() {
@@ -3948,7 +4444,7 @@
                         if (target) target.unlocked = !!s.unlocked;
                     });
                 }
-            } catch(e){}
+            } catch (e) { }
         }
 
         function setupEvents() {
@@ -4167,9 +4663,16 @@
                     CONFIG[key] = v; s.value = v; n.value = v;
                     if (key.includes('Friction') && world) {
                         world.contactmaterials.forEach(cm => {
-                            if (cm.materials.includes(coinMaterial) && cm.materials.includes(stageMaterial)) cm.friction = CONFIG.stageFriction;
-                            else if (cm.materials.includes(coinMaterial) && cm.materials.includes(coinMaterial)) cm.friction = CONFIG.coinFriction;
-                            else if (cm.materials.includes(coinMaterial) && cm.materials.includes(pusherMaterial)) cm.friction = CONFIG.pusherFriction;
+                            if (cm.materials.includes(coinMaterial) && cm.materials.includes(stageMaterial)) {
+                                cm.friction = CONFIG.stageFriction;
+                            } else if (
+                                cm.materials[0] === coinMaterial &&
+                                cm.materials[1] === coinMaterial
+                            ) {
+                                cm.friction = CONFIG.coinFriction;
+                            } else if (cm.materials.includes(coinMaterial) && cm.materials.includes(pusherMaterial)) {
+                                cm.friction = CONFIG.pusherFriction;
+                            }
                         });
                     }
                     if (key === 'sideOutPercent') updateSideGuards();
@@ -4324,7 +4827,7 @@
         }
 
         // --- Application Lifecycle ---
-        window.onload = function() {
+        window.onload = function () {
             loadGameCache();
             initPhysics();
             initGraphics();
@@ -4373,4 +4876,5 @@
         };
     </script>
 </body>
+
 </html>
