@@ -627,10 +627,10 @@
         </div>
     </div>
 
-    <!-- SETTINGS MODAL (設定モーダル) -->
+   <!-- SETTINGS MODAL (設定モーダル) -->
     <div id="settings-modal"
         class="hidden fixed inset-0 z-[115] bg-black/85 flex items-center justify-center p-3 backdrop-blur-sm">
-        <div class="arcade-bezel p-5 md:p-6 rounded-3xl max-w-md w-full text-white flex flex-col space-y-4">
+        <div class="arcade-bezel p-5 md:p-6 rounded-3xl max-w-md w-full text-white flex flex-col space-y-4 max-h-[92vh] overflow-y-auto">
             <div class="flex justify-between items-center pb-2 border-b border-yellow-500/40">
                 <div class="flex items-center space-x-2">
                     <i class="fa-solid fa-gear text-yellow-400 text-2xl"></i>
@@ -687,11 +687,57 @@
                             class="w-full accent-yellow-400 cursor-pointer">
                     </div>
                 </div>
+
+                <!-- ★ セーブデータ管理（外部保存・読込・データ削除） -->
+                <div class="bg-slate-900/90 p-3.5 rounded-2xl border border-emerald-500/30 space-y-2.5">
+                    <div class="font-bold text-emerald-300 flex items-center space-x-2">
+                        <i class="fa-solid fa-floppy-disk"></i>
+                        <span>セーブデータ管理</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button id="btn-export-save"
+                            class="py-2 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center space-x-1.5 shadow active:scale-95 transition cursor-pointer">
+                            <i class="fa-solid fa-download"></i>
+                            <span>ファイル保存</span>
+                        </button>
+                        <label for="input-import-save"
+                            class="py-2 px-3 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs flex items-center justify-center space-x-1.5 shadow active:scale-95 transition cursor-pointer text-center">
+                            <i class="fa-solid fa-upload"></i>
+                            <span>データ読込</span>
+                        </label>
+                        <input type="file" id="input-import-save" accept=".json" class="hidden">
+                    </div>
+                    <div class="pt-1.5 border-t border-slate-700/80">
+                        <button id="btn-delete-save"
+                            class="w-full py-2 px-3 rounded-xl bg-red-700 hover:bg-red-600 border border-red-400/50 text-white font-bold text-xs flex items-center justify-center space-x-1.5 shadow active:scale-95 transition cursor-pointer">
+                            <i class="fa-solid fa-trash-can"></i>
+                            <span>データ削除</span>
+                        </button>
+                    </div>
+                    <p class="text-[10px] text-gray-400 leading-tight">※所持メダル・実績・統計・各種設定をJSONファイルとして保存・復元、または初期化できます。</p>
+                </div>
             </div>
 
             <div class="pt-2 border-t border-yellow-500/30 text-center">
                 <button id="settings-ok-btn"
                     class="w-full py-2.5 rounded-xl btn-arcade text-amber-950 font-black tracking-wider cursor-pointer">閉じる</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ★ データ削除 確認ポップアップモーダル -->
+    <div id="delete-confirm-modal"
+        class="hidden fixed inset-0 z-[165] bg-black/85 flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="arcade-bezel p-6 md:p-8 rounded-3xl max-w-sm w-full text-center border-2 border-red-500 shadow-[0_0_50px_rgba(220,38,38,0.8)] jackpot-anim">
+            <i class="fa-solid fa-triangle-exclamation text-5xl text-red-500 mb-3 animate-bounce"></i>
+            <h2 class="text-xl md:text-2xl font-black text-red-400 font-orbitron mb-2">DATA DELETE</h2>
+            <p class="text-base md:text-lg text-white font-black mb-2">本当に消しますか？</p>
+            <p class="text-xs text-gray-300 mb-6 font-bold leading-relaxed">所持メダル・実績・統計・各種設定がすべて初期状態に戻ります。</p>
+            <div class="flex space-x-3">
+                <button id="delete-confirm-yes-btn"
+                    class="flex-1 py-3 rounded-xl bg-gradient-to-b from-red-500 to-red-800 border-2 border-red-300 text-white font-black text-base tracking-wider shadow-lg hover:brightness-110 active:scale-95 transition cursor-pointer">消去する</button>
+                <button id="delete-confirm-no-btn"
+                    class="flex-1 py-3 rounded-xl bg-slate-800 border-2 border-slate-500 text-gray-200 hover:bg-slate-700 font-black text-base tracking-wider active:scale-95 transition cursor-pointer">キャンセル</button>
             </div>
         </div>
     </div>
@@ -4451,6 +4497,125 @@
             } catch (e) { }
         }
 
+        // ★ セーブデータを外部JSONファイルとしてダウンロード保存
+        function exportSaveDataToFile() {
+            saveGameCache();
+            saveAchievementsCache();
+            saveParameterConfig();
+
+            const backupData = {
+                version: "1.0",
+                exportedAt: new Date().toISOString(),
+                gameState: {
+                    credits,
+                    jackpotPool,
+                    isOrderMode,
+                    actionPoints,
+                    exploreTotalWin,
+                    mapFloor
+                },
+                achievements: {
+                    stats,
+                    normal: achievementsData.normal.map(a => ({ id: a.id, unlocked: a.unlocked })),
+                    explore: achievementsData.explore.map(a => ({ id: a.id, unlocked: a.unlocked }))
+                },
+                parameterConfig: JSON.parse(localStorage.getItem(PARAM_CONFIG_KEY) || "{}")
+            };
+
+            const blob = new Blob([JSON.stringify(backupData, null, 2)], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            const dateStr = new Date().toISOString().slice(0, 19).replace(/[:T]/g, "-");
+            a.href = url;
+            a.download = `medal_kingdom_save_${dateStr}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            soundEngine.playWin();
+        }
+
+        // ★ 外部JSONファイルからセーブデータを読み込んで復元
+        function importSaveDataFromFile(file) {
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (!data || (!data.gameState && !data.achievements)) {
+                        alert("無効なセーブデータファイルです。");
+                        return;
+                    }
+                    if (data.gameState) {
+                        localStorage.setItem(GAME_CACHE_KEY, JSON.stringify(data.gameState));
+                    }
+                    if (data.achievements) {
+                        localStorage.setItem(ACHIEVEMENTS_CACHE_KEY, JSON.stringify(data.achievements));
+                    }
+                    if (data.parameterConfig && Object.keys(data.parameterConfig).length > 0) {
+                        localStorage.setItem(PARAM_CONFIG_KEY, JSON.stringify(data.parameterConfig));
+                    }
+
+                    loadGameCache();
+                    syncDebugInputsFromConfig();
+                    updateDebugProbabilityLabels();
+                    updateSideGuards();
+                    updateFrontSlopesAndChacker();
+                    updateUI();
+                    updateStockUI();
+                    updateAchievementModalUI();
+                    soundEngine.playJackpot();
+
+                    document.getElementById('settings-modal').classList.add('hidden');
+                    showAnnouncementModal("DATA LOADED!", "外部ファイルからセーブデータを復元しました！", "fa-floppy-disk");
+                } catch (err) {
+                    console.warn("Save import error:", err);
+                    alert("ファイルの読み込みに失敗しました。");
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // ★ 全セーブデータ（クレジット・実績・統計・設定）を完全初期化
+        function executeDeleteAllSaveData() {
+            Object.assign(CONFIG, JSON.parse(JSON.stringify(DEFAULT_CONFIG)));
+            credits = CONFIG.initialCredits;
+            jackpotPool = CONFIG.jackpotBase;
+            slotStock = 0;
+            pendingPayout = 0;
+            use5xMedalPayout = false;
+            isOrderMode = false;
+            actionPoints = 0;
+            exploreTotalWin = 0;
+            mapWinMedals = 0;
+            mapFloor = 1;
+
+            // 統計データをすべて0にリセット
+            Object.keys(stats).forEach(k => { stats[k] = 0; });
+            // 全実績の解除状態を未達成（false）にリセット
+            achievementsData.normal.forEach(a => { a.unlocked = false; });
+            achievementsData.explore.forEach(a => { a.unlocked = false; });
+
+            document.getElementById('order-mode-bar').classList.add('hidden');
+            localStorage.removeItem(GAME_CACHE_KEY);
+            localStorage.removeItem(PARAM_CONFIG_KEY);
+            localStorage.removeItem(ACHIEVEMENTS_CACHE_KEY);
+
+            syncDebugInputsFromConfig();
+            updateDebugProbabilityLabels();
+            updateSideGuards();
+            updateFrontSlopesAndChacker();
+            init2DMap();
+            updateUI();
+            updateStockUI();
+            updateAchievementModalUI();
+            soundEngine.playWin();
+
+            document.getElementById('delete-confirm-modal').classList.add('hidden');
+            document.getElementById('settings-modal').classList.add('hidden');
+            showAnnouncementModal("DATA DELETED", "すべてのセーブデータを初期化しました。", "fa-trash-can");
+        }
+
         function setupEvents() {
             const startAudio = async () => {
                 window.removeEventListener('click', startAudio);
@@ -4509,6 +4674,36 @@
                 });
                 document.getElementById('settings-close-btn').addEventListener('click', () => settingsModal.classList.add('hidden'));
                 document.getElementById('settings-ok-btn').addEventListener('click', () => settingsModal.classList.add('hidden'));
+            }
+
+            // ★ セーブデータのファイル保存・読込・削除イベント
+            const btnExportSave = document.getElementById('btn-export-save');
+            if (btnExportSave) {
+                btnExportSave.addEventListener('click', () => exportSaveDataToFile());
+            }
+            const inputImportSave = document.getElementById('input-import-save');
+            if (inputImportSave) {
+                inputImportSave.addEventListener('change', (e) => {
+                    if (e.target.files && e.target.files[0]) {
+                        importSaveDataFromFile(e.target.files[0]);
+                        e.target.value = '';
+                    }
+                });
+            }
+            const deleteConfirmModal = document.getElementById('delete-confirm-modal');
+            const btnDeleteSave = document.getElementById('btn-delete-save');
+            if (btnDeleteSave && deleteConfirmModal) {
+                btnDeleteSave.addEventListener('click', () => {
+                    soundEngine.playBounce();
+                    deleteConfirmModal.classList.remove('hidden');
+                });
+                document.getElementById('delete-confirm-no-btn').addEventListener('click', () => {
+                    soundEngine.playBounce();
+                    deleteConfirmModal.classList.add('hidden');
+                });
+                document.getElementById('delete-confirm-yes-btn').addEventListener('click', () => {
+                    executeDeleteAllSaveData();
+                });
             }
 
             const bgmSlider = document.getElementById('setting-bgm-slider');
