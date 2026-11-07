@@ -1665,7 +1665,7 @@
             content += section('スロット演出', Object.entries(gameStatistics.slotEffects).map(([key,n]) => row(effectLabels[key],n)).join(''));
             content += section('JPチャンスの賞', awards(gameStatistics.jpcPrizes, stats.enteredJPC, {JP:'JACKPOT',ORDER:'EXPLORE'}), stats.enteredBoxChanceJPC > 0 ? '分母：総JPチャンス回数（10倍を含む）' : '分母：総JPチャンス回数');
             for (const [type,label,total] of [['RED','赤',stats.droppedRedCubes],['GOLD','黄',stats.droppedGoldCubes],['WHITE','白',stats.droppedWhiteCubes]]) {
-                const rows = row('落下回数',total) + awards(gameStatistics.cubePrizes[type],total,{NOTHING:'非当選',JPC10:'当選（10倍JPC）'});
+                const rows = row('落下回数',total) + awards(gameStatistics.cubePrizes[type],total,{NOTHING:'煽りバナー表示',JPC10:'当選（10倍JPC）'});
                 content += section(`${label}キューブ`,rows,'分母：この色のキューブの獲得口への落下回数');
             }
             content += section('赤宝箱', row('獲得回数',gameStatistics.chestCounts.RED) + awards(gameStatistics.chestPrizes.RED,stats.droppedRedCubes) + row('5WIN特別演出',gameStatistics.redChest5Special), '賞の割合の分母：赤キューブ落下回数（ご指定の集計）。分母0は「—」。');
