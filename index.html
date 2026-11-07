@@ -274,6 +274,54 @@
         .exclamation-burst-anim {
             animation: exclamationBurst 1.2s ease-out forwards;
         }
+        .statistics-panel { width:min(760px,100%); max-height:92dvh; display:flex; flex-direction:column; padding:20px; }
+        .statistics-heading { display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #70582b; padding-bottom:12px; }
+        .statistics-heading h2 { font-size:26px; color:#fde68a; font-weight:900; }
+        .statistics-eyebrow { color:#67e8f9; font-size:10px; letter-spacing:.24em; font-weight:800; }
+        .statistics-icon-button { color:#ddd6fe; font-size:32px; padding:0 8px; cursor:pointer; }
+        .statistics-note { color:#c4b5d4; font-size:11px; line-height:1.7; padding:10px 0; }
+        .statistics-content { overflow-y:auto; min-height:0; overscroll-behavior:contain; padding-right:5px; }
+        .statistics-summary { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-bottom:14px; }
+        .statistics-summary article { background:#0a0b17; border:1px solid #4a3c62; border-radius:13px; padding:12px; }
+        .statistics-summary dt { font-size:11px; color:#c4b5d4; }
+        .statistics-summary dd { font:900 20px 'Rajdhani',sans-serif; color:#fde68a; margin-top:5px; overflow-wrap:anywhere; }
+        .statistics-section { border:1px solid #423459; border-radius:14px; overflow:hidden; margin-bottom:12px; background:#0b0914; }
+        .statistics-section h3 { color:#67e8f9; font-size:14px; font-weight:900; padding:11px 12px; background:#1c142b; }
+        .statistics-section p { font-size:10px; color:#b9a6c9; padding:8px 12px 0; }
+        .statistics-section table { width:100%; border-collapse:collapse; font-size:12px; }
+        .statistics-section td { padding:10px 12px; border-bottom:1px solid #272035; }
+        .statistics-section tr:last-child td { border-bottom:0; }
+        .statistics-section td:last-child { text-align:right; font-variant-numeric:tabular-nums; color:#fde68a; white-space:nowrap; }
+        .statistics-footer { padding-top:12px; border-top:1px solid #70582b; display:flex; justify-content:flex-end; gap:10px; }
+        .statistics-secondary { border:1px solid #8065a2; background:#241936; color:#e9d5ff; padding:8px 14px; border-radius:12px; font-weight:800; cursor:pointer; }
+        #gold-chest-sequence { position:fixed; inset:0; z-index:180; background:#000; overflow:hidden; color:white; }
+        #gold-chest-heartbeat { position:absolute; inset:0; display:grid; place-items:center; }
+        .gold-ripple { width:90px; height:90px; border:3px solid #ffd685; border-radius:50%; opacity:0; box-shadow:0 0 30px #ffae4377; }
+        .gold-heart-core { position:absolute; width:18px; height:18px; background:#fff2c0; border-radius:50%; opacity:0; box-shadow:0 0 55px 18px #ffb34788; }
+        .gold-heartbeat-pulse .gold-ripple { animation:goldRipple 2s ease-out both; }
+        .gold-heartbeat-pulse .gold-heart-core { animation:goldHeartbeat 2s ease-out both; }
+        @keyframes goldRipple { 0% {opacity:.9;transform:scale(.2);} 75%,100% {opacity:0;transform:scale(9);} }
+        @keyframes goldHeartbeat { 0%,23%,100%{opacity:0;transform:scale(.65);} 5%,15%{opacity:1;transform:scale(1.5);} 10%,30%{opacity:.25;transform:scale(.8);} }
+        #gold-chest-prompt { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:30px; padding:20px; }
+        #gold-chest-instruction { font-size:clamp(20px,4vw,36px); font-weight:900; text-align:center; text-shadow:0 0 16px #fff9; animation:goldPromptLeft .8s cubic-bezier(.16,1,.3,1) both; }
+        #gold-chest-exclaim-btn { width:clamp(100px,22vw,150px); aspect-ratio:1; border-radius:50%; border:4px solid #fff0ab; background:linear-gradient(#ff5656,#b9002b); font:900 72px 'Orbitron',sans-serif; color:#fff; box-shadow:0 0 50px #ff144088,inset 0 5px 12px #fff5; cursor:pointer; animation:goldPromptRight .8s cubic-bezier(.16,1,.3,1) both; }
+        #gold-chest-sequence small { display:block; font-size:11px; color:#b7a9c6; text-align:center; }
+        @keyframes goldPromptLeft { from{transform:translateX(-110vw);opacity:0;} to{transform:translateX(0);opacity:1;} }
+        @keyframes goldPromptRight { from{transform:translateX(110vw);opacity:0;} to{transform:translateX(0);opacity:1;} }
+        #gold-chest-reveal { position:absolute; inset:0; display:grid; place-items:center; padding:20px; background:radial-gradient(ellipse,#9d5200 0%,#27052e 55%,#060008 100%); }
+        .gold-reveal-rays { position:absolute; width:240vmax; height:240vmax; background:repeating-conic-gradient(from 0deg,#ffe56877 0deg 8deg,transparent 8deg 20deg); animation:goldRays 18s linear infinite; }
+        @keyframes goldRays { to{transform:rotate(360deg);} }
+        .gold-reveal-card { position:relative; width:min(540px,100%); text-align:center; padding:32px 20px; background:#080412ed; border:4px solid #ffe07a; border-radius:28px; box-shadow:0 0 80px #ffca55; animation:goldRevealIn .6s cubic-bezier(.16,1,.3,1) both; }
+        @keyframes goldRevealIn { from{transform:scale(.55);opacity:0;} to{transform:scale(1);opacity:1;} }
+        .gold-reveal-eyebrow { color:#ffdc85; letter-spacing:.24em; font-size:13px; font-weight:900; }
+        #gold-chest-reveal-title { font-size:clamp(38px,8vw,72px); font-weight:900; color:#fff2a6; text-shadow:0 0 20px #ffa500; margin:14px 0; line-height:1.15; }
+        #gold-chest-reveal-title span { display:block; white-space:nowrap; }
+        #gold-chest-reveal-title .gold-award-subtitle { font-size:.65em; letter-spacing:.14em; margin-top:10px; }
+        #gold-chest-reveal-detail { font-size:16px; color:#e9d5ff; margin-bottom:24px; }
+        #gold-chest-get-btn { width:100%; border-radius:16px; padding:16px 10px; font-size:18px; font-weight:900; color:#3b1700; cursor:pointer; margin-bottom:16px; }
+        #gold-chest-heartbeat.hidden, #gold-chest-prompt.hidden, #gold-chest-reveal.hidden, #gold-chest-sequence.hidden { display:none; }
+        @media(max-width:480px) { .statistics-panel{padding:14px;} .statistics-section td{padding:9px 8px;font-size:11px;} .statistics-summary dd{font-size:18px;} }
+
     </style>
 </head>
 
@@ -765,9 +813,44 @@
 
             <div id="achievement-list-container" class="flex-1 overflow-y-auto space-y-2 pr-1 max-h-[64vh]"></div>
 
-            <div class="mt-3 pt-3 border-t border-yellow-500/30 text-center">
+            <div class="mt-3 pt-3 border-t border-yellow-500/30 flex items-center justify-center gap-3">
                 <button id="achievement-ok-btn"
                     class="py-2 px-6 rounded-xl btn-arcade text-amber-950 font-black tracking-wider cursor-pointer">閉じる</button>
+                <button id="achievement-statistics-btn" class="statistics-secondary">統計</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="statistics-modal" class="hidden fixed inset-0 z-[116] bg-black/85 flex items-center justify-center p-3" role="dialog" aria-modal="true" aria-labelledby="statistics-title">
+        <div class="arcade-bezel statistics-panel rounded-3xl text-white">
+            <div class="statistics-heading">
+                <div><div class="statistics-eyebrow">PLAY RECORD</div><h2 id="statistics-title">統計</h2></div>
+                <button id="statistics-close-icon" class="statistics-icon-button" aria-label="統計を閉じる">×</button>
+            </div>
+            <p class="statistics-note">回数が0の項目は表示しません。割合は実測値です。新設項目はこの更新後から記録します。</p>
+            <div id="statistics-content" class="statistics-content"></div>
+            <div class="statistics-footer">
+                <button id="statistics-back-btn" class="statistics-secondary">実績に戻る</button>
+                <button id="statistics-close-btn" class="btn-arcade rounded-xl px-6 py-2 font-black text-amber-950">閉じる</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="gold-chest-sequence" class="hidden" role="dialog" aria-modal="true" aria-label="宝箱の演出">
+        <div id="gold-chest-heartbeat" aria-hidden="true"><div class="gold-ripple"></div><div class="gold-heart-core"></div></div>
+        <div id="gold-chest-prompt" class="hidden">
+            <p id="gold-chest-instruction">"!"を押してください</p>
+            <button id="gold-chest-exclaim-btn" aria-label="！を押す">!</button>
+            <small>10秒後に自動で進みます</small>
+        </div>
+        <div id="gold-chest-reveal" class="hidden">
+            <div class="gold-reveal-rays" aria-hidden="true"></div>
+            <div class="gold-reveal-card">
+                <div class="gold-reveal-eyebrow">GOLD CHEST</div>
+                <div id="gold-chest-reveal-title"></div>
+                <p id="gold-chest-reveal-detail"></p>
+                <button id="gold-chest-get-btn" class="btn-arcade">獲得</button>
+                <small>10秒後に自動で進みます</small>
             </div>
         </div>
     </div>
@@ -1133,6 +1216,20 @@
                                 class="w-14 bg-black border border-pink-500/50 rounded px-1 py-0.5 text-right text-pink-300 font-bold">
                         </div>
                     </div>
+                    <div class="flex justify-between items-center gap-2">
+                        <span>金宝箱 → 10倍JPC率(%)</span>
+                        <div class="flex items-center space-x-1.5">
+                            <input type="range" id="dbg-goldChestJpc10Percent" aria-label="金宝箱 → 10倍JPC率(%)" min="0" max="100" step="0.01" value="0.1" class="w-16 accent-yellow-400">
+                            <input type="number" id="dbg-num-goldChestJpc10Percent" aria-label="金宝箱 → 10倍JPC率(%) 数値" min="0" max="100" step="0.01" value="0.1" class="w-16 bg-black border border-yellow-500/50 rounded px-1 py-0.5 text-right text-yellow-300 font-bold">
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center gap-2">
+                        <span>金宝箱10WIN時のブラフ率(%)</span>
+                        <div class="flex items-center space-x-1.5">
+                            <input type="range" id="dbg-goldChest10BluffPercent" aria-label="金宝箱10WIN時のブラフ率(%)" min="0" max="100" step="0.01" value="0.25" class="w-16 accent-yellow-400">
+                            <input type="number" id="dbg-num-goldChest10BluffPercent" aria-label="金宝箱10WIN時のブラフ率(%) 数値" min="0" max="100" step="0.01" value="0.25" class="w-16 bg-black border border-yellow-500/50 rounded px-1 py-0.5 text-right text-yellow-300 font-bold">
+                        </div>
+                    </div>
                     <div class="flex justify-between items-center">
                         <span>白BOX→BOX chance率(%)</span>
                         <div class="flex items-center space-x-1.5">
@@ -1287,7 +1384,9 @@
             goldWeights: { 10: 40, 20: 25, 30: 15, 50: 10, 100: 8, 1000: 2 },
             redWeights: { 5: 80, 10: 15, 20: 4.9, 2000: 0.1 },
             win5BlackoutPercent: 0.125,
-            whiteBoxChancePercent: 0.1
+            whiteBoxChancePercent: 0.1,
+            goldChestJpc10Percent: 0.1,
+            goldChest10BluffPercent: 0.25
         };
 
         const CONFIG = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
@@ -1414,7 +1513,316 @@
             ratedFun: 0, ratedBoring: 0
         };
 
-        // --- Sound Engine ---
+        // Statistics are kept separately from achievement counters for backward-compatible saves.
+        function createGameStatistics() {
+            const counters = keys => Object.fromEntries(keys.map(key => [key, 0]));
+            return {
+                version: 1, startedAt: new Date().toISOString(), playTimeMs: 0, maxCredits: 0,
+                totalSlotSpins: 0,
+                slotWins: counters(['000','111','222','333','444','555','666','777','888','999','mmm','EEE','!!!']),
+                slotEffects: counters(['NONE','NORMAL','LR','REVERSE','MOSAIC','SIMULTANEOUS','EXCLAMATION']),
+                jpcPrizes: counters(['100','200','JP','ORDER']),
+                jpc10Prizes: counters(['1000','2000','5000','JP10']),
+                cubePrizes: {
+                    RED: counters(['5','10','20','2000']),
+                    GOLD: counters(['10','20','30','50','100','1000']),
+                    WHITE: counters(['NOTHING','JPC10'])
+                },
+                chestCounts: { RED: 0, GOLD: 0 },
+                chestPrizes: {
+                    RED: counters(['5','10','20','2000']),
+                    GOLD: counters(['10','20','30','50','100','1000','JPC10'])
+                },
+                redChest5Special: 0, goldChest10Bluff: 0
+            };
+        }
+
+        let gameStatistics = createGameStatistics();
+        let statisticsClockAt = performance.now();
+        let statisticsClockRunning = !document.hidden;
+        let statisticsLastSaveAt = performance.now();
+        let isGoldChestSequenceActive = false;
+        let goldChestSequenceState = null;
+
+        function normalizeGameStatistics(raw) {
+            const result = createGameStatistics();
+            const merge = (target, value) => {
+                if (!value || typeof value !== 'object' || Array.isArray(value)) return;
+                Object.keys(target).forEach(key => {
+                    if (typeof target[key] === 'number') {
+                        if (Number.isFinite(value[key]) && value[key] >= 0) target[key] = value[key];
+                    } else if (target[key] && typeof target[key] === 'object') {
+                        merge(target[key], value[key]);
+                    }
+                });
+            };
+            merge(result, raw);
+            result.version = 1;
+            if (raw && typeof raw.startedAt === 'string' && Number.isFinite(Date.parse(raw.startedAt))) result.startedAt = raw.startedAt;
+            return result;
+        }
+
+        function loadGameStatistics(raw) {
+            gameStatistics = normalizeGameStatistics(raw);
+            if (!raw) {
+                // Recover only categories unambiguously recorded in older saves.
+                const nonnegative = n => Number.isFinite(n) ? Math.max(0, n) : 0;
+                gameStatistics.jpcPrizes['100'] = nonnegative(stats.wonJPC100);
+                gameStatistics.jpcPrizes['200'] = nonnegative(stats.wonJPC200);
+                gameStatistics.jpcPrizes.JP = Math.max(0, nonnegative(stats.wonJackpots) - nonnegative(stats.wonBoxChanceJP10));
+                gameStatistics.jpc10Prizes['1000'] = nonnegative(stats.wonBoxChance1000);
+                gameStatistics.jpc10Prizes['2000'] = nonnegative(stats.wonBoxChance2000);
+                gameStatistics.jpc10Prizes['5000'] = nonnegative(stats.wonBoxChance5000);
+                gameStatistics.jpc10Prizes.JP10 = nonnegative(stats.wonBoxChanceJP10);
+                gameStatistics.cubePrizes.WHITE.JPC10 = nonnegative(stats.triggeredBoxChance);
+                gameStatistics.cubePrizes.WHITE.NOTHING = nonnegative(stats.whiteBoxNothing);
+            }
+            statisticsClockAt = performance.now();
+            statisticsLastSaveAt = statisticsClockAt;
+            statisticsClockRunning = !document.hidden;
+        }
+
+        function resetGameStatistics() {
+            gameStatistics = createGameStatistics();
+            gameStatistics.maxCredits = Math.max(0, credits);
+            statisticsClockAt = performance.now();
+            statisticsLastSaveAt = statisticsClockAt;
+        }
+
+        function accrueStatisticsTime(now = performance.now()) {
+            if (now < statisticsClockAt) return;
+            if (statisticsClockRunning) gameStatistics.playTimeMs += Math.max(0, now - statisticsClockAt);
+            statisticsClockAt = now;
+        }
+
+        function observeMaximumCredits() {
+            if (Number.isFinite(credits)) gameStatistics.maxCredits = Math.max(gameStatistics.maxCredits, credits);
+        }
+
+        function tickGameStatistics(now) {
+            accrueStatisticsTime(now);
+            observeMaximumCredits();
+            if (!document.getElementById('statistics-modal').classList.contains('hidden')) renderStatistics();
+            if (now - statisticsLastSaveAt >= 5000) {
+                statisticsLastSaveAt = now;
+                saveAchievementsCache();
+            }
+        }
+
+        function incrementStatistic(bucket, key) {
+            if (Object.prototype.hasOwnProperty.call(bucket, key)) bucket[key]++;
+        }
+
+        function recordSlotEffectIfVisible() {
+            if (slotState.statisticsEffectRecorded) return;
+            const starts = { NONE:0, NORMAL:2, LR:2, REVERSE:2, MOSAIC:1, SIMULTANEOUS:5 };
+            if (slotState.timer < starts[slotState.reachType]) return;
+            incrementStatistic(gameStatistics.slotEffects, slotState.reachType);
+            slotState.statisticsEffectRecorded = true;
+        }
+
+        function resolveSlotStatisticsAndEffect() {
+            if (slotState.statisticsResultRecorded) return;
+            slotState.statisticsResultRecorded = true;
+            if (slotState.targetR1 === slotState.targetR2 && slotState.targetR2 === slotState.targetR3) {
+                incrementStatistic(gameStatistics.slotWins, slotState.targetR1 + slotState.targetR2 + slotState.targetR3);
+            }
+            if (slotState.outcomeEffect) slotState.outcomeEffect();
+        }
+
+        function formatStatisticPercent(numerator, denominator) {
+            if (!(denominator > 0)) return '—';
+            const percent = numerator / denominator * 100;
+            if (percent > 0 && percent < 0.0001) return '<0.0001%';
+            return `${Number(percent.toFixed(4)).toLocaleString('ja-JP', { maximumFractionDigits: 4 })}%`;
+        }
+
+        function renderStatistics() {
+            const root = document.getElementById('statistics-content');
+            if (!root) return;
+            const count = n => Number.isFinite(n) && n > 0 ? n : 0;
+            const number = n => Math.floor(n).toLocaleString('ja-JP');
+            const escape = value => String(value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+            const row = (label, n, denominator) => {
+                if (!count(n)) return '';
+                const suffix = denominator === undefined ? '' : `（${formatStatisticPercent(n, denominator)}）`;
+                return `<tr><td>${escape(label)}</td><td>${number(n)}回${escape(suffix)}</td></tr>`;
+            };
+            const awards = (bucket, denominator, labels = {}) => Object.entries(bucket).map(([key, n]) => row(labels[key] || `${key} WIN`, n, denominator)).join('');
+            const section = (title, rows, note = '') => rows ? `<section class="statistics-section"><h3>${escape(title)}</h3>${note ? `<p>${escape(note)}</p>` : ''}<table><tbody>${rows}</tbody></table></section>` : '';
+            const card = (title, value, visible) => visible ? `<article><dl><dt>${escape(title)}</dt><dd>${escape(value)}</dd></dl></article>` : '';
+            const seconds = Math.floor(gameStatistics.playTimeMs / 1000);
+            const duration = `${Math.floor(seconds / 3600)}時間 ${Math.floor(seconds / 60) % 60}分 ${seconds % 60}秒`;
+            const summary = card('総プレイ時間', duration, seconds > 0) +
+                card('最大メダル枚数（所持）', `${number(gameStatistics.maxCredits)}枚`, gameStatistics.maxCredits > 0) +
+                card('メダル補充回数', `${number(stats.refillCount)}回`, stats.refillCount > 0) +
+                card('総スロット回転数', `${number(gameStatistics.totalSlotSpins)}回`, gameStatistics.totalSlotSpins > 0) +
+                card('JPチャンス回数', `${number(stats.enteredJPC)}回`, stats.enteredJPC > 0) +
+                card('総マップ移動回数', `${number(stats.totalStepsMoved)}回`, stats.totalStepsMoved > 0);
+            const effectLabels = {NONE:'演出なし',NORMAL:'通常リーチ',LR:'左右リーチ',REVERSE:'逆リーチ',MOSAIC:'モザイクリーチ',SIMULTANEOUS:'同時停止・再抽選',EXCLAMATION:'!!! 特別演出'};
+            let content = summary ? `<div class="statistics-summary">${summary}</div>` : '';
+            content += section('スロット当選', Object.entries(gameStatistics.slotWins).map(([key,n]) => row(`${key} 当選`,n,gameStatistics.totalSlotSpins)).join(''), '分母：総スロット回転数（通常・exploreの合計）');
+            content += section('スロット演出', Object.entries(gameStatistics.slotEffects).map(([key,n]) => row(effectLabels[key],n)).join(''));
+            content += section('JPチャンスの賞', awards(gameStatistics.jpcPrizes, stats.enteredJPC, {JP:'JACKPOT',ORDER:'EXPLORE'}), stats.enteredBoxChanceJPC > 0 ? '分母：総JPチャンス回数（10倍を含む）' : '分母：総JPチャンス回数');
+            for (const [type,label,total] of [['RED','赤',stats.droppedRedCubes],['GOLD','黄',stats.droppedGoldCubes],['WHITE','白',stats.droppedWhiteCubes]]) {
+                const rows = row('落下回数',total) + awards(gameStatistics.cubePrizes[type],total,{NOTHING:'非当選',JPC10:'当選（10倍JPC）'});
+                content += section(`${label}キューブ`,rows,'分母：この色のキューブの獲得口への落下回数');
+            }
+            content += section('赤宝箱', row('獲得回数',gameStatistics.chestCounts.RED) + awards(gameStatistics.chestPrizes.RED,stats.droppedRedCubes) + row('5WIN特別演出',gameStatistics.redChest5Special), '賞の割合の分母：赤キューブ落下回数（ご指定の集計）。分母0は「—」。');
+            content += section('金宝箱', row('獲得回数',gameStatistics.chestCounts.GOLD) + awards(gameStatistics.chestPrizes.GOLD,stats.droppedGoldCubes,{JPC10:'10倍JPC 当選'}) + row('10WINブラフ演出',gameStatistics.goldChest10Bluff), '賞の割合の分母：黄（金）キューブ落下回数（ご指定の集計）。分母0は「—」。');
+            content += section('10倍JPC', row('挑戦回数',stats.enteredBoxChanceJPC) + awards(gameStatistics.jpc10Prizes,stats.enteredJPC,{JP10:'JACKPOT ×10'}), '賞の割合の分母：総JPチャンス回数（通常・10倍の合計）');
+            root.innerHTML = content || '<p class="statistics-note">記録が増えると、ここに表示されます。</p>';
+        }
+
+        function openStatistics() {
+            accrueStatisticsTime();
+            observeMaximumCredits();
+            document.getElementById('achievement-modal').classList.add('hidden');
+            document.getElementById('statistics-modal').classList.remove('hidden');
+            renderStatistics();
+            document.getElementById('statistics-back-btn').focus();
+        }
+
+        function closeStatistics(backToAchievements = false) {
+            document.getElementById('statistics-modal').classList.add('hidden');
+            if (backToAchievements) {
+                updateAchievementModalUI();
+                document.getElementById('achievement-modal').classList.remove('hidden');
+                document.getElementById('achievement-statistics-btn').focus();
+            }
+            saveAchievementsCache();
+        }
+
+        function setupStatisticsEvents() {
+            document.getElementById('achievement-statistics-btn').addEventListener('click', openStatistics);
+            document.getElementById('statistics-back-btn').addEventListener('click', () => closeStatistics(true));
+            document.getElementById('statistics-close-btn').addEventListener('click', () => closeStatistics());
+            document.getElementById('statistics-close-icon').addEventListener('click', () => closeStatistics());
+            document.addEventListener('visibilitychange', () => {
+                accrueStatisticsTime();
+                statisticsClockRunning = !document.hidden;
+                saveAchievementsCache();
+            });
+            window.addEventListener('pagehide', () => {
+                accrueStatisticsTime();
+                statisticsClockRunning = false;
+                saveAchievementsCache();
+            });
+            window.addEventListener('pageshow', () => {
+                statisticsClockAt = performance.now();
+                statisticsClockRunning = !document.hidden;
+            });
+        }
+
+        function getMapChestReward(chestType) {
+            if (chestType === 'CHEST_GOLD' && Math.random() * 100 < CONFIG.goldChestJpc10Percent) return 'JPC10';
+            return getChestReward(chestType);
+        }
+
+        function playGoldChestHeartbeat() {
+            if (!soundEnabled || soundEngine.seVolumePercent <= 0 || !soundEngine.synth) return;
+            try {
+                const now = Tone.now();
+                soundEngine.synth.triggerAttackRelease('C1', 0.12, now, 0.95);
+                soundEngine.synth.triggerAttackRelease('G1', 0.10, now + 0.22, 0.7);
+            } catch (e) { }
+        }
+
+        function cancelGoldChestSequence() {
+            if (!goldChestSequenceState) return;
+            const state = goldChestSequenceState;
+            state.timers.forEach(clearTimeout);
+            document.getElementById('gold-chest-exclaim-btn').onclick = null;
+            document.getElementById('gold-chest-get-btn').onclick = null;
+            document.getElementById('gold-chest-sequence').classList.add('hidden');
+            isGoldChestSequenceActive = false;
+            goldChestSequenceState = null;
+            isChestFreeze = state.previousChestFreeze;
+            soundEngine.updateBgmState();
+        }
+
+        function startGoldChestSequence(isJpcWin, onComplete) {
+            if (goldChestSequenceState) return;
+            const modal = document.getElementById('gold-chest-sequence');
+            const heartbeat = document.getElementById('gold-chest-heartbeat');
+            const prompt = document.getElementById('gold-chest-prompt');
+            const reveal = document.getElementById('gold-chest-reveal');
+            const exclaim = document.getElementById('gold-chest-exclaim-btn');
+            const get = document.getElementById('gold-chest-get-btn');
+            const state = { timers:new Set(), phase:'HEARTBEAT', previousChestFreeze:isChestFreeze };
+            goldChestSequenceState = state;
+            isGoldChestSequenceActive = true;
+            isChestFreeze = true;
+            const later = (fn, delay) => {
+                const id = setTimeout(() => {
+                    state.timers.delete(id);
+                    if (goldChestSequenceState === state) fn();
+                }, delay);
+                state.timers.add(id);
+                return id;
+            };
+            const clearTimer = id => { clearTimeout(id); state.timers.delete(id); };
+            modal.classList.remove('hidden');
+            modal.dataset.phase = 'HEARTBEAT';
+            heartbeat.classList.remove('hidden');
+            prompt.classList.add('hidden');
+            reveal.classList.add('hidden');
+            exclaim.disabled = true;
+            get.disabled = true;
+            soundEngine.playBlackoutPutsun();
+            soundEngine.updateBgmState();
+            const beat = () => {
+                heartbeat.classList.remove('gold-heartbeat-pulse');
+                void heartbeat.offsetWidth;
+                heartbeat.classList.add('gold-heartbeat-pulse');
+                playGoldChestHeartbeat();
+            };
+            beat();
+            later(beat, 2000);
+            later(beat, 4000);
+            later(() => {
+                heartbeat.classList.add('hidden');
+                state.phase = modal.dataset.phase = 'BLACKOUT';
+            }, 6000);
+            later(() => {
+                state.phase = modal.dataset.phase = 'PROMPT';
+                prompt.classList.remove('hidden');
+                exclaim.disabled = false;
+                exclaim.focus();
+                let promptTimer;
+                const revealPrize = () => {
+                    if (goldChestSequenceState !== state || state.phase !== 'PROMPT') return;
+                    clearTimer(promptTimer);
+                    state.phase = modal.dataset.phase = 'REVEAL';
+                    exclaim.disabled = true;
+                    exclaim.onclick = null;
+                    prompt.classList.add('hidden');
+                    document.getElementById('gold-chest-reveal-title').innerHTML = isJpcWin
+                        ? '<span>10倍JPC</span><span class="gold-award-subtitle">獲得!!</span>'
+                        : '<span>10 WIN!</span>';
+                    document.getElementById('gold-chest-reveal-detail').textContent = isJpcWin ? '特別なジャックポットチャンスへ！' : '金宝箱から10枚獲得！';
+                    get.textContent = isJpcWin ? '獲得して10倍JPCへ' : '10 WINを獲得';
+                    reveal.classList.remove('hidden');
+                    get.disabled = false;
+                    get.focus();
+                    if (isJpcWin) soundEngine.playUltraHyper2000();
+                    else soundEngine.playCoinCollect();
+                    let getTimer;
+                    const finish = () => {
+                        if (goldChestSequenceState !== state || state.phase !== 'REVEAL') return;
+                        state.phase = 'DONE';
+                        clearTimer(getTimer);
+                        cancelGoldChestSequence();
+                        if (onComplete) onComplete();
+                    };
+                    get.onclick = finish;
+                    getTimer = later(finish, 10000);
+                };
+                exclaim.onclick = revealPrize;
+                promptTimer = later(revealPrize, 10000);
+            }, 9000);
+        }
+
         // --- Sound Engine ---
         const soundEngine = {
             synth: null,
@@ -1518,7 +1926,7 @@
                 const isReverse = slotState.active && slotState.reachType === 'SIMULTANEOUS' && slotState.timer >= 5.0;
 
                 // いずれかの演出中はBGMをピタッと止める
-                this.isBgmPaused = Boolean(is1000Win || isBlackoutOr2000 || isMosaic || isReverse);
+                this.isBgmPaused = Boolean(is1000Win || isBlackoutOr2000 || isMosaic || isReverse || isGoldChestSequenceActive);
 
                 // 現在のモード（JPC ＞ オーダーモード ＞ 通常モード）に合わせてBGMを切り替え
                 let targetMode = 'NORMAL';
@@ -2212,7 +2620,7 @@
         }
 
         function dropPlayerMedal(overrideX = null, count = 1, scatterEach = false) {
-            if (isMapOpen || isJPCActive || isGameTimeFrozen) return;
+            if (isMapOpen || isJPCActive || isGameTimeFrozen || isGoldChestSequenceActive) return;
 
             const actualDropCount = Math.min(count, isFeverMode ? count : credits);
             if (actualDropCount <= 0 && !isFeverMode) {
@@ -2223,7 +2631,7 @@
 
             for (let c = 0; c < actualDropCount; c++) {
                 setTimeout(() => {
-                    if (isMapOpen || isJPCActive || isGameTimeFrozen) return;
+                    if (isMapOpen || isJPCActive || isGameTimeFrozen || isGoldChestSequenceActive) return;
                     if (credits <= 0 && !isFeverMode) return;
                     if (!isFeverMode) {
                         credits--;
@@ -2296,7 +2704,7 @@
         };
 
         function updatePhysics(simTime, dt = 1 / 60) {
-            if (isGameTimeFrozen) return;
+            if (isGameTimeFrozen || isGoldChestSequenceActive) return;
             let uiDirty = false;
             const speedMultiplier = isFeverMode ? 1.85 : 1.0;
             const currentSpeed = CONFIG.pusherSpeed * speedMultiplier;
@@ -2593,8 +3001,8 @@
             jpcWheelGroup.add(jpcBallMesh);
         }
 
-        function startJackpotChance(boxChanceMode = false) {
-            if (isJPCActive) return;
+        function startJackpotChance(boxChanceMode = false, skipInfo = false) {
+            if (isJPCActive || isGoldChestSequenceActive) return;
             isJPCActive = true;
             isBoxChanceJPC = boxChanceMode;
             document.getElementById('jackpot-modal').classList.add('hidden');
@@ -2611,7 +3019,7 @@
                 wasMapOpenBeforeJPC = false;
             }
 
-            if (boxChanceMode) {
+            if (boxChanceMode && !skipInfo) {
                 isWaitingBoxChanceInfo = true;
                 document.getElementById('box-chance-info-modal').classList.remove('hidden');
                 scheduleAutoClose('box-chance-info-modal', 'box-chance-start-btn');
@@ -2786,8 +3194,11 @@
         }
 
         function finishJackpotChance(pocketIndex) {
+            if (!isJPCActive) return;
             const winPocket = currentJPCPockets[pocketIndex];
             const wasBoxChance = isBoxChanceJPC;
+            const prizeKey = winPocket.type === 'WIN' ? String(winPocket.amount) : winPocket.type;
+            incrementStatistic(wasBoxChance ? gameStatistics.jpc10Prizes : gameStatistics.jpcPrizes, prizeKey);
             jpcSim = null;
             jpcBallMesh.visible = false;
             document.getElementById('jpc-hud').classList.add('hidden');
@@ -2837,7 +3248,7 @@
             updateUI();
             if (wasMapOpenBeforeJPC) {
                 wasMapOpenBeforeJPC = false;
-                setTimeout(() => open2DMap(), 1200);
+                setTimeout(() => { open2DMap(true); checkMapActionEnd(); }, 1200);
             }
         }
 
@@ -2875,13 +3286,14 @@
         }
 
         function spinSlot() {
-            if (slotStock <= 0 || isJPCActive || isMapOpen || slotState.active) {
+            if (slotStock <= 0 || isJPCActive || isMapOpen || isGoldChestSequenceActive || slotState.active) {
                 isSpinning = false;
                 return;
             }
 
             isSpinning = true;
             slotStock--;
+            gameStatistics.totalSlotSpins++;
             updateStockUI();
 
             prepareSlotOutcomeWithReach();
@@ -2901,6 +3313,8 @@
             slotState.stop2Played = false;
             slotState.stop3Played = false;
             slotState.effectTriggered = false;
+            slotState.statisticsResultRecorded = false;
+            slotState.statisticsEffectRecorded = false;
             slotState.reachType = 'NONE';
             slotState.outcomeEffect = null;
 
@@ -3151,12 +3565,14 @@
         }
 
         function updateSlot(dt) {
+            if (isGoldChestSequenceActive) return;
             if (!slotState.active) {
                 if (slotStock > 0 && !isSpinning && !isJPCActive && !isMapOpen) spinSlot();
                 return;
             }
 
             slotState.timer += dt;
+            recordSlotEffectIfVisible();
             const reel1 = document.getElementById('slot-reel-1');
             const reel2 = document.getElementById('slot-reel-2');
             const reel3 = document.getElementById('slot-reel-3');
@@ -3179,7 +3595,7 @@
                     if (!slotState.stop3Played) { slotState.stop3Played = true; soundEngine.playBounce(); }
                     reel1.innerText = slotState.targetR1; reel2.innerText = slotState.targetR2; reel3.innerText = slotState.targetR3;
                 } else {
-                    if (slotState.outcomeEffect) slotState.outcomeEffect();
+                    resolveSlotStatisticsAndEffect();
                     slotState.active = false;
                     isSpinning = false;
                 }
@@ -3212,7 +3628,7 @@
                     reel1.innerText = slotState.targetR1; reel2.innerText = slotState.targetR2; reel3.innerText = slotState.targetR3;
                     if (!slotState.effectTriggered) {
                         slotState.effectTriggered = true;
-                        if (slotState.outcomeEffect) slotState.outcomeEffect();
+                        resolveSlotStatisticsAndEffect();
                     }
                 } else {
                     slotState.active = false;
@@ -3247,7 +3663,7 @@
                     reel1.innerText = slotState.targetR1; reel2.innerText = slotState.targetR2; reel3.innerText = slotState.targetR3;
                     if (!slotState.effectTriggered) {
                         slotState.effectTriggered = true;
-                        if (slotState.outcomeEffect) slotState.outcomeEffect();
+                        resolveSlotStatisticsAndEffect();
                     }
                 } else {
                     slotState.active = false;
@@ -3282,7 +3698,7 @@
                     reel1.innerText = slotState.targetR1; reel2.innerText = slotState.targetR2; reel3.innerText = slotState.targetR3;
                     if (!slotState.effectTriggered) {
                         slotState.effectTriggered = true;
-                        if (slotState.outcomeEffect) slotState.outcomeEffect();
+                        resolveSlotStatisticsAndEffect();
                     }
                 } else {
                     slotState.active = false;
@@ -3356,7 +3772,7 @@
                     });
                     if (!slotState.effectTriggered) {
                         slotState.effectTriggered = true;
-                        if (slotState.outcomeEffect) slotState.outcomeEffect();
+                        resolveSlotStatisticsAndEffect();
                     }
                     slotState.active = false;
                     isSpinning = false;
@@ -3404,13 +3820,18 @@
                         slotState.effectTriggered = true;
                         if (slotState.simulSpecialExclamation) {
                             reel1.innerText = '!'; reel2.innerText = '!'; reel3.innerText = '!';
+                            if (!slotState.statisticsResultRecorded) {
+                                slotState.statisticsResultRecorded = true;
+                                incrementStatistic(gameStatistics.slotWins, '!!!');
+                                incrementStatistic(gameStatistics.slotEffects, 'EXCLAMATION');
+                            }
                             triggerExclamationDirectJPC();
                         } else {
                             reel1.innerText = slotState.targetR1;
                             reel2.innerText = slotState.targetR2;
                             reel3.innerText = slotState.targetR3;
                             soundEngine.playBounce();
-                            if (slotState.outcomeEffect) slotState.outcomeEffect();
+                            resolveSlotStatisticsAndEffect();
                         }
                     }
                 } else {
@@ -3595,11 +4016,11 @@
             return parseInt(entries[entries.length - 1][0], 10);
         }
 
-        function open2DMap() {
-            if (isJPCActive) return;
+        function open2DMap(resume = false) {
+            if (isJPCActive || isGoldChestSequenceActive) return;
             isMapOpen = true;
             isChestFreeze = false;
-            mapWinMedals = 0;
+            if (!resume) mapWinMedals = 0;
             if (mapGrid.length === 0) init2DMap();
             updateMapUI();
             renderMapGrid();
@@ -3608,6 +4029,7 @@
         }
 
         function close2DMap() {
+            if (isGoldChestSequenceActive) return;
             isMapOpen = false;
             isChestFreeze = false;
             if (mapAutoMoveCountdownTimer) clearTimeout(mapAutoMoveCountdownTimer);
@@ -3629,7 +4051,7 @@
             stats.collectedCoins += amount;
         }
         function movePlayer(dx, dy) {
-            if (actionPoints <= 0 || isJPCActive || isChestFreeze) return;
+            if (actionPoints <= 0 || isJPCActive || isChestFreeze || isGoldChestSequenceActive) return;
             const newX = playerPos.x + dx, newY = playerPos.y + dy;
             if (newX < 0 || newX >= MAP_COLS || newY < 0 || newY >= MAP_ROWS) return;
             if (mapGrid[newY][newX] === 'WALL') return;
@@ -3654,7 +4076,29 @@
                 stats.chestsOpened++;
                 stats.mapChestsOpened++;
                 soundEngine.playChestPickupLow();
-                const chestReward = getChestReward(currentCell);
+                const chestReward = getMapChestReward(currentCell);
+                const chestColor = currentCell === 'CHEST_GOLD' ? 'GOLD' : 'RED';
+                gameStatistics.chestCounts[chestColor]++;
+                incrementStatistic(gameStatistics.chestPrizes[chestColor], String(chestReward));
+                if (chestReward === 'JPC10') {
+                    startGoldChestSequence(true, () => {
+                        isChestFreeze = false;
+                        updateMapUI();
+                        startJackpotChance(true, true);
+                    });
+                    return;
+                }
+                if (currentCell === 'CHEST_GOLD' && chestReward === 10 &&
+                    Math.random() * 100 < CONFIG.goldChest10BluffPercent) {
+                    gameStatistics.goldChest10Bluff++;
+                    startGoldChestSequence(false, () => {
+                        isChestFreeze = false;
+                        addExploreWin(10);
+                        updateMapUI();
+                        checkMapActionEnd();
+                    });
+                    return;
+                }
 
                 if (currentCell === 'CHEST_RED') {
                     if (chestReward === 5) {
@@ -3692,6 +4136,7 @@
                                 open2000WinModal(); checkMapActionEnd();
                             });
                         } else if (chestReward === 5 && (Math.random() * 100) < CONFIG.win5BlackoutPercent) {
+                            gameStatistics.redChest5Special++;
                             stats.experiencedWin5Blackout++; stats.experiencedBlackout++;
                             triggerInteractiveBlackout(() => {
                                 soundEngine.playCoinCollect(); showChestWinToast(5, true); checkMapActionEnd();
@@ -3998,8 +4443,10 @@
             if (cubeType === 'WHITE') {
                 const chancePct = (typeof CONFIG.whiteBoxChancePercent === 'number') ? CONFIG.whiteBoxChancePercent : 0.1;
                 if ((Math.random() * 100) < chancePct) {
+                    incrementStatistic(gameStatistics.cubePrizes.WHITE, 'JPC10');
                     triggerBoxChanceSequence();
                 } else {
+                    incrementStatistic(gameStatistics.cubePrizes.WHITE, 'NOTHING');
                     stats.whiteBoxNothing++;
                     const toast = document.getElementById('whitebox-drop-toast');
                     if (toast) {
@@ -4014,6 +4461,7 @@
             const labelName = cubeType === 'GOLD' ? '金キューブ' : '赤キューブ';
             stats.chestsOpened++;
             const reward = getChestReward(chestKey);
+            incrementStatistic(gameStatistics.cubePrizes[cubeType], String(reward));
             if (chestKey === 'CHEST_RED') {
                 if (reward === 5) {
                     stats.redChest5WinStreak++;
@@ -4138,7 +4586,7 @@
         }
 
         function processPayout(now) {
-            if (isJPCActive || isMapOpen || isGameTimeFrozen) return;
+            if (isJPCActive || isMapOpen || isGameTimeFrozen || isGoldChestSequenceActive) return;
             if (pendingPayout > 0 && now - lastPayoutTime > 150) {
                 lastPayoutTime = now;
                 const rx = (Math.random() - 0.5) * 3.6;
@@ -4260,6 +4708,7 @@
         }
 
         function updateUI() {
+            observeMaximumCredits();
             document.getElementById('credit-count').innerText = credits;
             document.getElementById('jackpot-count').innerText = Math.floor(jackpotPool);
             document.getElementById('action-points-count').innerText = actionPoints;
@@ -4422,6 +4871,8 @@
                     goldWeights: { ...CONFIG.goldWeights },
                     redWeights: { ...CONFIG.redWeights },
                     win5BlackoutPercent: CONFIG.win5BlackoutPercent,
+                    goldChestJpc10Percent: CONFIG.goldChestJpc10Percent,
+                    goldChest10BluffPercent: CONFIG.goldChest10BluffPercent,
                     whiteBoxChancePercent: CONFIG.whiteBoxChancePercent
                 }));
             } catch (e) { }
@@ -4467,9 +4918,12 @@
         }
 
         function saveAchievementsCache() {
+            accrueStatisticsTime();
+            observeMaximumCredits();
             try {
                 localStorage.setItem(ACHIEVEMENTS_CACHE_KEY, JSON.stringify({
                     stats,
+                    statistics: gameStatistics,
                     normal: achievementsData.normal.map(a => ({ id: a.id, unlocked: a.unlocked })),
                     explore: achievementsData.explore.map(a => ({ id: a.id, unlocked: a.unlocked }))
                 }));
@@ -4477,11 +4931,13 @@
         }
 
         function loadAchievementsCache() {
+            loadGameStatistics(null);
             try {
                 const raw = localStorage.getItem(ACHIEVEMENTS_CACHE_KEY);
                 if (!raw) return;
                 const p = JSON.parse(raw);
                 if (p.stats) Object.assign(stats, p.stats);
+                loadGameStatistics(p.statistics);
                 if (Array.isArray(p.normal)) {
                     p.normal.forEach(s => {
                         const target = achievementsData.normal.find(a => a.id === s.id);
@@ -4504,7 +4960,7 @@
             saveParameterConfig();
 
             const backupData = {
-                version: "1.0",
+                version: "1.1",
                 exportedAt: new Date().toISOString(),
                 gameState: {
                     credits,
@@ -4516,6 +4972,7 @@
                 },
                 achievements: {
                     stats,
+                    statistics: gameStatistics,
                     normal: achievementsData.normal.map(a => ({ id: a.id, unlocked: a.unlocked })),
                     explore: achievementsData.explore.map(a => ({ id: a.id, unlocked: a.unlocked }))
                 },
@@ -4556,6 +5013,7 @@
                         localStorage.setItem(PARAM_CONFIG_KEY, JSON.stringify(data.parameterConfig));
                     }
 
+                    cancelGoldChestSequence();
                     loadGameCache();
                     syncDebugInputsFromConfig();
                     updateDebugProbabilityLabels();
@@ -4578,6 +5036,7 @@
 
         // ★ 全セーブデータ（クレジット・実績・統計・設定）を完全初期化
         function executeDeleteAllSaveData() {
+            cancelGoldChestSequence();
             Object.assign(CONFIG, JSON.parse(JSON.stringify(DEFAULT_CONFIG)));
             credits = CONFIG.initialCredits;
             jackpotPool = CONFIG.jackpotBase;
@@ -4592,6 +5051,7 @@
 
             // 統計データをすべて0にリセット
             Object.keys(stats).forEach(k => { stats[k] = 0; });
+            resetGameStatistics();
             // 全実績の解除状態を未達成（false）にリセット
             achievementsData.normal.forEach(a => { a.unlocked = false; });
             achievementsData.explore.forEach(a => { a.unlocked = false; });
@@ -4617,6 +5077,7 @@
         }
 
         function setupEvents() {
+            setupStatisticsEvents();
             const startAudio = async () => {
                 window.removeEventListener('click', startAudio);
                 window.removeEventListener('touchstart', startAudio);
@@ -4911,6 +5372,8 @@
             bindPair('dbg-chestBaseCount', 'dbg-num-chestBaseCount', 'chestBaseCount', 1, 35, false);
             bindPair('dbg-goldChestPercent', 'dbg-num-goldChestPercent', 'goldChestPercent', 0, 100, false);
             bindPair('dbg-win5BlackoutPercent', 'dbg-num-win5BlackoutPercent', 'win5BlackoutPercent', 0, 100, true);
+            bindPair('dbg-goldChestJpc10Percent', 'dbg-num-goldChestJpc10Percent', 'goldChestJpc10Percent', 0, 100, true);
+            bindPair('dbg-goldChest10BluffPercent', 'dbg-num-goldChest10BluffPercent', 'goldChest10BluffPercent', 0, 100, true);
             bindPair('dbg-whiteBoxChancePercent', 'dbg-num-whiteBoxChancePercent', 'whiteBoxChancePercent', 0, 100, true);
 
             const bindWeightControl = (weightObj, k, prefix) => {
@@ -4961,6 +5424,8 @@
                 document.getElementById('order-mode-bar').classList.add('hidden');
                 localStorage.removeItem(GAME_CACHE_KEY);
                 localStorage.removeItem(PARAM_CONFIG_KEY);
+                Object.keys(stats).forEach(k => { stats[k] = 0; });
+                resetGameStatistics();
                 localStorage.removeItem(ACHIEVEMENTS_CACHE_KEY);
                 syncDebugInputsFromConfig();
                 updateDebugProbabilityLabels();
@@ -5003,6 +5468,8 @@
             setPair('chestBaseCount', CONFIG.chestBaseCount);
             setPair('goldChestPercent', CONFIG.goldChestPercent);
             setPair('win5BlackoutPercent', CONFIG.win5BlackoutPercent);
+            setPair('goldChestJpc10Percent', CONFIG.goldChestJpc10Percent);
+            setPair('goldChest10BluffPercent', CONFIG.goldChest10BluffPercent);
             setPair('whiteBoxChancePercent', CONFIG.whiteBoxChancePercent);
 
             [10, 20, 30, 50, 100, 1000].forEach(k => setPair(`goldW${k}`, CONFIG.goldWeights[k]));
@@ -5068,6 +5535,7 @@
                 soundEngine.updateBgmState();
                 if (now - lastAchievementCheck > 500) {
                     checkAchievements();
+                    tickGameStatistics(now);
                     lastAchievementCheck = now;
                 }
             }
